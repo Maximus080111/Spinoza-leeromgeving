@@ -36,7 +36,7 @@ class AuthenticatedSessionController extends Controller
 
         $user = Auth::user();
 
-        if($user->is_teacher == 1) {
+        if($user->is_teacher == true) {
             return redirect()->intended(RouteServiceProvider::HOME);
         } else {
             return redirect()->intended('/Student_Dashboard');

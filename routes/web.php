@@ -34,6 +34,10 @@ Route::get('/dashboard', [DashboardController::class, 'index'])
 //     return Inertia::render('Dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::get('/Achievements', function () {
+    return Inertia::render('Achievements');
+})->middleware(['auth', 'verified'])->name('Achievements');
+
 Route::get('/Student_Dashboard', function () {
     return Inertia::render('Student_Dashboard');
 })->middleware(['auth', 'verified'])->name('Student_Dashboard');

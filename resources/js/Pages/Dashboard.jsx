@@ -1,7 +1,8 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
 
-export default function Dashboard({ auth }) {
+export default function Dashboard({ auth, student = [] }) {
+
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -13,6 +14,13 @@ export default function Dashboard({ auth }) {
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <div className="p-6 text-gray-900">You're logged in! Teacher</div>
+                    </div>
+                    <div>
+                        {student.map((student, index) => (
+                            <div key={index} className="p-4 bg-gray-100 mt-2 rounded">
+                                {student.name}
+                            </div>
+                        ))}
                     </div>
                 </div>
             </div>

@@ -21,8 +21,17 @@ export default function Authenticated({ user, header, children }) {
                             </div>
 
                             <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                                <NavLink href={route('dashboard')} active={route().current('dashboard')}>
-                                    Dashboard
+                                {user.is_teacher == true ? (
+                                    <NavLink href={route('dashboard')} active={route().current('dashboard')}>
+                                        Leerlingen
+                                    </NavLink>
+                                ) : (
+                                    <NavLink href={route('Student_Dashboard')} active={route().current('Student_Dashboard')}>
+                                        Thema's
+                                    </NavLink>
+                                )}  
+                                <NavLink href={route('Achievements')} active={route().current('Achievements')}>
+                                    Achievements
                                 </NavLink>
                             </div>
                         </div>
@@ -94,6 +103,9 @@ export default function Authenticated({ user, header, children }) {
                     <div className="pt-2 pb-3 space-y-1">
                         <ResponsiveNavLink href={route('dashboard')} active={route().current('dashboard')}>
                             Dashboard
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink href={route('Achievements')} active={route().current('Achievements')}>
+                            Achievements
                         </ResponsiveNavLink>
                     </div>
 
