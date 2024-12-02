@@ -17,5 +17,6 @@ class Thema extends Model
 
     protected $fillable = [
         'name',
+        'image'
     ];
 }

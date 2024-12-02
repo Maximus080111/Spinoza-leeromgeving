@@ -33,9 +33,20 @@ class ThemaController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
+
+        $imageName = null;
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time().'.'.$image->extension(); 
+            $image->storeAs('public/images', $imageName); 
+        }
  
-        Thema::create($validated);
+        Thema::create([
+            'name' => $request->input('name'),
+            'image' => $imageName
+        ]);
  
         return redirect(route('Themas.index'));
     }
