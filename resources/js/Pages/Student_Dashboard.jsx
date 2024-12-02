@@ -1,7 +1,7 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
 
-export default function Student_Dashboard({ auth }) {
+export default function Student_Dashboard({ auth, themas = [] }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -14,6 +14,11 @@ export default function Student_Dashboard({ auth }) {
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <div className="p-6 text-gray-900">Thema's</div>
                     </div>
+                    {themas.map((themas, index) => (
+                            <div key={index} className="p-4 bg-gray-400 mt-2 rounded">
+                                <p>name: {themas.name}</p>
+                            </div>
+                        ))}
                 </div>
             </div>
         </AuthenticatedLayout>

@@ -22,9 +22,14 @@ export default function Authenticated({ user, header, children }) {
 
                             <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                                 {user.is_teacher == true ? (
-                                    <NavLink href={route('dashboard')} active={route().current('dashboard')}>
-                                        Leerlingen
-                                    </NavLink>
+                                    <>
+                                        <NavLink href={route('dashboard')} active={route().current('dashboard')}>
+                                            Leerlingen
+                                        </NavLink>
+                                        <NavLink href={route('Themas.index')} active={route().current('Themas.index')}>
+                                            Thema Maken
+                                        </NavLink>
+                                    </>
                                 ) : (
                                     <NavLink href={route('Student_Dashboard')} active={route().current('Student_Dashboard')}>
                                         Thema's
