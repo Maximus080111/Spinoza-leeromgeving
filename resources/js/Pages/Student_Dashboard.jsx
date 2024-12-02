@@ -18,6 +18,7 @@ export default function Student_Dashboard({ auth, themas = [] }) {
                             <div key={index} className="p-4 bg-gray-400 mt-2 rounded">
                                 <p>name: {themas.name}</p>
                                 <p>image: {themas.image}</p>
+                                <img src={`/storage/images/${themas.image}`} alt="" />
                             </div>
                         ))}
                 </div>
