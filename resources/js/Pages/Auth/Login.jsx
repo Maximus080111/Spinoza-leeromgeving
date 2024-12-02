@@ -78,6 +78,7 @@ export default function Login({ status, canResetPassword }) {
                 </div>
 
                 <div className="flex items-center justify-end mt-4">
+                    <a href={ route('auth.google')}>Login with google</a>
                     {canResetPassword && (
                         <Link
                             href={route('password.request')}
