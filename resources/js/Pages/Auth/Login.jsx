@@ -28,7 +28,13 @@ export default function Login({ status, canResetPassword }) {
     return (
         <div
             className="min-h-screen flex items-center justify-center"
-            style={{ backgroundColor: "#fdfef8" }}
+            style={{
+                backgroundColor: "#fdfef8", // Achtergrondkleur
+                backgroundImage: "url('/images/inlogachtergrond1.jpeg')", // Achtergrondafbeelding
+                backgroundSize: "cover", // Zorgt ervoor dat de afbeelding de gehele pagina bedekt
+                backgroundPosition: "center", // Zet de afbeelding in het midden
+                minHeight: "100vh", // Zorgt ervoor dat de achtergrond de volledige hoogte van het scherm bedekt
+            }}
         >
             <Head title="Log in" />
 
@@ -81,17 +87,6 @@ export default function Login({ status, canResetPassword }) {
                                 Login met Google
                             </a>
                         </div>
-
-                        {canResetPassword && (
-                            <div className="mt-2 text-center">
-                                <Link
-                                    href={route("password.request")}
-                                    className="text-sm text-indigo-600 hover:underline"
-                                >
-                                    Wachtwoord vergeten?
-                                </Link>
-                            </div>
-                        )}
                     </form>
                 </div>
             </div>
