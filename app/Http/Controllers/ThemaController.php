@@ -15,7 +15,11 @@ class ThemaController extends Controller
      */
     public function index(): Response
     {
-        return Inertia::render('Themas/Index', []);
+        $themas = Thema::all();
+
+        return Inertia::render('Themas/Index', [
+            'themas' => $themas,
+        ]);
     }
 
     /**
