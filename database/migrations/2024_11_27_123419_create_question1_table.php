@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('incorrect1');
             $table->string('incorrect2');
             $table->string('incorrect3');
-            $table->foreignId('theme_id')->references('id')->on('theme')->onDelete('cascade');
+            $table->foreignId('thema_id')->references('id')->on('themas')->onDelete('cascade');
             $table->foreignId('lesson_id')->references('id')->on('lesson')->onDelete('cascade');
             $table->timestamps();
         });
