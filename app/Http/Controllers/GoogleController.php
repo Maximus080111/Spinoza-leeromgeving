@@ -18,11 +18,12 @@ class GoogleController extends Controller
     {
         try {
             $googleUser = Socialite::driver('google')->user();
-
+            //dd($googleUser);
             $user = User::updateOrCreate([
                 'email' => $googleUser->getEmail(),
             ], [
                 'name' => $googleUser->getName(),
+                'avatar' => $googleUser->getAvatar(),
                 'google_id' => $googleUser->getId(),
                 'password' => bcrypt('password'), // You may want to handle this differently
             ]);
