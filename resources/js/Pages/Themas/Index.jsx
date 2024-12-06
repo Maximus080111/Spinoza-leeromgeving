@@ -4,7 +4,7 @@ import InputError from '@/Components/InputError';
 import PrimaryButton from '@/Components/PrimaryButton';
 import { useForm, Head } from '@inertiajs/react';
 
-export default function Index({ auth }) {
+export default function Index({ auth, themas = [] }) {
     const { data, setData, post, processing, reset, errors } = useForm({
         name: '',
         image: null, 
@@ -47,6 +47,20 @@ export default function Index({ auth }) {
                     </PrimaryButton>
                 </form>
             </div>
+            {themas.length > 0 ? (
+                                    themas.map((thema, index) => (
+                                        <div key={index} className="p-4 bg-gray-400 mt-2 rounded">
+                                            <p>Name: {thema.name}</p>
+                                            <img
+                                        src={`/storage/images/${thema.image}`}
+                                        alt={`Afbeelding van thema ${thema.name}`}
+                                        className="w-20 h-full object-cover"
+                                    />
+                                        </div>
+                                    ))
+                                ) : (
+                                    <p>No students found.</p>
+                                )}
         </AuthenticatedLayout>
     );
 }
