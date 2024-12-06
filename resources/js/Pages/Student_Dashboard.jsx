@@ -36,9 +36,7 @@ export default function Student_Dashboard({ auth, themas = [] }) {
         >
             <Head title="Dashboard" />
 
-            {/* Navigatie bovenaan */}
             <div className="flex justify-between items-center bg-gray-100 py-4 px-6 shadow-md">
-                {/* Pijl naar vorige sectie */}
                 <button
                     onClick={handlePreviousSection}
                     disabled={currentSection === 1}
@@ -51,12 +49,9 @@ export default function Student_Dashboard({ auth, themas = [] }) {
                     ← Vorige
                 </button>
 
-                {/* Huidige sectie */}
                 <span className="text-lg font-semibold text-gray-700">
                     Deel {currentSection} van {totalSections}
                 </span>
-
-                {/* Pijl naar volgende sectie */}
                 <button
                     onClick={handleNextSection}
                     disabled={currentSection === totalSections}
@@ -74,30 +69,28 @@ export default function Student_Dashboard({ auth, themas = [] }) {
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-                        {/* Dynamisch de thema's voor het huidige deel weergeven */}
-                        {sections[currentSection - 1].map((thema, index) => (
-                            <div
-                                key={index}
-                                className="p-6 bg-gray-200 rounded-lg shadow-md min-h-[75vh]"
-                            >
-                                <div className="relative w-full h-[50vh] mb-4 rounded overflow-hidden">
-                                    <img
-                                        src={`/storage/images/${thema.image}`}
-                                        alt={`Afbeelding van thema ${thema.name}`}
-                                        className="w-full h-full object-cover"
-                                    />
-                                    <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-transparent pointer-events-none"></div>
-                                </div>
-                                <h3 className="text-lg font-semibold">
-                                    {thema.name}
-                                </h3>
-                                <p>
-                                    Beschrijving van het thema. Hier kan
-                                    eventueel een korte samenvatting van de
-                                    beschrijving van het thema staan.
-                                </p>
-                            </div>
-                        ))}
+                                {themas.length > 0 ? (
+                                    themas.map((thema, index) => (
+                                        <div key={index} className="p-6 bg-gray-200 rounded-lg shadow-md min-h-[75vh]">
+                                            <div className="relative w-full h-[50vh] mb-4 rounded overflow-hidden">
+                                                <img
+                                                    src={`/storage/images/${thema.image}`}
+                                                    alt={`Afbeelding van thema ${thema.name}`}
+                                                    className="w-full h-full object-cover"
+                                                />
+                                                <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-transparent pointer-events-none"></div>
+                                            </div>
+                                            <h3 className="text-lg font-semibold">Name: {thema.name}</h3>
+                                            <p>
+                                                Beschrijving van het thema. Hier kan
+                                                eventueel een korte samenvatting van de
+                                                beschrijving van het thema staan.
+                                            </p>
+                                        </div>
+                                    ))
+                                ) : (
+                                    <p>No themas found.</p>
+                                )}
                     </div>
                 </div>
             </div>
