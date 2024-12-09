@@ -1,214 +1,101 @@
 import { useState } from "react";
-import ApplicationLogo from "@/Components/ApplicationLogo";
 import Dropdown from "@/Components/Dropdown";
 import NavLink from "@/Components/NavLink";
-import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
-import { Link } from "@inertiajs/react";
 
 export default function Authenticated({ user, header, children }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
 
     return (
-        <div className="min-h-screen bg-gray-100">
-            <nav className="bg-white border-b border-gray-100">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="flex justify-between h-16">
-                        <div className="flex">
-                            <div className="shrink-0 flex items-center">
-                                {/* <Link href="/">
-                                    <ApplicationLogo className="block h-9 w-auto fill-current text-gray-800" />
-                                </Link> */}
-                            </div>
+        <div className="min-h-screen flex">
+            {/* Sidebar Navigatie with right rounded edges and shadow */}
+            <nav className="bg-blue-200 w-64 min-h-screen border-r border-gray-100 flex flex-col rounded-r-xl shadow-2xl">
+                {/* Navigatie Links */}
+                <div className="flex-1 p-6 flex flex-col space-y-4">
+                    <h1 className="text-xl font-bold text-gray-800 mb-2">
+                        Menu
+                    </h1>
 
-                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                                {user.is_teacher == true ? (
-                                    <>
-                                        <NavLink
-                                            href={route("dashboard")}
-                                            active={route().current(
-                                                "dashboard"
-                                            )}
-                                        >
-                                            Leerlingen
-                                        </NavLink>
-                                        <NavLink
-                                            href={route("Themas.index")}
-                                            active={route().current(
-                                                "Themas.index"
-                                            )}
-                                        >
-                                            Thema Maken
-                                        </NavLink>
-                                    </>
-                                ) : (
-                                    <NavLink
-                                        href={route("Student_Dashboard")}
-                                        active={route().current(
-                                            "Student_Dashboard"
-                                        )}
-                                    >
-                                        Thema's
-                                    </NavLink>
-                                )}
-                                <NavLink
-                                    href={route("Achievements")}
-                                    active={route().current("Achievements")}
-                                >
-                                    Achievements
-                                </NavLink>
-                            </div>
-                        </div>
-
-                        <div className="hidden sm:flex sm:items-center sm:ms-6">
-                            <div className="ms-3 relative">
-                                <Dropdown>
-                                    <Dropdown.Trigger>
-                                        <span className="inline-flex rounded-md">
-                                            <img
-                                                src={user.avatar}
-                                                alt="google_img"
-                                                className="w-15 h-10 rounded-full mb-2"
-                                            />
-                                            <button
-                                                type="button"
-                                                className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
-                                            >
-                                                {user.name}
-
-                                                <svg
-                                                    className="ms-2 -me-0.5 h-4 w-4"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    viewBox="0 0 20 20"
-                                                    fill="currentColor"
-                                                >
-                                                    <path
-                                                        fillRule="evenodd"
-                                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                                        clipRule="evenodd"
-                                                    />
-                                                </svg>
-                                            </button>
-                                        </span>
-                                    </Dropdown.Trigger>
-
-                                    <Dropdown.Content>
-                                        <Dropdown.Link
-                                            href={route("profile.edit")}
-                                        >
-                                            Profile
-                                        </Dropdown.Link>
-                                        <Dropdown.Link
-                                            href={route("logout")}
-                                            method="post"
-                                            as="button"
-                                        >
-                                            Log Out
-                                        </Dropdown.Link>
-                                    </Dropdown.Content>
-                                </Dropdown>
-                            </div>
-                        </div>
-
-                        <div className="-me-2 flex items-center sm:hidden">
-                            <button
-                                onClick={() =>
-                                    setShowingNavigationDropdown(
-                                        (previousState) => !previousState
-                                    )
-                                }
-                                className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out"
-                            >
-                                <svg
-                                    className="h-6 w-6"
-                                    stroke="currentColor"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                >
-                                    <path
-                                        className={
-                                            !showingNavigationDropdown
-                                                ? "inline-flex"
-                                                : "hidden"
-                                        }
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="2"
-                                        d="M4 6h16M4 12h16M4 18h16"
+                    {/* Gebruikersprofiel bovenaan */}
+                    <div className="p-6 border-b">
+                        <Dropdown>
+                            <Dropdown.Trigger>
+                                <span className="inline-flex items-center cursor-pointer">
+                                    <img
+                                        src={user.avatar}
+                                        alt="google_img"
+                                        className="w-10 h-10 rounded-full"
                                     />
-                                    <path
-                                        className={
-                                            showingNavigationDropdown
-                                                ? "inline-flex"
-                                                : "hidden"
-                                        }
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="2"
-                                        d="M6 18L18 6M6 6l12 12"
-                                    />
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                </div>
+                                    <span className="ml-3 text-gray-800 font-medium">
+                                        {user.name}
+                                    </span>
+                                </span>
+                            </Dropdown.Trigger>
 
-                <div
-                    className={
-                        (showingNavigationDropdown ? "block" : "hidden") +
-                        " sm:hidden"
-                    }
-                >
-                    <div className="pt-2 pb-3 space-y-1">
-                        <ResponsiveNavLink
-                            href={route("dashboard")}
-                            active={route().current("dashboard")}
-                        >
-                            Dashboard
-                        </ResponsiveNavLink>
-                        <ResponsiveNavLink
-                            href={route("Achievements")}
-                            active={route().current("Achievements")}
-                        >
-                            Achievements
-                        </ResponsiveNavLink>
+                            <Dropdown.Content>
+                                <Dropdown.Link href={route("profile.edit")}>
+                                    Profile
+                                </Dropdown.Link>
+                                <Dropdown.Link
+                                    href={route("logout")}
+                                    method="post"
+                                    as="button"
+                                >
+                                    Log Out
+                                </Dropdown.Link>
+                            </Dropdown.Content>
+                        </Dropdown>
                     </div>
 
-                    <div className="pt-4 pb-1 border-t border-gray-200">
-                        <div className="px-4">
-                            <div className="font-medium text-base text-gray-800">
-                                {user.name}
-                            </div>
-                            <div className="font-medium text-sm text-gray-500">
-                                {user.email}
-                            </div>
-                        </div>
-
-                        <div className="mt-3 space-y-1">
-                            <ResponsiveNavLink href={route("profile.edit")}>
-                                Profile
-                            </ResponsiveNavLink>
-                            <ResponsiveNavLink
-                                method="post"
-                                href={route("logout")}
-                                as="button"
+                    {user.is_teacher == true ? (
+                        <>
+                            <NavLink
+                                href={route("dashboard")}
+                                active={route().current("dashboard")}
+                                className="block py-3 px-5 rounded-lg text-xl text-gray-800 transition duration-200 ease-in-out hover:bg-blue-300 hover:text-gray-900"
                             >
-                                Log Out
-                            </ResponsiveNavLink>
-                        </div>
-                    </div>
+                                Leerlingen
+                            </NavLink>
+                            <NavLink
+                                href={route("Themas.index")}
+                                active={route().current("Themas.index")}
+                                className="block py-3 px-5 rounded-lg text-xl text-gray-800 transition duration-200 ease-in-out hover:bg-blue-300 hover:text-gray-900"
+                            >
+                                Thema's
+                            </NavLink>
+                        </>
+                    ) : (
+                        <NavLink
+                            href={route("Student_Dashboard")}
+                            active={route().current("Student_Dashboard")}
+                            className="block py-3 px-5 rounded-lg text-xl text-gray-800 transition duration-200 ease-in-out hover:bg-blue-300 hover:text-gray-900"
+                        >
+                            Thema's
+                        </NavLink>
+                    )}
+
+                    <NavLink
+                        href={route("Achievements")}
+                        active={route().current("Achievements")}
+                        className="block py-3 px-5 rounded-lg text-xl text-gray-800 transition duration-200 ease-in-out hover:bg-blue-300 hover:text-gray-900"
+                    >
+                        Achievements
+                    </NavLink>
                 </div>
             </nav>
 
-            {header && (
-                <header className="bg-white shadow">
-                    <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {header}
-                    </div>
-                </header>
-            )}
+            {/* Hoofdinhoud */}
+            <div className="flex-1">
+                {header && (
+                    <header className="bg-white shadow">
+                        <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                            {header}
+                        </div>
+                    </header>
+                )}
 
-            <main>{children}</main>
+                <main className="p-8">{children}</main>
+            </div>
         </div>
     );
 }

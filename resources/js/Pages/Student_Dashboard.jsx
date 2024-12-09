@@ -88,14 +88,9 @@ export default function Student_Dashboard({ auth, themas = [] }) {
                                     />
                                     <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-transparent pointer-events-none"></div>
                                 </div>
-                                <h3 className="text-lg font-semibold">
+                                <h2 className="text-lg font-semibold">
                                     {thema.name}
-                                </h3>
-                                <p>
-                                    Beschrijving van het thema. Hier kan
-                                    eventueel een korte samenvatting van de
-                                    beschrijving van het thema staan.
-                                </p>
+                                </h2>
                             </div>
                         ))}
                     </div>
