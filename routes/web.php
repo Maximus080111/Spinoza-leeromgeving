@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\StudentDashboardController;
 use App\Http\Controllers\ThemaController;
 use Illuminate\Foundation\Application;
+use App\Http\Controllers\LessonsMakenController;    
 use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\LessonsController;
 use Illuminate\Support\Facades\Route;
@@ -43,7 +44,13 @@ Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
+// Route::get('/LessonsMaken', [LessonsMakenController::class, 'index'])
+//     ->middleware(['auth', 'verified'])
+//     ->name('LessonsMaken');
 
+Route::resource('LessonsMaken', LessonsMakenController::class)
+    ->only(['index', 'store'])
+    ->middleware(['auth', 'verified']);
 
 // Route::get('/dashboard', function () {
 //     return Inertia::render('Dashboard');
