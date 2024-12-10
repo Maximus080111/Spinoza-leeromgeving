@@ -81,6 +81,20 @@ export default function Authenticated({ user, header, children }) {
                     >
                         Achievements
                     </NavLink>
+                    <NavLink
+                        href={route("Vraag")}
+                        active={route().current("Vraag")}
+                        className="block py-3 px-5 rounded-lg text-xl text-gray-800 transition duration-200 ease-in-out hover:bg-blue-300 hover:text-gray-900"
+                    >
+                        Vraag
+                    </NavLink>
+                    <NavLink
+                        href={route("LessonsMaken.index")}
+                        active={route().current("LessonsMaken.index")}
+                        className="block py-3 px-5 rounded-lg text-xl text-gray-800 transition duration-200 ease-in-out hover:bg-blue-300 hover:text-gray-900"
+                    >
+                        Les Maken
+                    </NavLink>
                 </div>
             </nav>
 
