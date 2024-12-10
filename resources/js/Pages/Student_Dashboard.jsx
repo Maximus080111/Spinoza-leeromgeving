@@ -78,7 +78,8 @@ export default function Student_Dashboard({ auth, themas = [] }) {
                         {sections[currentSection - 1].map((thema, index) => (
                             <div
                                 key={index}
-                                className="p-6 bg-gray-200 rounded-lg shadow-md min-h-[75vh]"
+                                className="p-6 bg-gray-200 rounded-lg shadow-md min-h-[75vh] cursor-pointer"
+                                onClick={() => window.location.href = route('lessons_dashboard')}
                             >
                                 <div className="relative w-full h-[50vh] mb-4 rounded overflow-hidden">
                                     <img

@@ -6,7 +6,9 @@ use App\Http\Controllers\StudentDashboardController;
 use App\Http\Controllers\VraagController;
 use App\Http\Controllers\ThemaController;
 use Illuminate\Foundation\Application;
+use App\Http\Controllers\LessonsMakenController;    
 use App\Http\Controllers\GoogleController;
+use App\Http\Controllers\LessonsController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -35,13 +37,23 @@ Route::controller(GoogleController::class)->group(function() {
     Route::get('auth/google-callback', 'googleAuthentication')->name('auth.google-callback');
 });
 
+Route::get('lessons_dashboard', [LessonsController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('lessons_dashboard');
+
 Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
+// Route::get('/LessonsMaken', [LessonsMakenController::class, 'index'])
+//     ->middleware(['auth', 'verified'])
+//     ->name('LessonsMaken');
 Route::get('/Vraag', [VraagController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('Vraag');
+Route::resource('LessonsMaken', LessonsMakenController::class)
+    ->only(['index', 'store'])
+    ->middleware(['auth', 'verified']);
 
 // Route::get('/dashboard', function () {
 //     return Inertia::render('Dashboard');
