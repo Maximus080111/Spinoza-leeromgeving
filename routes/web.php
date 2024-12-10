@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\StudentDashboardController;
+use App\Http\Controllers\VraagController;
 use App\Http\Controllers\ThemaController;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\GoogleController;
@@ -38,7 +39,9 @@ Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
-
+Route::get('/Vraag', [VraagController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('Vraag');
 
 // Route::get('/dashboard', function () {
 //     return Inertia::render('Dashboard');

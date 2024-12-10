@@ -57,6 +57,12 @@ export default function Authenticated({ user, header, children }) {
                                 >
                                     Achievements
                                 </NavLink>
+                                <NavLink
+                                    href={route("Vraag")}
+                                    active={route().current("Vraag")}
+                                >
+                                    Vraag
+                                </NavLink>
                             </div>
                         </div>
 
