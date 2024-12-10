@@ -30,7 +30,7 @@ export default function Login({ status, canResetPassword }) {
             className="min-h-screen flex items-center justify-center"
             style={{
                 backgroundColor: "#fdfef8", // Achtergrondkleur
-                backgroundImage: "url('/images/inlogachtergrond1.jpeg')", // Achtergrondafbeelding
+                backgroundImage: "url('/images/8.jpeg')", // Achtergrondafbeelding
                 backgroundSize: "cover", // Zorgt ervoor dat de afbeelding de gehele pagina bedekt
                 backgroundPosition: "center", // Zet de afbeelding in het midden
                 minHeight: "100vh", // Zorgt ervoor dat de achtergrond de volledige hoogte van het scherm bedekt
@@ -38,7 +38,13 @@ export default function Login({ status, canResetPassword }) {
         >
             <Head title="Log in" />
 
-            <div className="flex flex-col md:flex-row bg-white shadow-lg rounded-lg overflow-hidden max-w-4xl w-full">
+            <div
+                className="
+        flex flex-col md:flex-row bg-gray-400 rounded-lg shadow-lg 
+        bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10 
+        border border-gray-100 overflow-hidden max-w-4xl w-full
+    "
+            >
                 {/* Left Section: Image */}
                 <div className="hidden md:block md:w-1/2">
                     <img
@@ -50,10 +56,10 @@ export default function Login({ status, canResetPassword }) {
 
                 {/* Right Section: Form */}
                 <div className="flex flex-col justify-center p-8 md:w-1/2">
-                    <h2 className="text-2xl font-bold text-gray-700 text-center">
+                    <h2 className="text-2xl font-bold text-white text-center">
                         Welkom terug!
                     </h2>
-                    <p className="text-gray-500 text-center mb-4">
+                    <p className="text-white text-center mb-4">
                         Log in op je Google account.
                     </p>
 
@@ -64,20 +70,7 @@ export default function Login({ status, canResetPassword }) {
                     )}
 
                     <form onSubmit={submit} className="space-y-6">
-                        <div className="flex items-center justify-between">
-                            {/* <label className="flex items-center">
-                                <Checkbox
-                                    name="remember"
-                                    checked={data.remember}
-                                    onChange={(e) =>
-                                        setData("remember", e.target.checked)
-                                    }
-                                />
-                                <span className="ml-2 text-sm text-gray-600">
-                                    Remember me
-                                </span>
-                            </label> */}
-                        </div>
+                        <div className="flex items-center justify-between"></div>
 
                         <div className="mt-4 text-center">
                             <a
