@@ -9,10 +9,13 @@ export default function Authenticated({ user, header, children }) {
     return (
         <div className="min-h-screen flex">
             {/* Sidebar Navigatie with right rounded edges and shadow */}
-            <nav className="bg-blue-200 w-64 min-h-screen border-r border-gray-100 flex flex-col rounded-r-xl shadow-2xl">
+            <nav
+                style={{ backgroundColor: "#8ca9aa" }}
+                className=" w-80 min-h-screen border-r border-gray-100 flex flex-col rounded-r-xl shadow-2xl"
+            >
                 {/* Navigatie Links */}
                 <div className="flex-1 p-6 flex flex-col space-y-4">
-                    <h1 className="text-xl font-bold text-gray-800 mb-2">
+                    <h1 className="text-2xl font-bold text-gray-800 mb-2">
                         Menu
                     </h1>
 
@@ -26,7 +29,7 @@ export default function Authenticated({ user, header, children }) {
                                         alt="google_img"
                                         className="w-10 h-10 rounded-full"
                                     />
-                                    <span className="ml-3 text-gray-800 font-medium">
+                                    <span className="ml-3 text-gray-800 text-xl">
                                         {user.name}
                                     </span>
                                 </span>
@@ -52,14 +55,15 @@ export default function Authenticated({ user, header, children }) {
                             <NavLink
                                 href={route("dashboard")}
                                 active={route().current("dashboard")}
-                                className="block py-3 px-5 rounded-lg text-xl text-gray-800 transition duration-200 ease-in-out hover:bg-blue-300 hover:text-gray-900"
+                                className="block py-7 px-5 rounded-lg text-2xl text-gray-800 transition duration-200 ease-in-out hover:bg-[#bcdadb] hover:text-gray-900"
                             >
                                 Leerlingen
                             </NavLink>
+
                             <NavLink
                                 href={route("Themas.index")}
                                 active={route().current("Themas.index")}
-                                className="block py-3 px-5 rounded-lg text-xl text-gray-800 transition duration-200 ease-in-out hover:bg-blue-300 hover:text-gray-900"
+                                className="block py-7 px-5 rounded-lg text-2xl text-gray-800 transition duration-200 ease-in-out hover:bg-[#bcdadb] hover:text-gray-900"
                             >
                                 Thema's
                             </NavLink>
@@ -68,7 +72,7 @@ export default function Authenticated({ user, header, children }) {
                         <NavLink
                             href={route("Student_Dashboard")}
                             active={route().current("Student_Dashboard")}
-                            className="block py-3 px-5 rounded-lg text-xl text-gray-800 transition duration-200 ease-in-out hover:bg-blue-300 hover:text-gray-900"
+                            className="block py-7 px-5 rounded-lg text-2xl text-gray-800 transition duration-200 ease-in-out hover:bg-[#bcdadb] hover:text-gray-900"
                         >
                             Thema's
                         </NavLink>
@@ -77,21 +81,21 @@ export default function Authenticated({ user, header, children }) {
                     <NavLink
                         href={route("Achievements")}
                         active={route().current("Achievements")}
-                        className="block py-3 px-5 rounded-lg text-xl text-gray-800 transition duration-200 ease-in-out hover:bg-blue-300 hover:text-gray-900"
+                        className="block py-7 px-5 rounded-lg text-2xl text-gray-800 transition duration-200 ease-in-out hover:bg-[#bcdadb] hover:text-gray-900"
                     >
                         Achievements
                     </NavLink>
                     <NavLink
                         href={route("Vraag")}
                         active={route().current("Vraag")}
-                        className="block py-3 px-5 rounded-lg text-xl text-gray-800 transition duration-200 ease-in-out hover:bg-blue-300 hover:text-gray-900"
+                        className="block py-7 px-5 rounded-lg text-2xl text-gray-800 transition duration-200 ease-in-out hover:bg-[#bcdadb] hover:text-gray-900"
                     >
                         Vraag
                     </NavLink>
                     <NavLink
                         href={route("LessonsMaken.index")}
                         active={route().current("LessonsMaken.index")}
-                        className="block py-3 px-5 rounded-lg text-xl text-gray-800 transition duration-200 ease-in-out hover:bg-blue-300 hover:text-gray-900"
+                        className="block py-7 px-5 rounded-lg text-2xl text-gray-800 transition duration-200 ease-in-out hover:bg-[#bcdadb] hover:text-gray-900"
                     >
                         Les Maken
                     </NavLink>

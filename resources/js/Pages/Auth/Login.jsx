@@ -30,7 +30,7 @@ export default function Login({ status, canResetPassword }) {
             className="min-h-screen flex items-center justify-center"
             style={{
                 backgroundColor: "#fdfef8", // Achtergrondkleur
-                backgroundImage: "url('/images/8.jpeg')", // Achtergrondafbeelding
+                backgroundImage: "url('/images/achtergrondje.jpeg')", // Achtergrondafbeelding
                 backgroundSize: "cover", // Zorgt ervoor dat de afbeelding de gehele pagina bedekt
                 backgroundPosition: "center", // Zet de afbeelding in het midden
                 minHeight: "100vh", // Zorgt ervoor dat de achtergrond de volledige hoogte van het scherm bedekt
@@ -40,7 +40,7 @@ export default function Login({ status, canResetPassword }) {
 
             <div
                 className="
-        flex flex-col md:flex-row bg-gray-400 rounded-lg shadow-lg 
+        flex flex-col md:flex-row bg-black rounded-lg shadow-lg 
         bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10 
         border border-gray-100 overflow-hidden max-w-4xl w-full
     "
@@ -56,10 +56,10 @@ export default function Login({ status, canResetPassword }) {
 
                 {/* Right Section: Form */}
                 <div className="flex flex-col justify-center p-8 md:w-1/2">
-                    <h2 className="text-2xl font-bold text-white text-center">
+                    <h2 className="text-2xl font-bold text-black text-center">
                         Welkom terug!
                     </h2>
-                    <p className="text-white text-center mb-4">
+                    <p className="text-black text-center mb-4">
                         Log in op je Google account.
                     </p>
 

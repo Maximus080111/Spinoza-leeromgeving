@@ -37,12 +37,13 @@ export default function Student_Dashboard({ auth, themas = [] }) {
             <Head title="Dashboard" />
 
             {/* Navigatie bovenaan */}
-            <div className="flex justify-between items-center bg-gray-100 py-4 px-6 shadow-md">
+            <div className="flex justify-center items-center px-6 space-x-4">
                 {/* Pijl naar vorige sectie */}
                 <button
                     onClick={handlePreviousSection}
                     disabled={currentSection === 1}
-                    className={`bg-gray-500 text-white px-4 py-2 rounded-full shadow hover:bg-gray-700 ${
+                    style={{ backgroundColor: "#a4c1c2" }}
+                    className={`text-white px-4 py-2 rounded-full shadow hover:bg-gray-700 ${
                         currentSection === 1
                             ? "opacity-50 cursor-not-allowed"
                             : ""
@@ -52,7 +53,7 @@ export default function Student_Dashboard({ auth, themas = [] }) {
                 </button>
 
                 {/* Huidige sectie */}
-                <span className="text-lg font-semibold text-gray-700">
+                <span className="text-lg font-semibold text-gray-700 mx-2">
                     Deel {currentSection} van {totalSections}
                 </span>
 
@@ -60,7 +61,8 @@ export default function Student_Dashboard({ auth, themas = [] }) {
                 <button
                     onClick={handleNextSection}
                     disabled={currentSection === totalSections}
-                    className={`bg-gray-500 text-white px-4 py-2 rounded-full shadow hover:bg-gray-700 ${
+                    style={{ backgroundColor: "#a4c1c2" }}
+                    className={`text-white px-4 py-2 rounded-full shadow hover:bg-gray-700 ${
                         currentSection === totalSections
                             ? "opacity-50 cursor-not-allowed"
                             : ""
@@ -78,20 +80,29 @@ export default function Student_Dashboard({ auth, themas = [] }) {
                         {sections[currentSection - 1].map((thema, index) => (
                             <div
                                 key={index}
-                                className="p-6 bg-gray-200 rounded-lg shadow-md min-h-[75vh] cursor-pointer"
-                                onClick={() => window.location.href = route('lessons_dashboard')}
+                                className="p-6 rounded-lg shadow-2xl min-h-[75vh] cursor-pointer"
+                                style={{ backgroundColor: "#c2d2db" }}
+                                onClick={() =>
+                                    (window.location.href =
+                                        route("lessons_dashboard"))
+                                }
                             >
-                                <div className="relative w-full h-[50vh] mb-4 rounded overflow-hidden">
+                                <div className="relative w-full h-full rounded overflow-hidden shadow-lg">
                                     <img
                                         src={`/storage/images/${thema.image}`}
                                         alt={`Afbeelding van thema ${thema.name}`}
                                         className="w-full h-full object-cover"
                                     />
-                                    <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-transparent pointer-events-none"></div>
+
+                                    {/* Schaduw aan de bovenkant van de afbeelding */}
+
+                                    <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent shadow-xl to-transparent pointer-events-none"></div>
+                                    <div className="absolute inset-0 flex items-center justify-center z-10">
+                                        <h2 className="text-4xl font-semibold text-black text-center bg-white px-4 py-2 rounded-lg">
+                                            {thema.name}
+                                        </h2>
+                                    </div>
                                 </div>
-                                <h2 className="text-lg font-semibold">
-                                    {thema.name}
-                                </h2>
                             </div>
                         ))}
                     </div>

@@ -136,7 +136,7 @@ export default function Vraag() {
                     // Quiz Resultaat met Overzicht
                     <div>
                         <h1 className="text-5xl font-bold text-gray-800 mb-6">
-                            Quiz Voltooid!
+                            Resultaat
                         </h1>
                         <p className="text-2xl text-gray-700 mb-4">
                             Je hebt {score} van de {vragen.length} vragen goed!
