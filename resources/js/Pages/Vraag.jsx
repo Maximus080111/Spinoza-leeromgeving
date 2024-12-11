@@ -183,8 +183,10 @@ export default function Vraag() {
                             Opnieuw proberen
                         </button>
                         <button
-                            onClick={() => window.location.href = '/lessons_dashboard'}
-                            className="mt-6 bg-blue-500 hover:bg-blue-700 text-white font-semibold py-4 px-8 rounded-lg shadow-lg transition-all duration-300"
+                            onClick={() =>
+                                (window.location.href = "/lessons_dashboard")
+                            }
+                            className="mt-6 bg-blue-500 hover:bg-blue-700  text-white font-semibold py-4 px-8 ml-10 rounded-lg shadow-lg transition-all duration-300"
                         >
                             Ga terug
                         </button>
