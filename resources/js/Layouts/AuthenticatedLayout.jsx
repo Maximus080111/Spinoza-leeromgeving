@@ -11,11 +11,11 @@ export default function Authenticated({ user, header, children }) {
             {/* Sidebar Navigatie with right rounded edges and shadow */}
             <nav
                 style={{ backgroundColor: "#8ca9aa" }}
-                className=" w-80 min-h-screen border-r border-gray-100 flex flex-col rounded-r-xl shadow-2xl"
+                className=" w-80 max-h-screen mt-4 mb-4  border-r border-gray-100 flex flex-col ml-4 rounded-r-xl rounded-l-xl shadow-2xl drop-shadow-2xl"
             >
                 {/* Navigatie Links */}
                 <div className="flex-1 p-6 flex flex-col space-y-4">
-                    <h1 className="text-2xl font-bold text-gray-800 mb-2">
+                    <h1 className="font-roboto text-2xl font-bold text-gray-800 mb-2">
                         Menu
                     </h1>
 
@@ -23,7 +23,7 @@ export default function Authenticated({ user, header, children }) {
                     <div className="p-6 border-b">
                         <Dropdown>
                             <Dropdown.Trigger>
-                                <span className="inline-flex items-center cursor-pointer">
+                                <span className="font-roboto inline-flex items-center cursor-pointer">
                                     <img
                                         src={user.avatar}
                                         alt="google_img"
@@ -55,7 +55,7 @@ export default function Authenticated({ user, header, children }) {
                             <NavLink
                                 href={route("dashboard")}
                                 active={route().current("dashboard")}
-                                className="block py-7 px-5 rounded-lg text-2xl text-gray-800 transition duration-200 ease-in-out hover:bg-[#bcdadb] hover:text-gray-900"
+                                className=" font-roboto block pt-6 py-8 px-5 rounded-lg text-3xl text-gray-800 transition duration-200 ease-in-out hover:bg-[#bcdadb] hover:text-gray-900"
                             >
                                 Leerlingen
                             </NavLink>
@@ -63,7 +63,7 @@ export default function Authenticated({ user, header, children }) {
                             <NavLink
                                 href={route("Themas.index")}
                                 active={route().current("Themas.index")}
-                                className="block py-7 px-5 rounded-lg text-2xl text-gray-800 transition duration-200 ease-in-out hover:bg-[#bcdadb] hover:text-gray-900"
+                                className=" font-roboto block pt-6 py-8 px-5 rounded-lg text-3xl text-gray-800 transition duration-200 ease-in-out hover:bg-[#bcdadb] hover:text-gray-900"
                             >
                                 Thema's
                             </NavLink>
@@ -72,7 +72,7 @@ export default function Authenticated({ user, header, children }) {
                         <NavLink
                             href={route("Student_Dashboard")}
                             active={route().current("Student_Dashboard")}
-                            className="block py-7 px-5 rounded-lg text-2xl text-gray-800 transition duration-200 ease-in-out hover:bg-[#bcdadb] hover:text-gray-900"
+                            className="font-roboto block pt-6 py-8 px-5 rounded-lg text-3xl text-gray-800 transition duration-200 ease-in-out hover:bg-[#bcdadb] hover:text-gray-900"
                         >
                             Thema's
                         </NavLink>
@@ -81,21 +81,21 @@ export default function Authenticated({ user, header, children }) {
                     <NavLink
                         href={route("Achievements")}
                         active={route().current("Achievements")}
-                        className="block py-7 px-5 rounded-lg text-2xl text-gray-800 transition duration-200 ease-in-out hover:bg-[#bcdadb] hover:text-gray-900"
+                        className="font-roboto block pt-6 py-8 px-5 rounded-lg text-3xl text-gray-800 transition duration-200 ease-in-out hover:bg-[#bcdadb] hover:text-gray-900"
                     >
                         Achievements
                     </NavLink>
                     <NavLink
                         href={route("Vraag")}
                         active={route().current("Vraag")}
-                        className="block py-7 px-5 rounded-lg text-2xl text-gray-800 transition duration-200 ease-in-out hover:bg-[#bcdadb] hover:text-gray-900"
+                        className="font-roboto block pt-6 py-8 px-5 rounded-lg text-3xl text-gray-800 transition duration-200 ease-in-out hover:bg-[#bcdadb] hover:text-gray-900"
                     >
                         Vraag
                     </NavLink>
                     <NavLink
                         href={route("LessonsMaken.index")}
                         active={route().current("LessonsMaken.index")}
-                        className="block py-7 px-5 rounded-lg text-2xl text-gray-800 transition duration-200 ease-in-out hover:bg-[#bcdadb] hover:text-gray-900"
+                        className="font-roboto block pt-6 py-8 px-5 rounded-lg text-3xl text-gray-800 transition duration-200 ease-in-out hover:bg-[#bcdadb] hover:text-gray-900"
                     >
                         Les Maken
                     </NavLink>

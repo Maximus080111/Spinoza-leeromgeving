@@ -27,7 +27,10 @@ export default function Dashboard({ auth, student = [] }) {
                                         student.map((student, index) => (
                                             <div
                                                 key={index}
-                                                className="flex flex-col items-center p-4 bg-gray-100 rounded-lg shadow-md"
+                                                className="flex flex-col items-center p-4  rounded-lg shadow-md"
+                                                style={{
+                                                    backgroundColor: "#baaead",
+                                                }}
                                             >
                                                 {/* Ronde Avatar */}
                                                 <img

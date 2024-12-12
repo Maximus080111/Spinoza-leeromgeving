@@ -29,7 +29,7 @@ export default function Student_Dashboard({ auth, themas = [] }) {
         <AuthenticatedLayout
             user={auth.user}
             header={
-                <h2 className="font-semibold text-xl text-gray-800 leading-tight">
+                <h2 className="font-roboto text-xl text-gray-800 leading-tight">
                     Thema's
                 </h2>
             }
@@ -43,7 +43,7 @@ export default function Student_Dashboard({ auth, themas = [] }) {
                     onClick={handlePreviousSection}
                     disabled={currentSection === 1}
                     style={{ backgroundColor: "#a4c1c2" }}
-                    className={`text-white px-4 py-2 rounded-full shadow hover:bg-gray-700 ${
+                    className={`font-roboto text-white px-4 py-2 rounded-full shadow hover:bg-gray-700 ${
                         currentSection === 1
                             ? "opacity-50 cursor-not-allowed"
                             : ""
@@ -53,7 +53,7 @@ export default function Student_Dashboard({ auth, themas = [] }) {
                 </button>
 
                 {/* Huidige sectie */}
-                <span className="text-lg font-semibold text-gray-700 mx-2">
+                <span className=" font-roboto text-lg font-semibold text-gray-700 mx-2">
                     Deel {currentSection} van {totalSections}
                 </span>
 
@@ -62,7 +62,7 @@ export default function Student_Dashboard({ auth, themas = [] }) {
                     onClick={handleNextSection}
                     disabled={currentSection === totalSections}
                     style={{ backgroundColor: "#a4c1c2" }}
-                    className={`text-white px-4 py-2 rounded-full shadow hover:bg-gray-700 ${
+                    className={`font-roboto text-white px-4 py-2 rounded-full shadow hover:bg-gray-700 ${
                         currentSection === totalSections
                             ? "opacity-50 cursor-not-allowed"
                             : ""
@@ -98,7 +98,7 @@ export default function Student_Dashboard({ auth, themas = [] }) {
 
                                     <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent shadow-xl to-transparent pointer-events-none"></div>
                                     <div className="absolute inset-0 flex items-center justify-center z-10">
-                                        <h2 className="text-4xl font-semibold text-black text-center bg-white px-4 py-2 rounded-lg">
+                                        <h2 className="font-roboto text-4xl font-semibold text-black text-center bg-white px-4 py-2 rounded-lg">
                                             {thema.name}
                                         </h2>
                                     </div>
