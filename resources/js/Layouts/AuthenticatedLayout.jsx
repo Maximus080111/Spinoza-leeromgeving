@@ -20,7 +20,7 @@ export default function Authenticated({ user, header, children }) {
                     </h1>
 
                     {/* Gebruikersprofiel bovenaan */}
-                    <div className="p-6 border-b">
+                    <div className="p-6 border-b-4">
                         <Dropdown>
                             <Dropdown.Trigger>
                                 <span className="font-roboto inline-flex items-center cursor-pointer">
@@ -35,14 +35,18 @@ export default function Authenticated({ user, header, children }) {
                                 </span>
                             </Dropdown.Trigger>
 
-                            <Dropdown.Content>
-                                <Dropdown.Link href={route("profile.edit")}>
+                            <Dropdown.Content className="w-64 bg-white rounded-lg shadow-lg p-4 font-roboto text-gray-700">
+                                <Dropdown.Link
+                                    href={route("profile.edit")}
+                                    className="block py-2.5 px-4 hover:bg-[#c5d3d4] rounded-md text-lg"
+                                >
                                     Profile
                                 </Dropdown.Link>
                                 <Dropdown.Link
                                     href={route("logout")}
                                     method="post"
                                     as="button"
+                                    className="block py-2.5 px-4 hover:bg-[#c5d3d4] rounded-md text-lg"
                                 >
                                     Log Out
                                 </Dropdown.Link>
