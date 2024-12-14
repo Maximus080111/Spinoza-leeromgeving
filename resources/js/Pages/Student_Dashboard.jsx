@@ -77,7 +77,7 @@ export default function Student_Dashboard({ auth, themas = [] }) {
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                         {/* Dynamisch de thema's voor het huidige deel weergeven */}
-                        {sections[currentSection - 1].map((themas, index) => (
+                        {sections[currentSection - 1].map((thema, index) => (
                             <div
                                 key={index}
                                 className="p-6 rounded-lg shadow-2xl min-h-[75vh] cursor-pointer"
@@ -89,8 +89,8 @@ export default function Student_Dashboard({ auth, themas = [] }) {
                             >
                                 <div className="relative w-full h-full rounded overflow-hidden shadow-lg">
                                     <img
-                                        src={`/storage/images/${themas.image}`}
-                                        alt={`Afbeelding van thema ${themas.name}`}
+                                        src={`/storage/images/${thema.image}`}
+                                        alt={`Afbeelding van thema ${thema.name}`}
                                         className="w-full h-full object-cover"
                                     />
 
@@ -99,7 +99,7 @@ export default function Student_Dashboard({ auth, themas = [] }) {
                                     <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent shadow-xl to-transparent pointer-events-none"></div>
                                     <div className="absolute inset-0 flex items-center justify-center z-10">
                                         <h2 className="font-roboto text-4xl font-semibold text-black text-center bg-white px-4 py-2 rounded-lg">
-                                            {themas.name}
+                                            {thema.name}
                                         </h2>
                                     </div>
                                 </div>
