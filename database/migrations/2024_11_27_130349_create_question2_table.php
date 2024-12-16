@@ -21,7 +21,6 @@ return new class extends Migration
             $table->string('answer2');
             $table->string('answer3');
             $table->string('answer4');
-            $table->foreignId('thema_id')->references('id')->on('themas')->onDelete('cascade');
             $table->foreignId('lesson_id')->references('id')->on('lesson')->onDelete('cascade');
             $table->timestamps();
         });
