@@ -56,7 +56,7 @@ Route::get('/Vraag1', [VraagController1::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('Vraag1');
 
-Route::get('/Vraag', [VraagController2::class, 'index'])
+Route::get('/Vraag2', [VraagController2::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('Vraag');
 
