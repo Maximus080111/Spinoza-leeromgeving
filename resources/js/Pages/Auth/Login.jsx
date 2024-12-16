@@ -27,7 +27,7 @@ export default function Login({ status, canResetPassword }) {
 
     return (
         <div
-            className="min-h-screen flex items-center justify-center object-cover w-full h-full"
+            className="max-h-screen flex items-center justify-center object-cover w-full h-full"
             style={{
                 backgroundColor: "#fdfef8", // Achtergrondkleur
                 backgroundImage: "url('/images/background.jpg')", // Achtergrondafbeelding
