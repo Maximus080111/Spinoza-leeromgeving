@@ -42,7 +42,7 @@ export default function Student_Dashboard({ auth, themas = [] }) {
                 <button
                     onClick={handlePreviousSection}
                     disabled={currentSection === 1}
-                    style={{ backgroundColor: "#a4c1c2" }}
+                    style={{ backgroundColor: "#92A2C9" }}
                     className={`font-roboto text-white px-4 py-2 rounded-full shadow hover:bg-gray-700 ${
                         currentSection === 1
                             ? "opacity-50 cursor-not-allowed"
@@ -61,7 +61,7 @@ export default function Student_Dashboard({ auth, themas = [] }) {
                 <button
                     onClick={handleNextSection}
                     disabled={currentSection === totalSections}
-                    style={{ backgroundColor: "#a4c1c2" }}
+                    style={{ backgroundColor: "#92A2C9" }}
                     className={`font-roboto text-white px-4 py-2 rounded-full shadow hover:bg-gray-700 ${
                         currentSection === totalSections
                             ? "opacity-50 cursor-not-allowed"
@@ -81,10 +81,16 @@ export default function Student_Dashboard({ auth, themas = [] }) {
                             <div
                                 key={index}
                                 className="p-6 rounded-lg shadow-2xl min-h-[75vh] cursor-pointer"
-                                style={{ backgroundColor: "#c2d2db" }}
+                                style={{ backgroundColor: "#bbc4dd" }}
                                 onClick={() => {
-                                    console.log('Navigating to lessons_dashboard with thema_id:', thema.id);
-                                    window.location.href = route("lessons_dashboard", { thema_id: thema.id });
+                                    console.log(
+                                        "Navigating to lessons_dashboard with thema_id:",
+                                        thema.id
+                                    );
+                                    window.location.href = route(
+                                        "lessons_dashboard",
+                                        { thema_id: thema.id }
+                                    );
                                 }}
                             >
                                 <div className="relative w-full h-full rounded overflow-hidden shadow-lg">

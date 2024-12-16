@@ -95,7 +95,7 @@ export default function Index({ auth, themas = [] }) {
                         onClick={() => setShowPopup(true)}
                         className="flex items-center justify-center p-4 rounded shadow-lg hover:bg-opacity-90 transition duration-200"
                         style={{
-                            backgroundColor: "rgba(194, 210, 219, 0.4)", // Transparante kleur
+                            backgroundColor: "#e4e7f1", // Transparante kleur
                         }}
                     >
                         <span className="text-4xl font-bold text-gray-700">
@@ -109,7 +109,7 @@ export default function Index({ auth, themas = [] }) {
                             <div
                                 key={index}
                                 className="p-4 bg-gray-200 rounded shadow-lg"
-                                style={{ backgroundColor: "#c2d2db" }}
+                                style={{ backgroundColor: "#bbc4dd" }}
                             >
                                 <p className="font-semibold text-xl text-center">
                                     {thema.name}
