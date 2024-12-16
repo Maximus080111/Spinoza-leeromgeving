@@ -51,6 +51,9 @@ Route::get('/dashboard', [DashboardController::class, 'index'])
 Route::get('/Vraag', [VraagController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('Vraag');
+Route::get('/Kahoot', [VraagController::class, 'kahoot'])
+    ->middleware(['auth', 'verified'])
+    ->name('Kahoot');
 Route::resource('LessonsMaken', LessonsMakenController::class)
     ->only(['index', 'store'])
     ->middleware(['auth', 'verified']);

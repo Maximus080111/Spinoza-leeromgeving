@@ -31,5 +31,17 @@ class DatabaseSeeder extends Seeder
             'email_verified_at' => now(),
             'password' => bcrypt('12345678'),
         ]);
+
+        \App\Models\Question1::factory()->create([
+            'question' => 'In welk land zijn we nu?',
+            'anwsers' => 'Nederland, Duitsland, Spanje, Ierland',
+            'correct' => 'Nederland'
+        ]);
+
+        \App\Models\Question1::factory()->create([
+            'question' => 'In welk land zijn we straks?',
+            'anwsers' => 'Nederland, Duitsland, Spanje, Ierland',
+            'correct' => 'Duitsland'
+        ]);
     }
 }
