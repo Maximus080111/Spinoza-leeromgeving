@@ -2,20 +2,24 @@ import React from 'react';
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import Dropdown from '@/Components/Dropdown';
 import { data } from 'autoprefixer';
+import PrimaryButton from '@/Components/PrimaryButton';
+import { useForm } from '@inertiajs/react';
 
 export default function Index({auth, themas = []}) {
     const { data, setData, post, processing, reset, errors } = useForm({
-        name: '',
-        thema: '', 
+        les_name: '',
+        les_number: '',
+        thema_id: '',
     });
 
     const submit = (e) => {
         e.preventDefault();
-        post(route('L.store'), { onSuccess: () => reset() });
-    };
-
-    const handleFileChange = (e) => {
-        setData('image', e.target.files[0]);
+        const formData = {
+            ...data,
+            les_number: parseInt(data.les_number, 10),
+            thema_id: parseInt(data.thema_id, 10),
+        };
+        post(route('LessonsMaken.store'), { onSuccess: () => reset() });
     };
 
     return (
@@ -27,7 +31,7 @@ export default function Index({auth, themas = []}) {
                 </h2>
             }>
                 <div className="hidden sm:flex sm:items-center sm:ms-20">
-                            <div className="ms-3 relative">
+                            {/* <div className="ms-3 relative">
                                 <Dropdown>
                                     <Dropdown.Trigger>
                                         <span className="inline-flex rounded-md">
@@ -57,22 +61,53 @@ export default function Index({auth, themas = []}) {
                                     {themas.map((thema, index) => (
                                         <h1 onClick={data.thema} key={index}>{thema.name}</h1>
                                     ))}
-                                        {/* <Dropdown.Link
-                                            href={route("profile.edit")}
-                                        >
-                                            Profile
-                                        </Dropdown.Link>
-                                        <Dropdown.Link
-                                            href={route("logout")}
-                                            method="post"
-                                            as="button"
-                                        >
-                                            Log Out
-                                        </Dropdown.Link> */}
                                     </Dropdown.Content>
                                 </Dropdown>
-                            </div>
+                            </div> */}
                         </div>
+                        <form onSubmit={submit} encType='multipart/form-data'>
+                            <h1>naam van de les</h1>
+                            <input
+                                    id="les_name"
+                                    value={data.les_name}
+                                    placeholder="Naam van de Les"
+                                    className="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm mb-4"
+                                    onChange={(e) =>
+                                        setData("les_name", e.target.value)
+                                    }
+                                />
+                            <input
+                                    id="les_name"
+                                    value={data.les_number}
+                                    placeholder="les nummer"
+                                    className="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm mb-4"
+                                    onChange={(e) =>
+                                        setData("les_number", e.target.value)
+                                    }
+                                />
+                             <input
+                                    id="thema_id"
+                                    value={data.thema_id}
+                                    placeholder="thema id"
+                                    className="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm mb-4"
+                                    onChange={(e) =>
+                                        setData("thema_id", e.target.value)
+                                    }
+                                />
+                            {/* <h1>id van de thema</h1>
+                            <input
+                                    id="thema"
+                                    value={data.thema}
+                                    placeholder="thema waar aan het gelinkt moet zijn"
+                                    className="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm mb-4"
+                                    onChange={(e) =>
+                                        setData("thema", e.target.value)
+                                    }
+                                /> */}
+                            <PrimaryButton disabled={processing}>
+                                    Opslaan
+                                </PrimaryButton>
+                        </form>
             </AuthenticatedLayout>
     );
 }

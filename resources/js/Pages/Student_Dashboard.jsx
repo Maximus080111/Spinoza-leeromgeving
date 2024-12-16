@@ -82,10 +82,10 @@ export default function Student_Dashboard({ auth, themas = [] }) {
                                 key={index}
                                 className="p-6 rounded-lg shadow-2xl min-h-[75vh] cursor-pointer"
                                 style={{ backgroundColor: "#c2d2db" }}
-                                onClick={() =>
-                                    (window.location.href =
-                                        route("lessons_dashboard"))
-                                }
+                                onClick={() => {
+                                    console.log('Navigating to lessons_dashboard with thema_id:', thema.id);
+                                    window.location.href = route("lessons_dashboard", { thema_id: thema.id });
+                                }}
                             >
                                 <div className="relative w-full h-full rounded overflow-hidden shadow-lg">
                                     <img
