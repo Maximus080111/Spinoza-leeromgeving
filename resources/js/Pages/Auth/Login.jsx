@@ -27,10 +27,10 @@ export default function Login({ status, canResetPassword }) {
 
     return (
         <div
-            className="min-h-screen flex items-center justify-center"
+            className="min-h-screen flex items-center justify-center object-cover w-full h-full"
             style={{
                 backgroundColor: "#fdfef8", // Achtergrondkleur
-                backgroundImage: "url('/images/achtergrondje.jpeg')", // Achtergrondafbeelding
+                backgroundImage: "url('/images/background.jpg')", // Achtergrondafbeelding
                 backgroundSize: "cover", // Zorgt ervoor dat de afbeelding de gehele pagina bedekt
                 backgroundPosition: "center", // Zet de afbeelding in het midden
                 minHeight: "100vh", // Zorgt ervoor dat de achtergrond de volledige hoogte van het scherm bedekt
@@ -48,7 +48,7 @@ export default function Login({ status, canResetPassword }) {
                 {/* Left Section: Image */}
                 <div className="hidden md:block md:w-1/2">
                     <img
-                        src="/images/inlogpagina_foto.jpg"
+                        src="/images/welkom.png"
                         alt="Login Illustration"
                         className="object-cover w-full h-full"
                     />
@@ -56,10 +56,10 @@ export default function Login({ status, canResetPassword }) {
 
                 {/* Right Section: Form */}
                 <div className="flex flex-col justify-center p-8 md:w-1/2">
-                    <h2 className="text-2xl font-bold text-black text-center">
+                    <h2 className="text-4xl font-bold text-black text-center">
                         Welkom terug!
                     </h2>
-                    <p className="text-black text-center mb-4">
+                    <p className="text-lg text-black text-center mb-4">
                         Log in op je Google account.
                     </p>
 
@@ -75,7 +75,7 @@ export default function Login({ status, canResetPassword }) {
                         <div className="mt-4 text-center">
                             <a
                                 href={route("auth.google")}
-                                className="inline-flex items-center px-4 py-2 bg-[#7734e7] text-white rounded-lg shadow-md text-sm font-medium hover:bg-indigo-700"
+                                className="inline-flex items-center px-4 py-2 bg-[#2f3e60] text-white rounded-lg shadow-md text-lg font-medium hover:bg-[#8ca9aa]"
                             >
                                 Login met Google
                             </a>
