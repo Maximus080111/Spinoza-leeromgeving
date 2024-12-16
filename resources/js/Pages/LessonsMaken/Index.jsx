@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import Dropdown from '@/Components/Dropdown';
 import { data } from 'autoprefixer';
@@ -11,6 +11,16 @@ export default function Index({auth, themas = []}) {
         les_number: '',
         thema_id: '',
     });
+
+    const [selectedThema, setSelectedThema] = useState('');
+
+    useEffect(() => {
+        // Update the selectedThema when data.thema_id changes
+        const selected = themas.find(thema => thema.id === data.thema_id);
+        if (selected) {
+            setSelectedThema(selected.name);
+        }
+    }, [data.thema_id, themas]);
 
     const submit = (e) => {
         e.preventDefault();
@@ -85,7 +95,7 @@ export default function Index({auth, themas = []}) {
                                         setData("les_number", e.target.value)
                                     }
                                 />
-                             <input
+                             {/* <input
                                     id="thema_id"
                                     value={data.thema_id}
                                     placeholder="thema id"
@@ -93,17 +103,35 @@ export default function Index({auth, themas = []}) {
                                     onChange={(e) =>
                                         setData("thema_id", e.target.value)
                                     }
-                                />
-                            {/* <h1>id van de thema</h1>
+                                /> */}
+<Dropdown>
+                            <Dropdown.Trigger>
                             <input
-                                    id="thema"
-                                    value={data.thema}
-                                    placeholder="thema waar aan het gelinkt moet zijn"
+                                    id="thema_id"
+                                    value={selectedThema}
+                                    placeholder="thema id"
                                     className="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm mb-4"
                                     onChange={(e) =>
-                                        setData("thema", e.target.value)
+                                        setData("thema_id", e.target.value)
                                     }
-                                /> */}
+                                />
+                            </Dropdown.Trigger>
+
+                            <Dropdown.Content>
+                            {themas.map((thema, index) => (
+                            <h1
+                                key={index}
+                                onClick={() => {
+                                    setData('thema_id', thema.id);
+                                    setSelectedThema(thema.name);
+                                }}
+                                className="cursor-pointer"
+                            >
+                                {thema.name}
+                            </h1>
+                        ))}
+                            </Dropdown.Content>
+                        </Dropdown>
                             <PrimaryButton disabled={processing}>
                                     Opslaan
                                 </PrimaryButton>

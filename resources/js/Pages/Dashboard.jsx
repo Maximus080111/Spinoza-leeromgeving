@@ -36,7 +36,7 @@ export default function Dashboard({ auth, student = [] }) {
                                                 <img
                                                     src={
                                                         student.avatar
-                                                            ? `/storage/images/${student.avatar}`
+                                                            ? student.avatar
                                                             : "https://via.placeholder.com/150"
                                                     }
                                                     alt={student.name}
