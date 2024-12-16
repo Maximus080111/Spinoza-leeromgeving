@@ -51,6 +51,23 @@ Route::get('/dashboard', [DashboardController::class, 'index'])
 Route::get('/Vraag', [VraagController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('Vraag');
+
+Route::get('/Vraag1', [VraagController1::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('Vraag1');
+
+Route::get('/Vraag', [VraagController2::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('Vraag');
+
+Route::get('/Vraag3', [VraagController3::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('Vraag3');
+
+Route::get('/Vraag4', [VraagController4::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('Vraag4');
+
 Route::resource('LessonsMaken', LessonsMakenController::class)
     ->only(['index', 'store'])
     ->middleware(['auth', 'verified']);
