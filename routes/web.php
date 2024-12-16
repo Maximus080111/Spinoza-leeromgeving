@@ -9,6 +9,10 @@ use Illuminate\Foundation\Application;
 use App\Http\Controllers\LessonsMakenController;    
 use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\LessonsController;
+use App\Http\Controllers\VraagController1;
+use App\Http\Controllers\VraagController2;
+use App\Http\Controllers\VraagController3;
+use App\Http\Controllers\VraagController4;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -58,7 +62,7 @@ Route::get('/Vraag1', [VraagController1::class, 'index'])
 
 Route::get('/Vraag2', [VraagController2::class, 'index'])
     ->middleware(['auth', 'verified'])
-    ->name('Vraag');
+    ->name('Vraag2');
 
 Route::get('/Vraag3', [VraagController3::class, 'index'])
     ->middleware(['auth', 'verified'])
