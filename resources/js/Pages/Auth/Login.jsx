@@ -75,7 +75,7 @@ export default function Login({ status, canResetPassword }) {
                         <div className="mt-4 text-center">
                             <a
                                 href={route("auth.google")}
-                                className="inline-flex items-center px-4 py-2 bg-[#2f3e60] text-white rounded-lg shadow-md text-sm font-medium hover:bg-[#8ca9aa]"
+                                className="inline-flex items-center px-4 py-2 bg-[#2f3e60] text-white rounded-lg shadow-md text-sm font-medium hover:bg-[#768BBC]"
                             >
                                 Login met Google
                             </a>
