@@ -48,7 +48,7 @@ export default function Login({ status, canResetPassword }) {
                 {/* Left Section: Image */}
                 <div className="hidden md:block md:w-1/2">
                     <img
-                        src="/images/welkom.png"
+                        src="/images/Welkom.png"
                         alt="Login Illustration"
                         className="object-cover w-full h-full"
                     />
