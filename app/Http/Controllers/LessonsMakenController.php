@@ -12,11 +12,15 @@ use Illuminate\Http\RedirectResponse;
 
 class LessonsMakenController extends Controller
 {
-    public function index() : Response
+    public function index(Request $request) : Response
     {
         $themas = Thema::all();
+        $thema_id = $request->query('thema_id');
+        $lessons = Lesson::where('thema_id', $thema_id)->get();
         return Inertia::render('LessonsMaken/Index', [
             'themas' => $themas,
+            'lessons' => $lessons,
+            'thema_id' => $thema_id,
         ]);
     }
 
@@ -34,6 +38,6 @@ class LessonsMakenController extends Controller
             'thema_id' => $request->input('thema_id'),
         ]);
 
-        return redirect(route('LessonsMaken.index'));
+        return redirect()->back();
     }
 }

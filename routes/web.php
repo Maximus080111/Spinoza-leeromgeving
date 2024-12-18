@@ -75,9 +75,12 @@ Route::get('/Vraag4', [VraagController4::class, 'index'])
 Route::get('/Kahoot', [VraagController::class, 'kahoot'])
     ->middleware(['auth', 'verified'])
     ->name('Kahoot');
-Route::resource('LessonsMaken', LessonsMakenController::class)
-    ->only(['index', 'store'])
-    ->middleware(['auth', 'verified']);
+Route::get('LessonsMaken', [LessonsMakenController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('LessonsMaken');
+Route::post('LessonsMaken', [LessonsMakenController::class, 'store'])
+    ->middleware(['auth', 'verified'])
+    ->name('LessonsMakenStore');
 
 // Route::get('/dashboard', function () {
 //     return Inertia::render('Dashboard');

@@ -106,11 +106,12 @@ export default function Index({ auth, themas = [] }) {
                     {/* Thema's tonen */}
                     {sortedThemas.length > 0 ? (
                         sortedThemas.map((thema, index) => (
+                            <a href={route("LessonsMaken", {thema_id: thema.id})}>   
                             <div
                                 key={index}
                                 className="p-4 bg-gray-200 rounded shadow-lg"
                                 style={{ backgroundColor: "#bbc4dd" }}
-                            >
+                            > 
                                 <p className="font-semibold text-xl text-center">
                                     {thema.name}
                                 </p>
@@ -120,6 +121,7 @@ export default function Index({ auth, themas = [] }) {
                                     className="w-full h-40 object-cover rounded mt-2"
                                 />
                             </div>
+                            </a>
                         ))
                     ) : (
                         <p>No thema's found.</p>

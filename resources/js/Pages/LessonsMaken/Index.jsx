@@ -4,14 +4,23 @@ import Dropdown from "@/Components/Dropdown";
 import PrimaryButton from "@/Components/PrimaryButton";
 import { useForm } from "@inertiajs/react";
 
-export default function Index({ auth, themas = [] }) {
+export default function Index({ auth, themas = [], lessons = [], thema_id }) {
+        useEffect(() => {
+            console.log('thema_id:', thema_id)
+        }, [thema_id]);
+
     const { data, setData, post, processing, reset, errors } = useForm({
         les_name: "",
         les_number: "",
-        thema_id: "",
+        thema_id: thema_id,
     });
-
-    const [selectedThema, setSelectedThema] = useState("");
+    const [selectedThema, setSelectedThema] = useState(
+        thema_id
+            ? themas.find((thema) => thema.id === thema_id)?.name || ""
+            : themas.length > 0
+            ? themas[0].name
+            : ""
+    );
     const [showSuccessMessage, setShowSuccessMessage] = useState(false); // Succesmelding state
     const [successThemaId, setSuccessThemaId] = useState(null); // Geselecteerde thema_id voor succesmelding
 
@@ -30,7 +39,7 @@ export default function Index({ auth, themas = [] }) {
             les_number: parseInt(data.les_number, 10),
             thema_id: parseInt(data.thema_id, 10),
         };
-        post(route("LessonsMaken.store"), {
+        post(route("LessonsMakenStore"), {
             onSuccess: () => {
                 reset();
                 setShowSuccessMessage(true); // Toon succesmelding
@@ -84,7 +93,7 @@ export default function Index({ auth, themas = [] }) {
                     />
                 </div>
 
-                <div
+                {/* <div
                     className="p-4 rounded mb-4"
                     style={{ backgroundColor: "#bbc4dd" }}
                 >
@@ -115,22 +124,28 @@ export default function Index({ auth, themas = [] }) {
                             ))}
                         </Dropdown.Content>
                     </Dropdown>
-                </div>
-
-                {/* Verificatie Melding */}
-                {showSuccessMessage && (
-                    <div className="mt-4 bg-green-100 border-l-4 border-green-500 text-green-700 p-4 rounded shadow-lg">
-                        <p>
-                            Les is aangemaakt in thema:{" "}
-                            <strong>{successThemaId}</strong>
-                        </p>
-                    </div>
-                )}
+                </div> */}
 
                 <div className="text-right">
                     <PrimaryButton disabled={processing}>Opslaan</PrimaryButton>
                 </div>
             </form>
+            {lessons.length > 0 ? (
+                lessons.map((lesson, index) => (
+                    <div
+                        key={index}
+                        className="p-4 bg-gray-200 rounded shadow-lg"
+                        style={{ backgroundColor: "#bbc4dd" }}
+                    >
+                        <h1 className="font-semibold text-lg text-gray-800">
+                            {lesson.les_name}
+                        </h1>
+                        <p className="text-gray-700">Lesnummer: {lesson.les_number}</p>
+                    </div>
+                ))
+            ) : (
+                <p>no Thema's found</p>
+            )}
         </AuthenticatedLayout>
     );
 }
