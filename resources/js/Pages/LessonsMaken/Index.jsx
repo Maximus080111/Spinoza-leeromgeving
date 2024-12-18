@@ -1,22 +1,23 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import Dropdown from '@/Components/Dropdown';
-import { data } from 'autoprefixer';
-import PrimaryButton from '@/Components/PrimaryButton';
-import { useForm } from '@inertiajs/react';
+import Dropdown from "@/Components/Dropdown";
+import PrimaryButton from "@/Components/PrimaryButton";
+import { useForm } from "@inertiajs/react";
 
-export default function Index({auth, themas = []}) {
+export default function Index({ auth, themas = [] }) {
     const { data, setData, post, processing, reset, errors } = useForm({
-        les_name: '',
-        les_number: '',
-        thema_id: '',
+        les_name: "",
+        les_number: "",
+        thema_id: "",
     });
 
-    const [selectedThema, setSelectedThema] = useState('');
+    const [selectedThema, setSelectedThema] = useState("");
+    const [showSuccessMessage, setShowSuccessMessage] = useState(false); // Succesmelding state
+    const [successThemaId, setSuccessThemaId] = useState(null); // Geselecteerde thema_id voor succesmelding
 
     useEffect(() => {
-        // Update the selectedThema when data.thema_id changes
-        const selected = themas.find(thema => thema.id === data.thema_id);
+        // Update het geselecteerde thema wanneer data.thema_id verandert
+        const selected = themas.find((thema) => thema.id === data.thema_id);
         if (selected) {
             setSelectedThema(selected.name);
         }
@@ -29,7 +30,14 @@ export default function Index({auth, themas = []}) {
             les_number: parseInt(data.les_number, 10),
             thema_id: parseInt(data.thema_id, 10),
         };
-        post(route('LessonsMaken.store'), { onSuccess: () => reset() });
+        post(route("LessonsMaken.store"), {
+            onSuccess: () => {
+                reset();
+                setShowSuccessMessage(true); // Toon succesmelding
+                setSuccessThemaId(formData.thema_id); // Sla thema_id op voor melding
+                setTimeout(() => setShowSuccessMessage(false), 3000); // Verberg na 3 seconden
+            },
+        });
     };
 
     return (
@@ -39,103 +47,90 @@ export default function Index({auth, themas = []}) {
                 <h2 className="font-semibold text-xl text-gray-800 leading-tight">
                     Lessen Maken
                 </h2>
-            }>
-                <div className="hidden sm:flex sm:items-center sm:ms-20">
-                            {/* <div className="ms-3 relative">
-                                <Dropdown>
-                                    <Dropdown.Trigger>
-                                        <span className="inline-flex rounded-md">
-                                            <button
-                                                type="button"
-                                                className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
-                                            >
-                                                Alle themas
+            }
+        >
+            {/* Formulier */}
+            <form
+                onSubmit={submit}
+                encType="multipart/form-data"
+                className="p-6 max-w-3xl mx-auto"
+            >
+                {/* Wrapper voor achtergrondvlak */}
+                <div
+                    className="p-4 rounded mb-4"
+                    style={{ backgroundColor: "#bbc4dd" }}
+                >
+                    <h1 className="mb-2 font-semibold">Naam van de les</h1>
+                    <input
+                        id="les_name"
+                        value={data.les_name}
+                        placeholder="Naam van de Les"
+                        className="block w-full bg-white border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm p-2"
+                        onChange={(e) => setData("les_name", e.target.value)}
+                    />
+                </div>
 
-                                                <svg
-                                                    className="ms-2 -me-0.5 h-4 w-4"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    viewBox="0 0 20 20"
-                                                    fill="currentColor"
-                                                >
-                                                    <path
-                                                        fillRule="evenodd"
-                                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                                        clipRule="evenodd"
-                                                    />
-                                                </svg>
-                                            </button>
-                                        </span>
-                                    </Dropdown.Trigger>
+                <div
+                    className="p-4 rounded mb-4"
+                    style={{ backgroundColor: "#bbc4dd" }}
+                >
+                    <h1 className="mb-2 font-semibold">Les Nummer</h1>
+                    <input
+                        id="les_number"
+                        value={data.les_number}
+                        placeholder="Les Nummer"
+                        className="block w-full bg-white border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm p-2"
+                        onChange={(e) => setData("les_number", e.target.value)}
+                    />
+                </div>
 
-                                    <Dropdown.Content>
-                                    {themas.map((thema, index) => (
-                                        <h1 onClick={data.thema} key={index}>{thema.name}</h1>
-                                    ))}
-                                    </Dropdown.Content>
-                                </Dropdown>
-                            </div> */}
-                        </div>
-                        <form onSubmit={submit} encType='multipart/form-data'>
-                            <h1>naam van de les</h1>
+                <div
+                    className="p-4 rounded mb-4"
+                    style={{ backgroundColor: "#bbc4dd" }}
+                >
+                    <h1 className="mb-2 font-semibold">Thema</h1>
+                    <Dropdown>
+                        <Dropdown.Trigger>
                             <input
-                                    id="les_name"
-                                    value={data.les_name}
-                                    placeholder="Naam van de Les"
-                                    className="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm mb-4"
-                                    onChange={(e) =>
-                                        setData("les_name", e.target.value)
-                                    }
-                                />
-                            <input
-                                    id="les_name"
-                                    value={data.les_number}
-                                    placeholder="les nummer"
-                                    className="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm mb-4"
-                                    onChange={(e) =>
-                                        setData("les_number", e.target.value)
-                                    }
-                                />
-                             {/* <input
-                                    id="thema_id"
-                                    value={data.thema_id}
-                                    placeholder="thema id"
-                                    className="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm mb-4"
-                                    onChange={(e) =>
-                                        setData("thema_id", e.target.value)
-                                    }
-                                /> */}
-<Dropdown>
-                            <Dropdown.Trigger>
-                            <input
-                                    id="thema_id"
-                                    value={selectedThema}
-                                    placeholder="thema id"
-                                    className="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm mb-4"
-                                    onChange={(e) =>
-                                        setData("thema_id", e.target.value)
-                                    }
-                                />
-                            </Dropdown.Trigger>
+                                id="thema_id"
+                                value={selectedThema}
+                                placeholder="Selecteer een Thema"
+                                readOnly
+                                className="block w-full bg-white border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm p-2 cursor-pointer"
+                            />
+                        </Dropdown.Trigger>
 
-                            <Dropdown.Content>
+                        <Dropdown.Content>
                             {themas.map((thema, index) => (
-                            <h1
-                                key={index}
-                                onClick={() => {
-                                    setData('thema_id', thema.id);
-                                    setSelectedThema(thema.name);
-                                }}
-                                className="cursor-pointer"
-                            >
-                                {thema.name}
-                            </h1>
-                        ))}
-                            </Dropdown.Content>
-                        </Dropdown>
-                            <PrimaryButton disabled={processing}>
-                                    Opslaan
-                                </PrimaryButton>
-                        </form>
-            </AuthenticatedLayout>
+                                <h1
+                                    key={index}
+                                    onClick={() => {
+                                        setData("thema_id", thema.id);
+                                        setSelectedThema(thema.name);
+                                    }}
+                                    className="cursor-pointer px-4 py-2 hover:bg-gray-200"
+                                >
+                                    {thema.name}
+                                </h1>
+                            ))}
+                        </Dropdown.Content>
+                    </Dropdown>
+                </div>
+
+                {/* Verificatie Melding */}
+                {showSuccessMessage && (
+                    <div className="mt-4 bg-green-100 border-l-4 border-green-500 text-green-700 p-4 rounded shadow-lg">
+                        <p>
+                            Les is aangemaakt in thema:{" "}
+                            <strong>{successThemaId}</strong>
+                        </p>
+                    </div>
+                )}
+
+                <div className="text-right">
+                    <PrimaryButton disabled={processing}>Opslaan</PrimaryButton>
+                </div>
+            </form>
+        </AuthenticatedLayout>
     );
 }

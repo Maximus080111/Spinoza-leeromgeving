@@ -29,7 +29,7 @@ export default function Authenticated({ user, header, children }) {
                                         alt="google_img"
                                         className="w-10 h-10 rounded-full"
                                     />
-                                    <span className="ml-3 text-gray-800 text-xl">
+                                    <span className="ml-3 text-gray-800 text-sm">
                                         {user.name}
                                     </span>
                                 </span>
@@ -94,7 +94,14 @@ export default function Authenticated({ user, header, children }) {
                         active={route().current("Vraag")}
                         className="font-roboto block pt-6 py-8 px-5 rounded-lg text-3xl text-gray-800 transition duration-200 ease-in-out hover:bg-[#D7DBEA] hover:text-gray-900"
                     >
-                        Vraag
+                        Quiz vraag
+                    </NavLink>
+                    <NavLink
+                        href={route("Vraag1")}
+                        active={route().current("Vraag1")}
+                        className="font-roboto block pt-6 py-8 px-5 rounded-lg text-3xl text-gray-800 transition duration-200 ease-in-out hover:bg-[#D7DBEA] hover:text-gray-900"
+                    >
+                        Sleep vraag
                     </NavLink>
                     <NavLink
                         href={route("LessonsMaken.index")}
