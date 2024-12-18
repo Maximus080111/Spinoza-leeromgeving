@@ -7,11 +7,13 @@ import { useForm } from "@inertiajs/react";
 export default function Index({ auth, themas = [], lessons = [], thema_id }) {
         useEffect(() => {
             console.log('thema_id:', thema_id)
+            console.log('lessons:', lessons)
+            console.log('lessons higest les_number', lessons[lessons.length - 1].les_number)
         }, [thema_id]);
 
     const { data, setData, post, processing, reset, errors } = useForm({
         les_name: "",
-        les_number: "",
+        les_number: lessons.length > 0 ? lessons[lessons.length - 1].les_number + 1 : 1,
         thema_id: thema_id,
     });
     const [selectedThema, setSelectedThema] = useState(
@@ -78,54 +80,6 @@ export default function Index({ auth, themas = [], lessons = [], thema_id }) {
                         onChange={(e) => setData("les_name", e.target.value)}
                     />
                 </div>
-
-                <div
-                    className="p-4 rounded mb-4"
-                    style={{ backgroundColor: "#bbc4dd" }}
-                >
-                    <h1 className="mb-2 font-semibold">Les Nummer</h1>
-                    <input
-                        id="les_number"
-                        value={data.les_number}
-                        placeholder="Les Nummer"
-                        className="block w-full bg-white border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm p-2"
-                        onChange={(e) => setData("les_number", e.target.value)}
-                    />
-                </div>
-
-                {/* <div
-                    className="p-4 rounded mb-4"
-                    style={{ backgroundColor: "#bbc4dd" }}
-                >
-                    <h1 className="mb-2 font-semibold">Thema</h1>
-                    <Dropdown>
-                        <Dropdown.Trigger>
-                            <input
-                                id="thema_id"
-                                value={selectedThema}
-                                placeholder="Selecteer een Thema"
-                                readOnly
-                                className="block w-full bg-white border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm p-2 cursor-pointer"
-                            />
-                        </Dropdown.Trigger>
-
-                        <Dropdown.Content>
-                            {themas.map((thema, index) => (
-                                <h1
-                                    key={index}
-                                    onClick={() => {
-                                        setData("thema_id", thema.id);
-                                        setSelectedThema(thema.name);
-                                    }}
-                                    className="cursor-pointer px-4 py-2 hover:bg-gray-200"
-                                >
-                                    {thema.name}
-                                </h1>
-                            ))}
-                        </Dropdown.Content>
-                    </Dropdown>
-                </div> */}
-
                 <div className="text-right">
                     <PrimaryButton disabled={processing}>Opslaan</PrimaryButton>
                 </div>
