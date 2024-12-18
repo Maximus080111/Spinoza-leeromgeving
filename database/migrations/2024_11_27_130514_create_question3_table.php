@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('image');
             $table->string('answer');
-            $table->foreignId('lesson_id')->references('id')->on('lesson')->onDelete('cascade');
+            // $table->foreignId('lesson_id')->references('id')->on('lesson')->onDelete('cascade');
             $table->timestamps();
         });
     }

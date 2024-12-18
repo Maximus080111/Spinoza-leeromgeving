@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('question4', function (Blueprint $table) {
             $table->id();
             $table->string('sentence');
-            $table->foreignId('lesson_id')->references('id')->on('lesson')->onDelete('cascade');
+            // $table->foreignId('lesson_id')->references('id')->on('lesson')->onDelete('cascade');
             $table->timestamps();
         });
     }

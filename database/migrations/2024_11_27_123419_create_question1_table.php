@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('question');
             $table->string('correct');
             $table->string('anwsers');
-            $table->foreignId('lesson_id')->references('id')->on('lesson')->onDelete('cascade');
+            // $table->foreignId('lesson_id')->references('id')->on('lesson')->onDelete('cascade');
             $table->timestamps();
         });
     }
