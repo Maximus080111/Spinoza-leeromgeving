@@ -11,7 +11,7 @@ export default function Authenticated({ user, header, children }) {
             {/* Sidebar Navigatie with right rounded edges and shadow */}
             <nav
                 style={{ backgroundColor: "#92A2C9" }}
-                className=" w-80 max-h-screen mt-4 mb-4  border-r border-gray-100 flex flex-col ml-4 rounded-r-xl rounded-l-xl shadow-2xl drop-shadow-2xl"
+                className=" w-60 max-h-screen mt-4 mb-4  border-r border-gray-100 flex flex-col ml-4 rounded-r-xl rounded-l-xl shadow-2xl drop-shadow-2xl"
             >
                 {/* Navigatie Links */}
                 <div className="flex-1 p-6 flex flex-col space-y-4">
@@ -116,7 +116,7 @@ export default function Authenticated({ user, header, children }) {
                     </header>
                 )}
 
-                <main className="p-8">{children}</main>
+                <main className="p-6">{children}</main>
             </div>
         </div>
     );
