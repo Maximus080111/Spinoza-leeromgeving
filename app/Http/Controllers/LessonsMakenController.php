@@ -30,12 +30,14 @@ class LessonsMakenController extends Controller
             'les_name' => 'required|string|max:255',
             'les_number' => 'required|integer',
             'thema_id' => 'required|integer',
+            'les_type' => 'required|integer',
         ]);
 
         $lesson = Lesson::create([
             'les_name' => $request->input('les_name'),
             'les_number' => $request->input('les_number'),
             'thema_id' => $request->input('thema_id'),
+            'les_type' => $request->input('les_type'),
         ]);
 
         return redirect()->back();
