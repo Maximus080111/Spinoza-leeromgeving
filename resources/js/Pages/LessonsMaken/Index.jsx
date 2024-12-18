@@ -1,41 +1,54 @@
-import React, { useState, useEffect } from "react";
+import React, {useState} from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import Dropdown from "@/Components/Dropdown";
 import PrimaryButton from "@/Components/PrimaryButton";
 import { useForm } from "@inertiajs/react";
+import Dropdown from "@/Components/Dropdown";
 
-export default function Index({ auth, themas = [] }) {
+export default function Index({ auth, lessons = [], thema_id }) {
     const { data, setData, post, processing, reset, errors } = useForm({
         les_name: "",
-        les_number: "",
-        thema_id: "",
+        les_number: lessons.length > 0 ? lessons[lessons.length - 1].les_number + 1 : 1,
+        thema_id: thema_id,
+        les_type: "",
     });
 
-    const [selectedThema, setSelectedThema] = useState("");
-    const [showSuccessMessage, setShowSuccessMessage] = useState(false); // Succesmelding state
-    const [successThemaId, setSuccessThemaId] = useState(null); // Geselecteerde thema_id voor succesmelding
+    const [selectedDropdownValue, setSelectedDropdownValue] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
 
-    useEffect(() => {
-        // Update het geselecteerde thema wanneer data.thema_id verandert
-        const selected = themas.find((thema) => thema.id === data.thema_id);
-        if (selected) {
-            setSelectedThema(selected.name);
+    const handleDropdownSelect = (value) => {
+        let displayText;
+        switch (value) {
+            case 1:
+            displayText = "Kahoot";
+            break;
+            case 2:
+            displayText = "connect the words";
+            break;
+            case 3:
+            displayText = "spelling";
+            break;
+            default:
+            displayText = "onbekend les type";
         }
-    }, [data.thema_id, themas]);
+        setSelectedDropdownValue(displayText);
+        setData("les_type", parseInt(value, 10)); // Update the useForm state
+    };
 
     const submit = (e) => {
         e.preventDefault();
-        const formData = {
-            ...data,
-            les_number: parseInt(data.les_number, 10),
-            thema_id: parseInt(data.thema_id, 10),
-        };
-        post(route("LessonsMaken.store"), {
+        if (!data.les_name) {
+            setErrorMessage("Please enter a name for the lesson.");
+            return;
+        }
+        if (!data.les_type) {
+            setErrorMessage("Please select a lesson type.");
+            return;
+        }
+        setErrorMessage(""); 
+        post(route("LessonsMakenStore"), {
             onSuccess: () => {
                 reset();
-                setShowSuccessMessage(true); // Toon succesmelding
-                setSuccessThemaId(formData.thema_id); // Sla thema_id op voor melding
-                setTimeout(() => setShowSuccessMessage(false), 3000); // Verberg na 3 seconden
+                setSelectedDropdownValue("");
             },
         });
     };
@@ -49,13 +62,16 @@ export default function Index({ auth, themas = [] }) {
                 </h2>
             }
         >
-            {/* Formulier */}
             <form
                 onSubmit={submit}
                 encType="multipart/form-data"
                 className="p-6 max-w-3xl mx-auto"
             >
-                {/* Wrapper voor achtergrondvlak */}
+                {errorMessage && (
+                    <div className="mb-4 text-red-600">
+                        {errorMessage}
+                    </div>
+                )}
                 <div
                     className="p-4 rounded mb-4"
                     style={{ backgroundColor: "#bbc4dd" }}
@@ -69,68 +85,48 @@ export default function Index({ auth, themas = [] }) {
                         onChange={(e) => setData("les_name", e.target.value)}
                     />
                 </div>
-
                 <div
                     className="p-4 rounded mb-4"
                     style={{ backgroundColor: "#bbc4dd" }}
                 >
-                    <h1 className="mb-2 font-semibold">Les Nummer</h1>
-                    <input
-                        id="les_number"
-                        value={data.les_number}
-                        placeholder="Les Nummer"
-                        className="block w-full bg-white border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm p-2"
-                        onChange={(e) => setData("les_number", e.target.value)}
-                    />
-                </div>
-
-                <div
-                    className="p-4 rounded mb-4"
-                    style={{ backgroundColor: "#bbc4dd" }}
-                >
-                    <h1 className="mb-2 font-semibold">Thema</h1>
+                    <h1 className="mb-2 font-semibold">type les</h1>
+                    <h2 className="block w-full bg-white border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm p-2">{selectedDropdownValue || "Type les"}</h2>
                     <Dropdown>
                         <Dropdown.Trigger>
-                            <input
-                                id="thema_id"
-                                value={selectedThema}
-                                placeholder="Selecteer een Thema"
-                                readOnly
-                                className="block w-full bg-white border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm p-2 cursor-pointer"
-                            />
+                            <button type="button">
+                                selecteer les type
+                            </button>
                         </Dropdown.Trigger>
-
                         <Dropdown.Content>
-                            {themas.map((thema, index) => (
-                                <h1
-                                    key={index}
-                                    onClick={() => {
-                                        setData("thema_id", thema.id);
-                                        setSelectedThema(thema.name);
-                                    }}
-                                    className="cursor-pointer px-4 py-2 hover:bg-gray-200"
-                                >
-                                    {thema.name}
-                                </h1>
-                            ))}
+                            <ul>
+                                <li onClick={() => handleDropdownSelect(1)}>Kahhoot</li>
+                                <li onClick={() => handleDropdownSelect(2)}>Connect the words</li>
+                                <li onClick={() => handleDropdownSelect(3)}>Spelling</li>
+                            </ul>
                         </Dropdown.Content>
                     </Dropdown>
                 </div>
-
-                {/* Verificatie Melding */}
-                {showSuccessMessage && (
-                    <div className="mt-4 bg-green-100 border-l-4 border-green-500 text-green-700 p-4 rounded shadow-lg">
-                        <p>
-                            Les is aangemaakt in thema:{" "}
-                            <strong>{successThemaId}</strong>
-                        </p>
-                    </div>
-                )}
-
                 <div className="text-right">
                     <PrimaryButton disabled={processing}>Opslaan</PrimaryButton>
                 </div>
             </form>
+            {lessons.length > 0 ? (
+                lessons.map((lesson, index) => (
+                    <div
+                        key={index}
+                        className="p-4 bg-gray-200 rounded shadow-lg"
+                        style={{ backgroundColor: "#bbc4dd" }}
+                    >
+                        <h1 className="font-semibold text-lg text-gray-800">
+                            {lesson.les_name}
+                        </h1>
+                        <p className="text-gray-700">Lesnummer: {lesson.les_number}</p>
+                        <p className="text-gray-700">Les type: {lesson.les_type}</p>
+                    </div>
+                ))
+            ) : (
+                <p>Er zijn geen lessen gevonden</p>
+            )}
         </AuthenticatedLayout>
     );
 }
