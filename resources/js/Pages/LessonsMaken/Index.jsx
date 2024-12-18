@@ -1,52 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import Dropdown from "@/Components/Dropdown";
 import PrimaryButton from "@/Components/PrimaryButton";
 import { useForm } from "@inertiajs/react";
 
-export default function Index({ auth, themas = [], lessons = [], thema_id }) {
-        useEffect(() => {
-            console.log('thema_id:', thema_id)
-            console.log('lessons:', lessons)
-            console.log('lessons higest les_number', lessons[lessons.length - 1].les_number)
-        }, [thema_id]);
-
+export default function Index({ auth, lessons = [], thema_id }) {
     const { data, setData, post, processing, reset, errors } = useForm({
         les_name: "",
         les_number: lessons.length > 0 ? lessons[lessons.length - 1].les_number + 1 : 1,
         thema_id: thema_id,
     });
-    const [selectedThema, setSelectedThema] = useState(
-        thema_id
-            ? themas.find((thema) => thema.id === thema_id)?.name || ""
-            : themas.length > 0
-            ? themas[0].name
-            : ""
-    );
-    const [showSuccessMessage, setShowSuccessMessage] = useState(false); // Succesmelding state
-    const [successThemaId, setSuccessThemaId] = useState(null); // Geselecteerde thema_id voor succesmelding
-
-    useEffect(() => {
-        // Update het geselecteerde thema wanneer data.thema_id verandert
-        const selected = themas.find((thema) => thema.id === data.thema_id);
-        if (selected) {
-            setSelectedThema(selected.name);
-        }
-    }, [data.thema_id, themas]);
 
     const submit = (e) => {
         e.preventDefault();
-        const formData = {
-            ...data,
-            les_number: parseInt(data.les_number, 10),
-            thema_id: parseInt(data.thema_id, 10),
-        };
         post(route("LessonsMakenStore"), {
             onSuccess: () => {
                 reset();
-                setShowSuccessMessage(true); // Toon succesmelding
-                setSuccessThemaId(formData.thema_id); // Sla thema_id op voor melding
-                setTimeout(() => setShowSuccessMessage(false), 3000); // Verberg na 3 seconden
             },
         });
     };
@@ -60,13 +28,11 @@ export default function Index({ auth, themas = [], lessons = [], thema_id }) {
                 </h2>
             }
         >
-            {/* Formulier */}
             <form
                 onSubmit={submit}
                 encType="multipart/form-data"
                 className="p-6 max-w-3xl mx-auto"
             >
-                {/* Wrapper voor achtergrondvlak */}
                 <div
                     className="p-4 rounded mb-4"
                     style={{ backgroundColor: "#bbc4dd" }}
@@ -98,7 +64,7 @@ export default function Index({ auth, themas = [], lessons = [], thema_id }) {
                     </div>
                 ))
             ) : (
-                <p>no Thema's found</p>
+                <p>Er zijn geen lessen gevonden</p>
             )}
         </AuthenticatedLayout>
     );
