@@ -29,7 +29,7 @@ export default function Authenticated({ user, header, children }) {
                                         alt="google_img"
                                         className="w-10 h-10 rounded-full"
                                     />
-                                    <span className="ml-3 text-gray-800 text-xl">
+                                    <span className="ml-3 text-gray-800 text-sm">
                                         {user.name}
                                     </span>
                                 </span>
