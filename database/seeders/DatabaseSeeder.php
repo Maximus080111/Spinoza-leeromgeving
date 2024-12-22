@@ -34,13 +34,13 @@ class DatabaseSeeder extends Seeder
 
         \App\Models\Question1::factory()->create([
             'question' => 'In welk land zijn we nu?',
-            'anwsers' => 'Nederland, Duitsland, Spanje, Ierland',
+            'answers' => 'Nederland, Duitsland, Spanje, Ierland',
             'correct' => 'Nederland'
         ]);
 
         \App\Models\Question1::factory()->create([
             'question' => 'In welk land zijn we straks?',
-            'anwsers' => 'Nederland, Duitsland, Spanje, Ierland',
+            'answers' => 'Nederland, Duitsland, Spanje, Ierland',
             'correct' => 'Duitsland'
         ]);
     }
