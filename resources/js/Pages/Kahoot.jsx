@@ -3,7 +3,7 @@ import { useState } from "react";
 export default function Vraag1({ Question1 = [] }) {
     const vragen = Question1.map((Question1) => ({
         vraag: Question1.question,
-        opties: Question1.anwsers.split(", "),
+        opties: Question1.answers.split(", "),
         antwoord: Question1.correct,
     }));
 

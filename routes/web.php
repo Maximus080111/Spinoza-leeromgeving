@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\StudentDashboardController;
 use App\Http\Controllers\VraagController;
 use App\Http\Controllers\ThemaController;
+use App\Http\Controllers\QuestionsMakenController;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\LessonsMakenController;    
 use App\Http\Controllers\GoogleController;
@@ -81,6 +82,10 @@ Route::get('LessonsMaken', [LessonsMakenController::class, 'index'])
 Route::post('LessonsMaken', [LessonsMakenController::class, 'store'])
     ->middleware(['auth', 'verified'])
     ->name('LessonsMakenStore');
+
+Route::resource('QuestionsMaken', QuestionsMakenController::class)
+    ->only(['index', 'store'])
+    ->middleware(['auth', 'verified']);
 
 // Route::get('/dashboard', function () {
 //     return Inertia::render('Dashboard');
