@@ -18,7 +18,7 @@ class Question1 extends Model
 
     protected $fillable = [
         'question',
-        'answers',
-        'correct'
+        'correct',
+        'answers'
     ];
 }

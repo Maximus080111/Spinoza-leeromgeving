@@ -19,20 +19,21 @@ class QuestionsMakenController extends Controller
         ]);
     }
 
-    public function store(Request $request): RedirectResponse
-    {
+    public function store(Request $request) {
         $validated = $request->validate([
             'question' => 'required|string|max:255',
+            'answers' => 'required|array|min:2',
+            'answers.*' => 'string|max:255',
             'correct' => 'required|string|max:255',
-            'answers' => 'required|string|max:255',
         ]);
-
-        $question1 = Question1::create([
-            'question' => $request->input('question'),
-            'correct' => $request->input('correct'),
-            'answers' => $request->input('answers'),
+    
+        Question1::create([
+            'question' => $validated['question'],
+            'answers' => json_encode($validated['answers']),
+            'correct' => $validated['correct'],
         ]);
-
-        return redirect(route('QuestionsMaken.index'));
+    
+        return redirect()->route('QuestionsMaken.index')->with('success', 'Vraag succesvol toegevoegd.');
     }
+    
 }
