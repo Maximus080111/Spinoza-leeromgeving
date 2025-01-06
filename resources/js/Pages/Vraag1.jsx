@@ -6,7 +6,32 @@ export default function SleepSpel() {
     const [feedback, setFeedback] = useState({});
     const [reset, setReset] = useState(false);
 
-    const woorden = ["KAT", "HOND", "AUTO", "BOOM"];
+    // const { data, setData, post, processing, reset, errors } = useForm({
+    //         question: '',
+    //         woorden: ['', '', '', ''],
+    //         image1: '',
+    //     });
+
+    //     const woorden = ["KAT", "HOND", "AUTO", "BOOM"];
+
+    //     const plaatjes = [
+    //         { id: 1, woord: "KAT", image1: "/images/kat.jpg" },
+    //         { id: 2, woord: "HOND", image: "/images/hond.jpg" },
+    //         { id: 3, woord: "AUTO", image: "/images/auto.jpg" },
+    //         { id: 4, woord: "BOOM", image: "/images/boom.jpg" },
+    //     ];
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+        const woorden = ["KAT", "HOND", "AUTO", "BOOM"];
 
     const plaatjes = [
         { id: 1, woord: "KAT", image: "/images/kat.jpg" },

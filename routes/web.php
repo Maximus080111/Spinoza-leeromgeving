@@ -7,7 +7,8 @@ use App\Http\Controllers\VraagController;
 use App\Http\Controllers\ThemaController;
 use App\Http\Controllers\QuestionsMakenController;
 use Illuminate\Foundation\Application;
-use App\Http\Controllers\LessonsMakenController;    
+use App\Http\Controllers\LessonsMakenController;  
+use App\Http\Controllers\QuestionMaken3Controller;   
 use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\LessonsController;
 use App\Http\Controllers\VraagController1;
@@ -79,11 +80,16 @@ Route::get('/Kahoot', [VraagController::class, 'kahoot'])
 Route::get('LessonsMaken', [LessonsMakenController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('LessonsMaken');
+
 Route::post('LessonsMaken', [LessonsMakenController::class, 'store'])
     ->middleware(['auth', 'verified'])
     ->name('LessonsMakenStore');
 
 Route::resource('QuestionsMaken', QuestionsMakenController::class)
+    ->only(['index', 'store'])
+    ->middleware(['auth', 'verified']);
+
+Route::resource('QuestionMaken3', QuestionMaken3Controller::class)
     ->only(['index', 'store'])
     ->middleware(['auth', 'verified']);
 
