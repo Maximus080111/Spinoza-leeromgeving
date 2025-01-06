@@ -32,7 +32,7 @@ export default function Index({ auth }) {
         }
 
         console.log("Formuliergegevens:", data); 
-        post(route('QuestionsMaken.store'), {
+        post(route('QuestionsMaken1.store'), {
             onError: (errors) => console.log(errors),
             onSuccess: () => reset(),
         });

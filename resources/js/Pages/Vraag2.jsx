@@ -2,20 +2,27 @@ import React, { useState, useEffect } from "react";
 import { DndProvider, useDrag, useDrop } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
-export default function HusselSpel() {
-    const correcteZin = ["Ik", "loop", "naar", "school"]; // Correcte volgorde van woorden
+export default function HusselSpel({ Question2 = "" }) {
+    const correcteZin = Question2 ? Question2.split(" ") : []; // De zin wordt gesplitst op spaties
     const [feedback, setFeedback] = useState({});
     const [reset, setReset] = useState(false);
-    const [woorden, setWoorden] = useState([]);
+    const [woorden, setWoorden] = useState([]);  // De woorden uit de zin
     const [dropzones, setDropzones] = useState(Array(correcteZin.length).fill(null));
     const [clickedWords, setClickedWords] = useState(Array(correcteZin.length).fill(false));
 
     useEffect(() => {
-        // Hussel de woorden bij de eerste render of bij reset
-        const shuffle = (array) => array.sort(() => Math.random() - 0.5);
-        setWoorden(shuffle([...correcteZin]));
-    }, [reset]);
-   
+        if (correcteZin.length > 0) {
+            // Hussel de woorden bij de eerste render of bij reset
+            const shuffle = (array) => array.sort(() => Math.random() - 0.5);
+            setWoorden(shuffle([...correcteZin]));
+        }
+    }, [reset, correcteZin]);
+
+    useEffect(() => {
+        // Log de correcte zin naar de console
+        console.log("Correcte zin:", correcteZin.join(" "));
+    }, [correcteZin]);
+
     const geefFeedback = () => {
         const nieuweFeedback = dropzones.map((woord, index) => {
             return woord === correcteZin[index]; // Vergelijk het woord met de correcte zin
@@ -37,11 +44,8 @@ export default function HusselSpel() {
         setReset(!reset);
     };
 
-    
-
-
-       // Klikbare woord-component
-       const Woord = ({ woord, index }) => {
+    // Klikbare woord-component
+    const Woord = ({ woord, index }) => {
         const [isHovered, setIsHovered] = useState(false);
 
         const handleClick = () => {
@@ -60,8 +64,7 @@ export default function HusselSpel() {
                 const nieuweDropzones = [...dropzones];
                 nieuweDropzones[legeIndex] = woord; // Plaats het woord in de lege dropzone
                 setDropzones(nieuweDropzones);
-
-            };
+            }
         };
 
         const handleMouseEnter = () => {
@@ -107,16 +110,15 @@ export default function HusselSpel() {
         );
     };
 
-
-     // Dropzone component
-     const Dropzone = ({ index }) => {
+    // Dropzone component
+    const Dropzone = ({ index }) => {
         const isFeedbackGiven = feedback[index] !== undefined;
         const borderColor =
-        feedback[index] === false
-            ? "#ff0000" // Rood voor fout
-            : feedback[index] === true
-            ? "#00cc00" // Groen voor correct
-            : "transparent"; // Geen border als er geen feedback is
+            feedback[index] === false
+                ? "#ff0000" // Rood voor fout
+                : feedback[index] === true
+                ? "#00cc00" // Groen voor correct
+                : "transparent"; // Geen border als er geen feedback is
         
         return (
             <div
@@ -145,7 +147,6 @@ export default function HusselSpel() {
         );
     };
 
-
     return (
         <DndProvider backend={HTML5Backend}>
             <div
@@ -162,58 +163,57 @@ export default function HusselSpel() {
             >
                 <h1>Husselspel</h1>
                 <p>Zet de woorden in de juiste volgorde!</p>
-                
-        
-            {/* Flex-container voor 2 kolommen */}
-            <div
-                style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                    alignItems: "flex-start",
-                    width: "80%", // Zorg voor responsieve breedte
-                    marginTop: "20px",
-                    gap: "20px", // Voeg ruimte toe tussen de kolommen
-                }}
-            >
-                {/* Linker kolom: Dropzones */}
-                <div
-                    style={{
-                        flex: 1, // Zorg dat de kolom proportioneel ruimte neemt
-                        display: "flex",
-                        alignItems: "center", // Centreer de dropzones horizontaal
-                        justifyContent: "center", // Centreer de dropzones verticaal
-                        backgroundColor: "#f0f4fa", // Optionele styling
-                        borderRadius: "8px",
-                        padding: "20px",
-                        minHeight: "300px", // Zorg dat de dropzones een vaste hoogte hebben
-                    }}
-                >
-                    {correcteZin.map((_, index) => (
-                        <Dropzone key={index} index={index} />
-                    ))}
-                </div>
 
-                {/* Rechter kolom: Woordenlijst */}
+                {/* Flex-container voor 2 kolommen */}
                 <div
                     style={{
-                        flex: 1, // Zorg dat de kolom proportioneel ruimte neemt
                         display: "flex",
-                        flexWrap: "wrap",
-                        gap: "10px",
-                        justifyContent: "center", // Centreer de woorden in de kolom
-                        alignItems: "center",
-                        backgroundColor: "#f9faff", // Optionele styling
-                        borderRadius: "8px",
-                        padding: "20px",
-                        minHeight: "300px", // Zorg dat woordenlijst gelijk is met dropzones
+                        flexDirection: "row",
+                        justifyContent: "space-between",
+                        alignItems: "flex-start",
+                        width: "80%", // Zorg voor responsieve breedte
+                        marginTop: "20px",
+                        gap: "20px", // Voeg ruimte toe tussen de kolommen
                     }}
                 >
-                    {woorden.map((woord, index) => (
-                        <Woord key={index} woord={woord} index={index} />
-                    ))}
+                    {/* Linker kolom: Dropzones */}
+                    <div
+                        style={{
+                            flex: 1, // Zorg dat de kolom proportioneel ruimte neemt
+                            display: "flex",
+                            alignItems: "center", // Centreer de dropzones horizontaal
+                            justifyContent: "center", // Centreer de dropzones verticaal
+                            backgroundColor: "#f0f4fa", // Optionele styling
+                            borderRadius: "8px",
+                            padding: "20px",
+                            minHeight: "300px", // Zorg dat de dropzones een vaste hoogte hebben
+                        }}
+                    >
+                        {correcteZin.map((_, index) => (
+                            <Dropzone key={index} index={index} />
+                        ))}
+                    </div>
+
+                    {/* Rechter kolom: Woordenlijst */}
+                    <div
+                        style={{
+                            flex: 1, // Zorg dat de kolom proportioneel ruimte neemt
+                            display: "flex",
+                            flexWrap: "wrap",
+                            gap: "10px",
+                            justifyContent: "center", // Centreer de woorden in de kolom
+                            alignItems: "center",
+                            backgroundColor: "#f9faff", // Optionele styling
+                            borderRadius: "8px",
+                            padding: "20px",
+                            minHeight: "300px", // Zorg dat woordenlijst gelijk is met dropzones
+                        }}
+                    >
+                        {woorden.map((woord, index) => (
+                            <Woord key={index} woord={woord} index={index} />
+                        ))}
+                    </div>
                 </div>
-            </div>
 
                 {/* Reset-knop */}
                 <button

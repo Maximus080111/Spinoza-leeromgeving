@@ -9,12 +9,12 @@ use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
 use Inertia\Response;
 
-class QuestionsMakenController extends Controller
+class QuestionsMaken1Controller extends Controller
 {
     public function index() : Response
     {
         $lessons = Lesson::all();
-        return Inertia::render('QuestionsMaken/Index', [
+        return Inertia::render('QuestionsMaken1/Index', [
             'lessons' => $lessons,
         ]);
     }
@@ -33,7 +33,6 @@ class QuestionsMakenController extends Controller
             'correct' => $validated['correct'],
         ]);
     
-        return redirect()->route('QuestionsMaken.index')->with('success', 'Vraag succesvol toegevoegd.');
-    }
-    
+        return redirect()->route('QuestionsMaken1.index')->with('success', 'Vraag succesvol toegevoegd.');
+    } 
 }
