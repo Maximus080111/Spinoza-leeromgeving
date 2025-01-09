@@ -1,44 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { DndProvider, useDrag, useDrop } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
-export default function SleepSpel() {
+export default function SleepSpel(questions, words = []) {
     const [feedback, setFeedback] = useState({});
     const [reset, setReset] = useState(false);
 
-    // const { data, setData, post, processing, reset, errors } = useForm({
-    //         question: '',
-    //         woorden: ['', '', '', ''],
-    //         image1: '',
-    //     });
+    useEffect(() => {
+        // console.log("All Words:", words);
+        console.log("Questions:", questions);
+    }, [words, questions]);
 
-    //     const woorden = ["KAT", "HOND", "AUTO", "BOOM"];
-
-    //     const plaatjes = [
-    //         { id: 1, woord: "KAT", image1: "/images/kat.jpg" },
-    //         { id: 2, woord: "HOND", image: "/images/hond.jpg" },
-    //         { id: 3, woord: "AUTO", image: "/images/auto.jpg" },
-    //         { id: 4, woord: "BOOM", image: "/images/boom.jpg" },
-    //     ];
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
         const woorden = ["KAT", "HOND", "AUTO", "BOOM"];
 
-    const plaatjes = [
-        { id: 1, woord: "KAT", image: "/images/kat.jpg" },
-        { id: 2, woord: "HOND", image: "/images/hond.jpg" },
-        { id: 3, woord: "AUTO", image: "/images/auto.jpg" },
-        { id: 4, woord: "BOOM", image: "/images/boom.jpg" },
-    ];
+        const plaatjes = [
+            { id: 1, correctwoord: "KAT", image1: "/images/kat.jpg" },
+            { id: 2, woord: "HOND", image: "/images/hond.jpg" },
+            { id: 3, woord: "AUTO", image: "/images/auto.jpg" },
+            { id: 4, woord: "BOOM", image: "/images/boom.jpg" },
+        ];
 
     const resetSpel = () => {
         setFeedback({});

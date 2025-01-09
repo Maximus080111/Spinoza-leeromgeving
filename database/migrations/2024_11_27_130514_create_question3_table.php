@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('question3', function (Blueprint $table) {
             $table->id();
             $table->string('image');
-            $table->string('answer');
+            $table->string('word');
             // $table->foreignId('lesson_id')->references('id')->on('lesson')->onDelete('cascade');
             $table->timestamps();
         });
