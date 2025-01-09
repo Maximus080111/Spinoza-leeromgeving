@@ -2,13 +2,25 @@ import React, { useState, useEffect } from "react";
 import { DndProvider, useDrag, useDrop } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
-export default function HusselSpel({ Question2 = "" }) {
-    const correcteZin = Question2 ? Question2.split(" ") : []; // De zin wordt gesplitst op spaties
+export default function HusselSpel({ question2 }) {
+    const [correcteZin, setCorrecteZin] = useState([]);
     const [feedback, setFeedback] = useState({});
     const [reset, setReset] = useState(false);
-    const [woorden, setWoorden] = useState([]);  // De woorden uit de zin
-    const [dropzones, setDropzones] = useState(Array(correcteZin.length).fill(null));
-    const [clickedWords, setClickedWords] = useState(Array(correcteZin.length).fill(false));
+    const [woorden, setWoorden] = useState([]);
+    const [dropzones, setDropzones] = useState([]);
+    const [clickedWords, setClickedWords] = useState([]);
+
+    useEffect(() => {
+        if (question2 && question2.length > 0) {
+            const sentence = question2[0].sentence; // Neem de eerste zin uit de database
+            const words = sentence.split(" "); // Split de zin in woorden
+            setCorrecteZin(words);
+            setDropzones(Array(words.length).fill(null));
+            setClickedWords(Array(words.length).fill(false));
+            // Log de correcte zin naar de console
+            console.log("Correcte zin:", sentence);
+        }
+    }, [question2]);
 
     useEffect(() => {
         if (correcteZin.length > 0) {
@@ -17,11 +29,6 @@ export default function HusselSpel({ Question2 = "" }) {
             setWoorden(shuffle([...correcteZin]));
         }
     }, [reset, correcteZin]);
-
-    useEffect(() => {
-        // Log de correcte zin naar de console
-        console.log("Correcte zin:", correcteZin.join(" "));
-    }, [correcteZin]);
 
     const geefFeedback = () => {
         const nieuweFeedback = dropzones.map((woord, index) => {
@@ -44,8 +51,11 @@ export default function HusselSpel({ Question2 = "" }) {
         setReset(!reset);
     };
 
-    // Klikbare woord-component
-    const Woord = ({ woord, index }) => {
+    
+
+
+       // Klikbare woord-component
+       const Woord = ({ woord, index }) => {
         const [isHovered, setIsHovered] = useState(false);
 
         const handleClick = () => {
@@ -64,7 +74,8 @@ export default function HusselSpel({ Question2 = "" }) {
                 const nieuweDropzones = [...dropzones];
                 nieuweDropzones[legeIndex] = woord; // Plaats het woord in de lege dropzone
                 setDropzones(nieuweDropzones);
-            }
+
+            };
         };
 
         const handleMouseEnter = () => {
@@ -110,15 +121,16 @@ export default function HusselSpel({ Question2 = "" }) {
         );
     };
 
-    // Dropzone component
-    const Dropzone = ({ index }) => {
+
+     // Dropzone component
+     const Dropzone = ({ index }) => {
         const isFeedbackGiven = feedback[index] !== undefined;
         const borderColor =
-            feedback[index] === false
-                ? "#ff0000" // Rood voor fout
-                : feedback[index] === true
-                ? "#00cc00" // Groen voor correct
-                : "transparent"; // Geen border als er geen feedback is
+        feedback[index] === false
+            ? "#ff0000" // Rood voor fout
+            : feedback[index] === true
+            ? "#00cc00" // Groen voor correct
+            : "transparent"; // Geen border als er geen feedback is
         
         return (
             <div
@@ -147,6 +159,7 @@ export default function HusselSpel({ Question2 = "" }) {
         );
     };
 
+
     return (
         <DndProvider backend={HTML5Backend}>
             <div
@@ -162,58 +175,57 @@ export default function HusselSpel({ Question2 = "" }) {
                 }}
             >
                 <h1>Husselspel</h1>
-                <p>Zet de woorden in de juiste volgorde!</p>
-
-                {/* Flex-container voor 2 kolommen */}
+        
+            {/* Flex-container voor 2 kolommen */}
+            <div
+                style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    alignItems: "flex-start",
+                    width: "80%", // Zorg voor responsieve breedte
+                    marginTop: "20px",
+                    gap: "20px", // Voeg ruimte toe tussen de kolommen
+                }}
+            >
+                {/* Linker kolom: Dropzones */}
                 <div
                     style={{
+                        flex: 1, // Zorg dat de kolom proportioneel ruimte neemt
                         display: "flex",
-                        flexDirection: "row",
-                        justifyContent: "space-between",
-                        alignItems: "flex-start",
-                        width: "80%", // Zorg voor responsieve breedte
-                        marginTop: "20px",
-                        gap: "20px", // Voeg ruimte toe tussen de kolommen
+                        alignItems: "center", // Centreer de dropzones horizontaal
+                        justifyContent: "center", // Centreer de dropzones verticaal
+                        backgroundColor: "#f0f4fa", // Optionele styling
+                        borderRadius: "8px",
+                        padding: "20px",
+                        minHeight: "300px", // Zorg dat de dropzones een vaste hoogte hebben
                     }}
                 >
-                    {/* Linker kolom: Dropzones */}
-                    <div
-                        style={{
-                            flex: 1, // Zorg dat de kolom proportioneel ruimte neemt
-                            display: "flex",
-                            alignItems: "center", // Centreer de dropzones horizontaal
-                            justifyContent: "center", // Centreer de dropzones verticaal
-                            backgroundColor: "#f0f4fa", // Optionele styling
-                            borderRadius: "8px",
-                            padding: "20px",
-                            minHeight: "300px", // Zorg dat de dropzones een vaste hoogte hebben
-                        }}
-                    >
-                        {correcteZin.map((_, index) => (
-                            <Dropzone key={index} index={index} />
-                        ))}
-                    </div>
-
-                    {/* Rechter kolom: Woordenlijst */}
-                    <div
-                        style={{
-                            flex: 1, // Zorg dat de kolom proportioneel ruimte neemt
-                            display: "flex",
-                            flexWrap: "wrap",
-                            gap: "10px",
-                            justifyContent: "center", // Centreer de woorden in de kolom
-                            alignItems: "center",
-                            backgroundColor: "#f9faff", // Optionele styling
-                            borderRadius: "8px",
-                            padding: "20px",
-                            minHeight: "300px", // Zorg dat woordenlijst gelijk is met dropzones
-                        }}
-                    >
-                        {woorden.map((woord, index) => (
-                            <Woord key={index} woord={woord} index={index} />
-                        ))}
-                    </div>
+                    {correcteZin.map((_, index) => (
+                        <Dropzone key={index} index={index} />
+                    ))}
                 </div>
+
+                {/* Rechter kolom: Woordenlijst */}
+                <div
+                    style={{
+                        flex: 1, // Zorg dat de kolom proportioneel ruimte neemt
+                        display: "flex",
+                        flexWrap: "wrap",
+                        gap: "10px",
+                        justifyContent: "center", // Centreer de woorden in de kolom
+                        alignItems: "center",
+                        backgroundColor: "#f9faff", // Optionele styling
+                        borderRadius: "8px",
+                        padding: "20px",
+                        minHeight: "300px", // Zorg dat woordenlijst gelijk is met dropzones
+                    }}
+                >
+                    {woorden.map((woord, index) => (
+                        <Woord key={index} woord={woord} index={index} />
+                    ))}
+                </div>
+            </div>
 
                 {/* Reset-knop */}
                 <button

@@ -64,7 +64,11 @@ Route::get('/Vraag1', [VraagController1::class, 'index'])
 
 Route::get('/Vraag2', [VraagController2::class, 'index'])
     ->middleware(['auth', 'verified'])
-    ->name('Vraag2');
+    ->name('Vraag2.index');
+
+Route::get('/vraag2', [VraagController2::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('vraag2.index');
 
 Route::get('/Vraag3', [VraagController3::class, 'index'])
     ->middleware(['auth', 'verified'])
