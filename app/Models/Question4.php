@@ -5,18 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Question2 extends Model
+class Question4 extends Model
 {
     use HasFactory;
 
-    public function question2(): HasMany
+    public function question4(): HasMany
     {
-        return $this->hasMany(Question2::class);
+        return $this->hasMany(Question4::class);
     }
 
-    protected $table = 'question2';
+    protected $table = 'question4';
 
     protected $fillable = [
-        'sentence'
+        'word',
+        'image'
     ];
 }

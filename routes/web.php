@@ -7,6 +7,7 @@ use App\Http\Controllers\VraagController;
 use App\Http\Controllers\ThemaController;
 use App\Http\Controllers\QuestionsMaken1Controller;
 use App\Http\Controllers\QuestionsMaken2Controller;
+use App\Http\Controllers\QuestionsMaken4Controller;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\LessonsMakenController;    
 use App\Http\Controllers\GoogleController;
@@ -93,6 +94,10 @@ Route::resource('QuestionsMaken1', QuestionsMaken1Controller::class)
     ->middleware(['auth', 'verified']);
 
 Route::resource('QuestionsMaken2', QuestionsMaken2Controller::class)
+    ->only(['index', 'store'])
+    ->middleware(['auth', 'verified']);
+
+Route::resource('QuestionsMaken4', QuestionsMaken4Controller::class)
     ->only(['index', 'store'])
     ->middleware(['auth', 'verified']);
 
