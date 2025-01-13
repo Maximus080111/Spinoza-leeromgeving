@@ -3,11 +3,12 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import PrimaryButton from '@/Components/PrimaryButton';
 import { useForm } from '@inertiajs/react';
 
-export default function Index({ auth }) {
+export default function CreateKahootQuestion({ auth, lesson_id }) {
     const { data, setData, post, processing, reset, errors } = useForm({
         question: '',
         answers: ['', '', '', ''],
         correct: '', 
+        lesson_id: lesson_id,
     });
 
     const handleAnswerChange = (index, value) => {
@@ -32,7 +33,7 @@ export default function Index({ auth }) {
         }
 
         console.log("Formuliergegevens:", data); 
-        post(route('QuestionsMaken1.store'), {
+        post(route('storeKahoot'), {
             onError: (errors) => console.log(errors),
             onSuccess: () => reset(),
         });

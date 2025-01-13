@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('question2', function (Blueprint $table) {
             $table->id();
             $table->string('sentence');
+            $table->integer('lesson_id');
             // $table->foreignId('lesson_id')->references('id')->on('lesson')->onDelete('cascade');
             $table->timestamps();
         });

@@ -178,14 +178,12 @@ export default function Vraag1({ Question1 = [] }) {
                         >
                             Opnieuw proberen
                         </button>
-                        <button
-                            onClick={() =>
-                                (window.location.href = "/lessons_dashboard")
-                            }
-                            className="mt-6 bg-blue-500 hover:bg-blue-700  text-white font-semibold py-4 px-8 ml-10 rounded-lg shadow-lg transition-all duration-300"
+                        <a
+                            href="javascript:history.back()"
+                            className="mt-6 bg-blue-500 hover:bg-blue-700 text-white font-semibold py-4 px-8 ml-10 rounded-lg shadow-lg transition-all duration-300"
                         >
                             Ga terug
-                        </button>
+                        </a>
                     </div>
                 )}
             </div>

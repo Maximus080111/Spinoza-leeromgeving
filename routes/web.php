@@ -9,8 +9,10 @@ use App\Http\Controllers\QuestionsMaken1Controller;
 use App\Http\Controllers\QuestionsMaken2Controller;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\LessonsMakenController;    
+use App\Http\Controllers\CreateQuestionsController;
 use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\LessonsController;
+use App\Http\Controllers\VragenController;
 use App\Http\Controllers\VraagController1;
 use App\Http\Controllers\VraagController2;
 use App\Http\Controllers\VraagController3;
@@ -62,13 +64,9 @@ Route::get('/Vraag1', [VraagController1::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('Vraag1');
 
-Route::get('/Vraag2', [VraagController2::class, 'index'])
+Route::get('/Hussel', [VragenController::class, 'Hussel'])
     ->middleware(['auth', 'verified'])
-    ->name('Vraag2.index');
-
-Route::get('/vraag2', [VraagController2::class, 'index'])
-    ->middleware(['auth', 'verified'])
-    ->name('vraag2.index');
+    ->name('Hussel');
 
 Route::get('/Vraag3', [VraagController3::class, 'index'])
     ->middleware(['auth', 'verified'])
@@ -78,7 +76,7 @@ Route::get('/Vraag4', [VraagController4::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('Vraag4');
 
-Route::get('/Kahoot', [VraagController::class, 'kahoot'])
+Route::get('/Kahoot', [VragenController::class, 'Kahoot'])
     ->middleware(['auth', 'verified'])
     ->name('Kahoot');
 Route::get('LessonsMaken', [LessonsMakenController::class, 'index'])
@@ -88,17 +86,45 @@ Route::post('LessonsMaken', [LessonsMakenController::class, 'store'])
     ->middleware(['auth', 'verified'])
     ->name('LessonsMakenStore');
 
-Route::resource('QuestionsMaken1', QuestionsMaken1Controller::class)
-    ->only(['index', 'store'])
-    ->middleware(['auth', 'verified']);
+Route::get('CreateQuestions', [CreateQuestionsController::class, 'redirectToQuestionMaken'])
+    ->middleware(['auth', 'verified'])
+    ->name('CreateQuestions');
 
-Route::resource('QuestionsMaken2', QuestionsMaken2Controller::class)
-    ->only(['index', 'store'])
-    ->middleware(['auth', 'verified']);
+Route::post('/store-question-kahoot', [CreateQuestionsController::class, 'StoreKahoot'])
+    ->middleware(['auth', 'verified'])
+    ->name('storeKahoot');
+
+Route::post('/store-question-hussel', [CreateQuestionsController::class, 'StoreHussel'])
+    ->middleware(['auth', 'verified'])
+    ->name('storeHussel');
+
+// Route::get('createQuestions1', [CreateQuestionsController::class, 'createQuestionKahoot'])
+//     ->middleware(['auth', 'verified'])
+//     ->name('createQuestions1');
+
+// Route::post('QuestionsMaken1', [QuestionsMaken1Controller::class, 'store'])
+//     ->middleware(['auth', 'verified'])
+//     ->name('QuestionsMaken1.store');
+
+// Route::get('QuestionsMaken2', [QuestionsMaken2Controller::class, 'index'])
+//     ->middleware(['auth', 'verified'])
+//     ->name('QuestionsMaken2');
+
+// Route::post('QuestionsMaken2', [QuestionsMaken2Controller::class, 'store'])
+//     ->middleware(['auth', 'verified'])
+//     ->name('QuestionsMaken2.store');
+
+// Route::resource('QuestionsMaken2', QuestionsMaken2Controller::class)
+//     ->only(['index', 'store'])
+//     ->middleware(['auth', 'verified']);
 
 // Route::get('/dashboard', function () {
 //     return Inertia::render('Dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('redirect-to-vraag', [VragenController::class, 'redirectToVraag'])
+    ->middleware(['auth', 'verified'])
+    ->name('redirectToVraag');
 
 Route::get('/Achievements', function () {
     return Inertia::render('Achievements');

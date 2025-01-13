@@ -16,5 +16,5 @@ class Question2 extends Model
 
     protected $table = 'question2';
 
-    protected $fillable = ['sentence'];
+    protected $fillable = ['sentence', 'lesson_id'];
 }

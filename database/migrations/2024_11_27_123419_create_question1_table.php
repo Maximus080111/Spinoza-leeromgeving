@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('question');
             $table->string('correct');
             $table->json('answers');
+            $table->integer('lesson_id');
             // $table->foreignId('lesson_id')->references('id')->on('lesson')->onDelete('cascade');
             $table->timestamps();
         });

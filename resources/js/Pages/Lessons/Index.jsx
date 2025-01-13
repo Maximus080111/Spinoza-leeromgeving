@@ -8,7 +8,7 @@ export default function Index({auth, lessons = [], thema_id}) {
         console.log('Lessons:', lessons);
         console.log('thema_id:', thema_id)
     }, [lessons, thema_id]);
-    
+
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -28,10 +28,17 @@ export default function Index({auth, lessons = [], thema_id}) {
                                 {lessons.length > 0 ? (
                                     <ul>
                                         {lessons.map((lesson, index) => (
-                                            <li key={index} className="mb-4">
-                                                <h3 className="text-lg font-semibold">{lesson.les_name}</h3>
-                                                <p>Les Nummer: {lesson.les_number}</p>
-                                                <p>Thema ID: {lesson.thema_id}</p>
+                                            <li
+                                                key={index}
+                                                className="mb-4 cursor-pointer"
+                                            >
+                                                <a href={route('redirectToVraag', {Les_Type: lesson.les_type, thema_id: lesson.thema_id, lesson_id: lesson.id})}>
+                                                    <h3 className="text-lg font-semibold">{lesson.les_name}</h3>
+                                                    <p>Les Nummer: {lesson.les_number}</p>
+                                                    <p>Thema ID: {lesson.thema_id}</p>
+                                                    <p>Les Type: {lesson.les_type}</p>
+                                                    <p>Les id: {lesson.id}</p>
+                                                </a>
                                             </li>
                                         ))}
                                     </ul>

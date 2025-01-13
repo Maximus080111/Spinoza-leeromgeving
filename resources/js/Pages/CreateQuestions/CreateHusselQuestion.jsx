@@ -3,15 +3,16 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import PrimaryButton from '@/Components/PrimaryButton';
 import { useForm } from '@inertiajs/react';
 
-export default function Index({ auth }) {
+export default function CreateHusselQuestion({ auth, lesson_id }) {
     const { data, setData, post, processing, reset, errors } = useForm({
         sentence: '',
+        lesson_id: lesson_id,
     });
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        post(route('QuestionsMaken2.store'), {
+        post(route('storeHussel'), {
             onSuccess: () => {
                 setData('sentence', '');
             },

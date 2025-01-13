@@ -112,17 +112,16 @@ export default function Index({ auth, lessons = [], thema_id }) {
             </form>
             {lessons.length > 0 ? (
                 lessons.map((lesson, index) => (
-                    <div
+                    <a
+                        href={route('CreateQuestions', { lesson_id: lesson.id, Les_Type: lesson.les_type })}
                         key={index}
-                        className="p-4 bg-gray-200 rounded shadow-lg"
-                        style={{ backgroundColor: "#bbc4dd" }}
                     >
                         <h1 className="font-semibold text-lg text-gray-800">
                             {lesson.les_name}
                         </h1>
                         <p className="text-gray-700">Lesnummer: {lesson.les_number}</p>
                         <p className="text-gray-700">Les type: {lesson.les_type}</p>
-                    </div>
+                    </a>
                 ))
             ) : (
                 <p>Er zijn geen lessen gevonden</p>

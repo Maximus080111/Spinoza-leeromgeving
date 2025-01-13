@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { DndProvider, useDrag, useDrop } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
-export default function HusselSpel({ question2 }) {
+export default function HusselSpel({ question2 = [] }) {
     const [correcteZin, setCorrecteZin] = useState([]);
     const [feedback, setFeedback] = useState({});
     const [reset, setReset] = useState(false);
