@@ -37,7 +37,7 @@ export default function SleepSpel() {
                     marginBottom: "30px",
                     padding: "20px",
                     //achtergrondkleur van woord
-                    backgroundColor: "#cde1f5",
+                    backgroundColor: "#e4e7f1", 
                     color: "#333",
                     textAlign: "center",
                     borderRadius: "10px",
@@ -63,6 +63,13 @@ export default function SleepSpel() {
             }),
         }));
 
+        const borderColor =
+        feedback[plaatje.id] === false
+            ? "#ff0000" // Rood voor fout
+            : feedback[plaatje.id] === true
+            ? "#00cc00"
+            : "transparent"; // Groen voor correct
+
         return (
             <div
                 ref={drop}
@@ -70,7 +77,7 @@ export default function SleepSpel() {
                     margin: "10px",
                     padding: "20px",
                     //achterrgrondkleur plaatje en sleeptekst
-                    backgroundColor: "#f5f5f5",
+                    backgroundColor: "#e4e7f1",
                     borderRadius: "8px",
                     textAlign: "center",
                     boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.1)",
@@ -79,6 +86,7 @@ export default function SleepSpel() {
                     alignItems: "center",
                     justifyContent: "center",
                     minHeight: "150px",
+                    
                 }}
             >
                 <img
@@ -97,15 +105,17 @@ export default function SleepSpel() {
                         lineHeight: "40px",
                         backgroundColor:
                             feedback[plaatje.id] === false
-                                ? //dit moet lichter rood worden en
-                                  //een mooie groen achter :
-                                  "#FF0000"
-                                : "#e9ecef",
+                            ? "#ffcccc" // Rood voor fout
+                            : feedback[plaatje.id] === true
+                            ? "#ccffcc" // Groen voor correct
+                            : "#f4f4f5", 
                         borderRadius: "6px",
                         width: "100%",
                         textAlign: "center",
                         color: "#333",
                         fontWeight: "bold",
+                        boxShadow: "1px 1px 4px rgba(0, 0, 0, 0.2)",
+                        border: `2px solid ${borderColor}`,
                     }}
                 >
                     {feedback[plaatje.id] === true
@@ -123,10 +133,12 @@ export default function SleepSpel() {
             <div
                 style={{
                     display: "flex",
+                    backgroundColor: "#ffffff",
                     justifyContent: "space-between",
                     alignItems: "flex-start",
                     padding: "20px",
                     fontFamily: "Arial, sans-serif",
+                    minHeight: "100vh",
                 }}
             >
                 {/* Linker Sectie met de Plaatjes */}
@@ -140,7 +152,8 @@ export default function SleepSpel() {
                         style={{
                             marginBottom: "20px",
                             padding: "10px 20px",
-                            backgroundColor: "#ddd",
+                            backgroundColor: "#2f3e60",
+                            color: "#ffffff",
                             border: "none",
                             borderRadius: "6px",
                             cursor: "pointer",
@@ -172,7 +185,7 @@ export default function SleepSpel() {
                         display: "flex",
                         flexDirection: "column",
                         padding: "20px",
-                        backgroundColor: "#f7f7f7", // iets lichtere kleur voor de sectie
+                        backgroundColor: "#BBC4DD", // iets lichtere kleur voor de sectie
                         borderRadius: "10px",
                         boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", // dropschaduw voor visueel effect
                         height: "93vh", // Zorgt ervoor dat de sectie de volledige hoogte van het scherm heeft
@@ -191,7 +204,7 @@ export default function SleepSpel() {
                         style={{
                             marginTop: "30px",
                             padding: "10px 20px",
-                            backgroundColor: "#007bff",
+                            backgroundColor: "#2f3e60",
                             color: "#fff",
                             border: "none",
                             borderRadius: "6px",
