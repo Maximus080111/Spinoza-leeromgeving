@@ -202,8 +202,8 @@ export default function SleepSpel() {
                         <tr style={{ backgroundColor: "#bbdefb" }}>
                             <th style={thStyle}>Vraag</th>
                             <th style={thStyle}>Totaal</th>
-                            <th style={thStyle}>Correct</th>
-                            <th style={thStyle}>Fout</th>
+                            <th style={thStyle}>✅</th>
+                            <th style={thStyle}>❌</th>
                         </tr>
                     </thead>
                     <tbody>
