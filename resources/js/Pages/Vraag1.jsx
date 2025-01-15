@@ -202,8 +202,8 @@ export default function SleepSpel() {
                         <tr style={{ backgroundColor: "#bbdefb" }}>
                             <th style={thStyle}>Vraag</th>
                             <th style={thStyle}>Totaal</th>
-                            <th style={thStyle}>Goed✅</th>
-                            <th style={thStyle}>Fout❌</th>
+                            <th style={thStyle}>Correct</th>
+                            <th style={thStyle}>Fout</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -243,12 +243,12 @@ export default function SleepSpel() {
                         gap: "10px", // Ruimte tussen tekst en icoon
                     }}
                 >
+                    <span>Opnieuw spelen</span>
                     <span
                         style={{
                             display: "inline-block",
                             transform: "rotate(0deg)", // Standaard draaiing
-                            transition: "transform 0.2s",
-                            // Animatie bij hover
+                            transition: "transform 0.2s", // Animatie bij hover
                         }}
                         onMouseEnter={(e) =>
                             (e.target.style.transform = "rotate(360deg)")

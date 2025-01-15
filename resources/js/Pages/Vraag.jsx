@@ -97,7 +97,7 @@ export default function Vraag() {
                         <div className="grid grid-cols-2 gap-6">
                             {huidigeVraag.opties.map((optie, index) => {
                                 let buttonClass =
-                                    "bg-blue-500 text-white text-2xl font-semibold py-4 px-6 rounded-lg shadow-md transition-all duration-300";
+                                    "bg-[#2f3e60] text-white text-2xl font-semibold py-4 px-6 rounded-lg shadow-md transition-all duration-300";
 
                                 if (geselecteerd) {
                                     if (optie === huidigeVraag.antwoord) {

@@ -233,7 +233,7 @@ export default function HusselSpel({ question2 = [] }) {
                     style={{
                         marginTop: "20px",
                         padding: "10px 20px",
-                        backgroundColor: "#007bff",
+                        backgroundColor: "#2f3e60",
                         color: "#fff",
                         border: "none",
                         borderRadius: "6px",
