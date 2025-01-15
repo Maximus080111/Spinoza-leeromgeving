@@ -3,7 +3,6 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\StudentDashboardController;
-use App\Http\Controllers\VraagController;
 use App\Http\Controllers\ThemaController;
 use App\Http\Controllers\QuestionsMaken1Controller;
 use App\Http\Controllers\QuestionsMaken2Controller;
@@ -14,7 +13,6 @@ use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\LessonsController;
 use App\Http\Controllers\VragenController;
 use App\Http\Controllers\VraagController1;
-use App\Http\Controllers\VraagController2;
 use App\Http\Controllers\VraagController3;
 use App\Http\Controllers\VraagController4;
 use Illuminate\Support\Facades\Route;
@@ -56,10 +54,6 @@ Route::get('/dashboard', [DashboardController::class, 'index'])
 // Route::get('/LessonsMaken', [LessonsMakenController::class, 'index'])
 //     ->middleware(['auth', 'verified'])
 //     ->name('LessonsMaken');
-Route::get('/Vraag', [VraagController::class, 'index'])
-    ->middleware(['auth', 'verified'])
-    ->name('Vraag');
-
 Route::get('/Vraag1', [VraagController1::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('Vraag1');
