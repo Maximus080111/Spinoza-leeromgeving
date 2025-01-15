@@ -18,7 +18,6 @@ return new class extends Migration
             $table->boolean('is_teacher')->default(false);
             $table->string('class')->nullable();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
             $table->string('google_id')->nullable();
             $table->string('avatar')->nullable();
             $table->rememberToken();

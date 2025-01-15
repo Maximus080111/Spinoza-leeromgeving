@@ -21,5 +21,6 @@ class Lesson extends Model
         'les_name',
         'les_number',
         'thema_id',
+        'les_type',
     ];
 }

@@ -103,13 +103,13 @@ export default function Authenticated({ user, header, children }) {
                     >
                         Sleep vraag
                     </NavLink>
-                    <NavLink
-                        href={route("LessonsMaken.index")}
-                        active={route().current("LessonsMaken.index")}
+                    {/* <NavLink
+                        href={route("LessonsMaken")}
+                        active={route().current("LessonsMaken")}
                         className="font-roboto block pt-6 py-8 px-5 rounded-lg text-3xl text-gray-800 transition duration-200 ease-in-out hover:bg-[#D7DBEA] hover:text-gray-900"
                     >
                         Les Maken
-                    </NavLink>
+                    </NavLink> */}
                 </div>
             </nav>
 

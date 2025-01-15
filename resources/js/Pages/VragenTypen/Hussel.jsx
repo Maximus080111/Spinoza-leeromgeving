@@ -2,20 +2,34 @@ import React, { useState, useEffect } from "react";
 import { DndProvider, useDrag, useDrop } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
-export default function HusselSpel() {
-    const correcteZin = ["Ik", "loop", "naar", "school"]; // Correcte volgorde van woorden
+export default function HusselSpel({ question2 = [] }) {
+    const [correcteZin, setCorrecteZin] = useState([]);
     const [feedback, setFeedback] = useState({});
     const [reset, setReset] = useState(false);
     const [woorden, setWoorden] = useState([]);
-    const [dropzones, setDropzones] = useState(Array(correcteZin.length).fill(null));
-    const [clickedWords, setClickedWords] = useState(Array(correcteZin.length).fill(false));
+    const [dropzones, setDropzones] = useState([]);
+    const [clickedWords, setClickedWords] = useState([]);
 
     useEffect(() => {
-        // Hussel de woorden bij de eerste render of bij reset
-        const shuffle = (array) => array.sort(() => Math.random() - 0.5);
-        setWoorden(shuffle([...correcteZin]));
-    }, [reset]);
-   
+        if (question2 && question2.length > 0) {
+            const sentence = question2[0].sentence; // Neem de eerste zin uit de database
+            const words = sentence.split(" "); // Split de zin in woorden
+            setCorrecteZin(words);
+            setDropzones(Array(words.length).fill(null));
+            setClickedWords(Array(words.length).fill(false));
+            // Log de correcte zin naar de console
+            console.log("Correcte zin:", sentence);
+        }
+    }, [question2]);
+
+    useEffect(() => {
+        if (correcteZin.length > 0) {
+            // Hussel de woorden bij de eerste render of bij reset
+            const shuffle = (array) => array.sort(() => Math.random() - 0.5);
+            setWoorden(shuffle([...correcteZin]));
+        }
+    }, [reset, correcteZin]);
+
     const geefFeedback = () => {
         const nieuweFeedback = dropzones.map((woord, index) => {
             return woord === correcteZin[index]; // Vergelijk het woord met de correcte zin
@@ -161,8 +175,6 @@ export default function HusselSpel() {
                 }}
             >
                 <h1>Husselspel</h1>
-                <p>Zet de woorden in de juiste volgorde!</p>
-                
         
             {/* Flex-container voor 2 kolommen */}
             <div
