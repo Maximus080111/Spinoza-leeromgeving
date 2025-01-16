@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import PrimaryButton from "@/Components/PrimaryButton";
 import { useForm } from "@inertiajs/react";
@@ -7,7 +7,8 @@ import Dropdown from "@/Components/Dropdown";
 export default function Index({ auth, lessons = [], thema_id }) {
     const { data, setData, post, processing, reset, errors } = useForm({
         les_name: "",
-        les_number: lessons.length > 0 ? lessons[lessons.length - 1].les_number + 1 : 1,
+        les_number:
+            lessons.length > 0 ? lessons[lessons.length - 1].les_number + 1 : 1,
         thema_id: thema_id,
         les_type: "",
     });
@@ -19,16 +20,16 @@ export default function Index({ auth, lessons = [], thema_id }) {
         let displayText;
         switch (value) {
             case 1:
-            displayText = "Kahoot";
-            break;
+                displayText = "Kahoot";
+                break;
             case 2:
-            displayText = "connect the words";
-            break;
+                displayText = "Woorden hussel";
+                break;
             case 3:
-            displayText = "spelling";
-            break;
+                displayText = "Typ woord bij plaatje";
+                break;
             default:
-            displayText = "onbekend les type";
+                displayText = "onbekend les type";
         }
         setSelectedDropdownValue(displayText);
         setData("les_type", parseInt(value, 10)); // Update the useForm state
@@ -44,7 +45,7 @@ export default function Index({ auth, lessons = [], thema_id }) {
             setErrorMessage("Please select a lesson type.");
             return;
         }
-        setErrorMessage(""); 
+        setErrorMessage("");
         post(route("LessonsMakenStore"), {
             onSuccess: () => {
                 reset();
@@ -68,9 +69,7 @@ export default function Index({ auth, lessons = [], thema_id }) {
                 className="p-6 max-w-3xl mx-auto"
             >
                 {errorMessage && (
-                    <div className="mb-4 text-red-600">
-                        {errorMessage}
-                    </div>
+                    <div className="mb-4 text-red-600">{errorMessage}</div>
                 )}
                 <div
                     className="p-4 rounded mb-4"
@@ -89,43 +88,90 @@ export default function Index({ auth, lessons = [], thema_id }) {
                     className="p-4 rounded mb-4"
                     style={{ backgroundColor: "#bbc4dd" }}
                 >
-                    <h1 className="mb-2 font-semibold">type les</h1>
-                    <h2 className="block w-full bg-white border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm p-2">{selectedDropdownValue || "Type les"}</h2>
+                    <h1 className="mb-2 font-semibold">Type les</h1>
+                    <h2 className="block w-full bg-white border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm p-2">
+                        {selectedDropdownValue || "Type les"}
+                    </h2>
                     <Dropdown>
-                        <Dropdown.Trigger>
-                            <button type="button">
-                                selecteer les type
-                            </button>
-                        </Dropdown.Trigger>
-                        <Dropdown.Content>
-                            <ul>
-                                <li onClick={() => handleDropdownSelect(1)}>Kahhoot</li>
-                                <li onClick={() => handleDropdownSelect(2)}>Connect the words</li>
-                                <li onClick={() => handleDropdownSelect(3)}>Spelling</li>
-                            </ul>
-                        </Dropdown.Content>
+                        <div className="relative">
+                            <Dropdown.Trigger>
+                                <button
+                                    type="button"
+                                    className="mt-4 px-4 py-2 bg-button-kleur text-white rounded-md font-semibold hover:bg-button-kleur-hover focus:outline-none focus:ring-2 focus:ring-button-kleur-hover focus:ring-offset-2 transition duration-200"
+                                >
+                                    Selecteer les type
+                                </button>
+                            </Dropdown.Trigger>
+                            <Dropdown.Content align="left" width="48">
+                                <ul className=" bg-white shadow-lg rounded-md overflow-hidden border border-gray-200">
+                                    <li
+                                        onClick={() => handleDropdownSelect(1)}
+                                        className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer transition duration-200"
+                                    >
+                                        Kahoot
+                                    </li>
+                                    <li
+                                        onClick={() => handleDropdownSelect(2)}
+                                        className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer transition duration-200"
+                                    >
+                                        Woorden hussel
+                                    </li>
+                                    <li
+                                        onClick={() => handleDropdownSelect(3)}
+                                        className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer transition duration-200"
+                                    >
+                                        Typ woord bij plaatje
+                                    </li>
+                                </ul>
+                            </Dropdown.Content>
+                        </div>
                     </Dropdown>
                 </div>
                 <div className="text-right">
-                    <PrimaryButton disabled={processing}>Opslaan</PrimaryButton>
+                    <PrimaryButton
+                        disabled={processing}
+                        className="bg-button-kleur text-white rounded-md font-semibold hover:bg-button-kleur-hover focus:outline-none focus:ring-2 focus:ring-button-kleur-hover focus:ring-offset-2 transition duration-200"
+                    >
+                        Opslaan
+                    </PrimaryButton>
                 </div>
             </form>
-            {lessons.length > 0 ? (
-                lessons.map((lesson, index) => (
-                    <a
-                        href={route('CreateQuestions', { lesson_id: lesson.id, Les_Type: lesson.les_type })}
-                        key={index}
-                    >
-                        <h1 className="font-semibold text-lg text-gray-800">
-                            {lesson.les_name}
-                        </h1>
-                        <p className="text-gray-700">Lesnummer: {lesson.les_number}</p>
-                        <p className="text-gray-700">Les type: {lesson.les_type}</p>
-                    </a>
-                ))
-            ) : (
-                <p>Er zijn geen lessen gevonden</p>
-            )}
+
+            {/* Grid van lessen onder het formulier */}
+            <div className="p-6 max-w-3xl mx-auto">
+                <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-8">
+                    {lessons.length > 0 ? (
+                        lessons
+                            .sort(
+                                (a, b) =>
+                                    new Date(b.created_at) -
+                                    new Date(a.created_at)
+                            ) // Sorteren op de nieuwste les
+                            .map((lesson, index) => (
+                                <a
+                                    href={route("CreateQuestions", {
+                                        lesson_id: lesson.id,
+                                        Les_Type: lesson.les_type,
+                                    })}
+                                    key={index}
+                                    className="bg-button-kleur text-white rounded-md font-semibold hover:bg-button-kleur-hover focus:outline-none focus:ring-2 focus:ring-button-kleur-hover focus:ring-offset-2 transition duration-200 p-3 flex flex-col justify-center items-center"
+                                >
+                                    <h1 className="font-semibold text-lg text-white">
+                                        {lesson.les_name}
+                                    </h1>
+                                    <p className="text-white">
+                                        Lesnummer: {lesson.les_number}
+                                    </p>
+                                    <p className="text-white">
+                                        Les type: {lesson.les_type}
+                                    </p>
+                                </a>
+                            ))
+                    ) : (
+                        <p>Er zijn geen lessen gevonden</p>
+                    )}
+                </div>
+            </div>
         </AuthenticatedLayout>
     );
 }
