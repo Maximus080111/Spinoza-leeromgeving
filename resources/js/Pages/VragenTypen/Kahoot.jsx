@@ -92,41 +92,51 @@ export default function Vraag1({ Question1 = [] }) {
 
                                 {/* Opties met Feedback */}
                                 <div className="grid grid-cols-2 gap-6">
-                                    {gerandomiseerdeOpties.map((optie, index) => {
-                                        let buttonClass =
-                                            "bg-blue-500 text-white text-2xl font-semibold py-4 px-6 rounded-lg shadow-md transition-all duration-300";
+                                    {gerandomiseerdeOpties.map(
+                                        (optie, index) => {
+                                            let buttonClass =
+                                                "bg-button-kleur text-white text-2xl font-semibold py-4 px-6 rounded-lg shadow-md transition-all duration-300";
 
-                                        if (geselecteerd) {
-                                            if (optie === huidigeVraag.correct) {
-                                                buttonClass =
-                                                    "bg-green-500 text-white py-4 px-6 rounded-lg shadow-md";
-                                            } else if (optie === geselecteerd) {
-                                                buttonClass =
-                                                    "bg-red-500 text-white py-4 px-6 rounded-lg shadow-md";
-                                            } else {
-                                                buttonClass =
-                                                    "bg-gray-300 text-gray-600 py-4 px-6 rounded-lg";
-                                            }
-                                        }
-
-                                        return (
-                                            <button
-                                                key={index}
-                                                onClick={() =>
-                                                    controleerAntwoord(optie)
+                                            if (geselecteerd) {
+                                                if (
+                                                    optie ===
+                                                    huidigeVraag.correct
+                                                ) {
+                                                    buttonClass =
+                                                        "bg-green-500 text-white py-4 px-6 rounded-lg shadow-md";
+                                                } else if (
+                                                    optie === geselecteerd
+                                                ) {
+                                                    buttonClass =
+                                                        "bg-red-500 text-white py-4 px-6 rounded-lg shadow-md";
+                                                } else {
+                                                    buttonClass =
+                                                        "bg-gray-300 text-gray-600 py-4 px-6 rounded-lg";
                                                 }
-                                                className={buttonClass}
-                                                disabled={geselecteerd}
-                                            >
-                                                {optie}
-                                            </button>
-                                        );
-                                    })}
+                                            }
+
+                                            return (
+                                                <button
+                                                    key={index}
+                                                    onClick={() =>
+                                                        controleerAntwoord(
+                                                            optie
+                                                        )
+                                                    }
+                                                    className={buttonClass}
+                                                    disabled={geselecteerd}
+                                                >
+                                                    {optie}
+                                                </button>
+                                            );
+                                        }
+                                    )}
                                 </div>
 
                                 {/* Vraag index */}
                                 <p className="mt-6 text-lg text-gray-600">
-                                    Vraag {huidigeIndex + 1} van {Question1.length}
+                                    Vraag {huidigeIndex + 1} van{" "}
+                                    {Question1.length}
                                 </p>
                             </>
                         ) : (
@@ -134,55 +144,162 @@ export default function Vraag1({ Question1 = [] }) {
                         )}
                     </div>
                 ) : (
-                    // Quiz Resultaat met Overzicht
-                    <div>
-                        <h1 className="text-5xl font-bold text-gray-800 mb-6">
-                            Resultaat
+                    <div className="bg-white p-8 rounded-2xl shadow-2xl max-w-4xl w-full">
+                        <h1 className="text-lg font-bold text-gray-800 mb-6">
+                            Overzicht van je resultaten
                         </h1>
-                        <p className="text-2xl text-gray-700 mb-4">
-                            Je hebt {score} van de {Question1.length} vragen goed!
+                        <p className="text-lg text-gray-700 mb-4">
+                            Je hebt {score} van de {Question1.length} vragen
+                            goed!
                         </p>
 
-                        <div className="text-left mt-8">
-                            {resultaten.map((resultaat, index) => (
-                                <div
-                                    key={index}
-                                    className={`p-4 mb-4 rounded-lg shadow-md ${
-                                        resultaat.correct
-                                            ? "bg-green-100"
-                                            : "bg-red-100"
-                                    }`}
-                                >
-                                    <p className="text-lg font-semibold">
-                                        Vraag {index + 1}: {resultaat.vraag}
-                                    </p>
-                                    <p>
-                                        Jouw antwoord: {" "}
-                                        <span className="font-bold">
-                                            {resultaat.gekozenAntwoord}
-                                        </span>
-                                    </p>
-                                    <p>
-                                        Correct antwoord: {" "}
-                                        <span className="font-bold">
-                                            {resultaat.correctAntwoord}
-                                        </span>
-                                    </p>
-                                </div>
-                            ))}
+                        <div
+                            style={{
+                                padding: "20px",
+                                textAlign: "center",
+                                borderRadius: "15px",
+                                backgroundColor: "#edeff6",
+                                boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+                                margin: "70px auto",
+                                width: "90%",
+                                maxWidth: "800px",
+                            }}
+                        >
+                            <h2 style={{ marginBottom: "20px", color: "#333" }}>
+                                Overzicht van je resultaten
+                            </h2>
+                            <table
+                                style={{
+                                    margin: "20px auto",
+                                    borderCollapse: "collapse",
+                                    width: "100%",
+                                    backgroundColor: "#fff",
+                                    borderRadius: "10px",
+                                    overflow: "hidden",
+                                }}
+                            >
+                                <thead>
+                                    <tr style={{ backgroundColor: "#c8cfe4" }}>
+                                        <th
+                                            style={{
+                                                border: "1px solid #ddd",
+                                                padding: "10px",
+                                                fontWeight: "bold",
+                                                textAlign: "center",
+                                                color: "#333",
+                                                fontSize: "16px",
+                                            }}
+                                        >
+                                            Vraag
+                                        </th>
+                                        <th
+                                            style={{
+                                                border: "1px solid #ddd",
+                                                padding: "10px",
+                                                fontWeight: "bold",
+                                                textAlign: "center",
+                                                color: "#333",
+                                                fontSize: "16px",
+                                            }}
+                                        >
+                                            Correct antwoord
+                                        </th>
+                                        <th
+                                            style={{
+                                                border: "1px solid #ddd",
+                                                padding: "10px",
+                                                textAlign: "center",
+                                                color: "#555",
+                                                fontSize: "14px",
+                                            }}
+                                        >
+                                            ✅
+                                        </th>
+                                        <th
+                                            style={{
+                                                border: "1px solid #ddd",
+                                                padding: "10px",
+                                                textAlign: "center",
+                                                color: "#555",
+                                                fontSize: "14px",
+                                            }}
+                                        >
+                                            ❌
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {resultaten.map((resultaat, index) => (
+                                        <tr
+                                            key={index}
+                                            style={{
+                                                backgroundColor:
+                                                    index % 2 === 0
+                                                        ? "#f1f8ff"
+                                                        : "#ffffff",
+                                            }}
+                                        >
+                                            <td
+                                                style={{
+                                                    border: "1px solid #ddd",
+                                                    padding: "10px",
+                                                    textAlign: "center",
+                                                    color: "#555",
+                                                    fontSize: "14px",
+                                                }}
+                                            >
+                                                Vraag {index + 1}
+                                            </td>
+                                            <td
+                                                style={{
+                                                    border: "1px solid #ddd",
+                                                    padding: "10px",
+                                                    textAlign: "center",
+                                                    color: "#555",
+                                                    fontSize: "14px",
+                                                }}
+                                            >
+                                                {resultaat.correctAntwoord}
+                                            </td>
+                                            <td
+                                                style={{
+                                                    border: "1px solid #ddd",
+                                                    padding: "10px",
+                                                    textAlign: "center",
+                                                    color: "#555",
+                                                    fontSize: "14px",
+                                                }}
+                                            >
+                                                {resultaat.correct ? "✅" : ""}
+                                            </td>
+                                            <td
+                                                style={{
+                                                    border: "1px solid #ddd",
+                                                    padding: "10px",
+                                                    textAlign: "center",
+                                                    color: "#555",
+                                                    fontSize: "14px",
+                                                }}
+                                            >
+                                                {resultaat.correct ? "" : "❌"}
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
                         </div>
 
-                        <button
+                        {/* <button
                             onClick={herstartQuiz}
-                            className="mt-6 bg-blue-500 hover:bg-blue-700 text-white font-semibold py-4 px-8 rounded-lg shadow-lg transition-all duration-300"
+                            className="fixed top-5 left-5 px-5 py-2 bg-gray-800 text-white font-bold rounded-md cursor-pointer text-lg hover:bg-button-kleur-hover"
                         >
-                            Opnieuw proberen
-                        </button>
+                            Opnieuw proberen ⟳
+                        </button> */}
                         <a
                             href="javascript:history.back()"
-                            className="mt-6 bg-blue-500 hover:bg-blue-700 text-white font-semibold py-4 px-8 ml-10 rounded-lg shadow-lg transition-all duration-300"
+                            className="fixed top-5 right-5 px-5 py-2 bg-gray-800 text-white font-bold rounded-md cursor-pointer text-lg hover:bg-button-kleur-hover"
                         >
-                            Ga terug
+                            Terug naar het lesoverzicht 🔙
                         </a>
                     </div>
                 )}

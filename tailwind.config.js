@@ -17,6 +17,10 @@ export default {
                 roboto: ["Roboto Mono", "monospace"],
                 sans: ["Figtree", ...defaultTheme.fontFamily.sans],
             },
+            colors: {
+                "button-kleur": "#1f2936",
+                "button-kleur-hover": "#7885a4",
+            },
         },
     },
 

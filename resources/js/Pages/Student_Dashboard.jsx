@@ -43,7 +43,7 @@ export default function Student_Dashboard({ auth, themas = [] }) {
                     onClick={handlePreviousSection}
                     disabled={currentSection === 1}
                     style={{ backgroundColor: "#92A2C9" }}
-                    className={`font-roboto text-white px-4 py-2 rounded-full shadow hover:bg-gray-700 ${
+                    className={`font-roboto text-white px-4 py-2 rounded-md shadow hover:bg-gray-700 ${
                         currentSection === 1
                             ? "opacity-50 cursor-not-allowed"
                             : ""
@@ -62,7 +62,7 @@ export default function Student_Dashboard({ auth, themas = [] }) {
                     onClick={handleNextSection}
                     disabled={currentSection === totalSections}
                     style={{ backgroundColor: "#92A2C9" }}
-                    className={`font-roboto text-white px-4 py-2 rounded-full shadow hover:bg-gray-700 ${
+                    className={`font-roboto text-white px-4 py-2 rounded-md shadow hover:bg-gray-700 ${
                         currentSection === totalSections
                             ? "opacity-50 cursor-not-allowed"
                             : ""
