@@ -223,7 +223,7 @@ export default function SleepSpel() {
                 </table>
                 <button
                     onClick={() =>
-                        (window.location.href = "/Student_Dashboard")
+                        (window.location.href = "/lessons_dashboard")
                     }
                     className="fixed top-5 right-5 px-5 py-2 bg-gray-800 text-white font-bold rounded-md cursor-pointer text-lg hover:bg-button-kleur-hover"
                 >
@@ -256,8 +256,8 @@ export default function SleepSpel() {
         <DndProvider backend={HTML5Backend}>
             <div
                 style={{
-                    backgroundColor: "#EFF6FF", // Toegevoegde achtergrondkleur
-                    minHeight: "100vh", // Hele schermhoogte
+                    backgroundColor: "#EFF6FF",
+                    minHeight: "100vh",
                     display: "flex",
                     flexDirection: "column",
                 }}
@@ -275,7 +275,7 @@ export default function SleepSpel() {
                             <button
                                 onClick={() =>
                                     (window.location.href =
-                                        "/Student_Dashboard")
+                                        "/lessons_dashboard")
                                 }
                                 style={{
                                     marginBottom: "20px",
@@ -339,6 +339,27 @@ export default function SleepSpel() {
                             >
                                 Volgende Vraag
                             </button>
+
+                            {/* Groene knop verschijnt pas als je alle vragen hebt beantwoord */}
+                            {spelVoltooid && (
+                                <button
+                                    onClick={() =>
+                                        alert("Bekijk je resultaten!")
+                                    }
+                                    style={{
+                                        marginTop: "20px",
+                                        backgroundColor: "#4CAF50",
+                                        color: "white",
+                                        border: "none",
+                                        padding: "10px 20px",
+                                        borderRadius: "8px",
+                                        fontSize: "16px",
+                                        cursor: "pointer",
+                                    }}
+                                >
+                                    Bekijk Resultaten
+                                </button>
+                            )}
                         </div>
                     </div>
                 ) : (

@@ -21,10 +21,10 @@ export default function Edit({ auth, mustVerifyEmail, status }) {
                 className="py-12"
                 style={{
                     backgroundColor: "#fdfef8", // Achtergrondkleur
-                    backgroundImage: "url('/images/background.jpeg')", // Achtergrondafbeelding
+                    // Achtergrondafbeelding
                     backgroundSize: "cover", // Zorgt ervoor dat de afbeelding de gehele pagina bedekt
                     backgroundPosition: "center", // Zet de afbeelding in het midden
-                    minHeight: "100vh", // Zorgt ervoor dat de achtergrond de volledige hoogte van het scherm bedekt
+                    // Zorgt ervoor dat de achtergrond de volledige hoogte van het scherm bedekt
                 }}
             >
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -37,7 +37,7 @@ export default function Edit({ auth, mustVerifyEmail, status }) {
                                 <img
                                     src={auth.user.avatar}
                                     alt="google_img"
-                                    className="w-24 h-24 rounded-full mb-4"
+                                    className="w-24 h-24 rounded-full mb-4 mt-20"
                                 />
                                 <h2 className="text-lg font-bold text-gray-800">
                                     {auth.user.name}

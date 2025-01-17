@@ -77,7 +77,7 @@ const App = () => {
             }}
         >
             <button
-                onClick={() => (window.location.href = "/Student_Dashboard")}
+                onClick={() => (window.location.href = "/lessons_dashboard")}
                 className="fixed top-5 right-5 px-5 py-2 bg-gray-800 text-white font-bold rounded-md cursor-pointer text-lg hover:bg-button-kleur-hover"
             >
                 Terug naar het lesoverzicht 🔙

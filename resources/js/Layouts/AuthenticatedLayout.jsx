@@ -35,7 +35,11 @@ export default function Authenticated({ user, header, children }) {
                                 </span>
                             </Dropdown.Trigger>
 
-                            <Dropdown.Content className="w-64 bg-white rounded-lg shadow-lg p-4 font-roboto text-gray-700">
+                            <Dropdown.Content
+                                align="left"
+                                width="48"
+                                className="w-64 bg-white rounded-lg shadow-lg p-4 font-roboto text-gray-700"
+                            >
                                 <Dropdown.Link
                                     href={route("profile.edit")}
                                     className="block py-2.5 px-4 hover:bg-[#2f3e60] rounded-md text-lg"
