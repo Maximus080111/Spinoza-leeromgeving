@@ -15,6 +15,7 @@ use App\Http\Controllers\VragenController;
 use App\Http\Controllers\VraagController1;
 use App\Http\Controllers\VraagController3;
 use App\Http\Controllers\VraagController4;
+use App\Http\Controllers\ProgressController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -137,5 +138,9 @@ Route::middleware('auth')->group(function () {
 Route::resource('Themas', ThemaController::class)
     ->only(['index', 'store'])
     ->middleware(['auth', 'verified']);
+    
+Route::post('/progress', [ProgressController::class, 'store'])
+        ->middleware(['auth', 'verified'])
+        ->name('progress.store');
 
 require __DIR__.'/auth.php';

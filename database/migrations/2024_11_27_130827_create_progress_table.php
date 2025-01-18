@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('achievements-completed', function (Blueprint $table) {
+        Schema::create('progress', function (Blueprint $table) {
             $table->id();
             $table->integer('percentage');
-            $table->foreignId('student_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreignId('achievements_id')->references('id')->on('achievements')->onDelete('cascade');
-            $table->boolean('completed');
+            $table->foreignId('student_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('lesson_id')->constrained('lesson')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('achievements-completed');
+        Schema::dropIfExists('progress');
     }
 };

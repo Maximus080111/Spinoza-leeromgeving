@@ -38,13 +38,19 @@ class VragenController extends Controller
     {
         $lesson_id = $request->query('lesson_id');
         $questions = Question1::where('lesson_id', $lesson_id)->get();     
-        return Inertia::render('VragenTypen/Kahoot', ['Question1' => $questions]);
+        return Inertia::render('VragenTypen/Kahoot', [
+            'Question1' => $questions,
+            'lesson_id' => $lesson_id,
+        ]);
     }
 
     public function Hussel(Request $request) : Response
     {
         $lesson_id = $request->query('lesson_id');
         $questions = Question2::where('lesson_id', $lesson_id)->get();
-        return Inertia::render('VragenTypen/Hussel', ['question2' => $questions]);
+        return Inertia::render('VragenTypen/Hussel', [
+            'question2' => $questions,
+            'lesson_id' => $lesson_id,
+        ]);
     }
 }

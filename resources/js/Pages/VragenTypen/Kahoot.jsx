@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react";
+import { Inertia } from '@inertiajs/inertia';
 
-export default function Vraag1({ Question1 = [] }) {
+export default function Vraag1({ auth, lesson_id, Question1 = [] }) {
     const [huidigeIndex, setHuidigeIndex] = useState(0);
     const [score, setScore] = useState(0);
     const [quizVoltooid, setQuizVoltooid] = useState(false);
     const [geselecteerd, setGeselecteerd] = useState(null);
     const [resultaten, setResultaten] = useState([]);
     const [gerandomiseerdeOpties, setGerandomiseerdeOpties] = useState([]);
+    const [percentage, setPercentage] = useState(0);
 
     const huidigeVraag = Question1[huidigeIndex] || null;
 
@@ -36,6 +38,28 @@ export default function Vraag1({ Question1 = [] }) {
             setGerandomiseerdeOpties(nieuweOpties);
         }
     }, [huidigeVraag]);
+
+    useEffect(() => {
+        if (quizVoltooid) {
+            const correctAnswers = resultaten.filter(resultaat => resultaat.correct).length;
+            const totalQuestions = resultaten.length;
+            const calculatedPercentage = (correctAnswers / totalQuestions) * 100;
+            setPercentage(calculatedPercentage);
+
+            console.log('Gegevens die worden verzonden naar de database:', {
+                percentage: calculatedPercentage,
+                student_id: auth.user.id,
+                lesson_id: lesson_id,
+            });
+
+            // Sla de gegevens op in de database
+            Inertia.post(route('progress.store'), {
+                percentage: calculatedPercentage,
+                student_id: auth.user.id,
+                lesson_id: lesson_id,
+            });
+        }
+    }, [quizVoltooid, resultaten, auth.user.id, lesson_id]);
 
     const controleerAntwoord = (optie) => {
         if (!huidigeVraag) return;
@@ -76,6 +100,10 @@ export default function Vraag1({ Question1 = [] }) {
         setGeselecteerd(null);
         setResultaten([]);
         setGerandomiseerdeOpties([]);
+    };
+
+    const handleBackClick = () => {
+        window.history.back();
     };
 
     return (
@@ -295,12 +323,12 @@ export default function Vraag1({ Question1 = [] }) {
                         >
                             Opnieuw proberen ⟳
                         </button> */}
-                        <a
-                            href="javascript:history.back()"
+                        <button
+                            onClick={handleBackClick}
                             className="fixed top-5 right-5 px-5 py-2 bg-gray-800 text-white font-bold rounded-md cursor-pointer text-lg hover:bg-button-kleur-hover"
                         >
                             Terug naar het lesoverzicht 🔙
-                        </a>
+                        </button>
                     </div>
                 )}
             </div>
