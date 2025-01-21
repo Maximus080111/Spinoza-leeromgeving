@@ -3,11 +3,13 @@ import { DndProvider, useDrag, useDrop } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
 export default function SleepSpel() {
-    const [huidigeVraagIndex, setHuidigeVraagIndex] = useState(0);
+    const [huidigeVraagIndex, setHuidigeVraagIndex] = useState(0); // Huidige vraag bijhouden
     const [feedback, setFeedback] = useState({});
     const [reset, setReset] = useState(false);
-    const [resultaten, setResultaten] = useState([]);
-    const [spelVoltooid, setSpelVoltooid] = useState(false);
+    const [resultaten, setResultaten] = useState([]); // Resultaten bijhouden
+    const [spelVoltooid, setSpelVoltooid] = useState(false); // Spel voltooid?
+
+    // Vragen met woorden en plaatjes
 
     const vragen = [
         {
@@ -30,11 +32,13 @@ export default function SleepSpel() {
         },
     ];
 
+    // Reset de huidige vraag
     const resetSpel = () => {
         setFeedback({});
         setReset(!reset);
     };
 
+    // Controleer of alle koppelingen correct zijn
     const isVraagVoltooid = () => {
         const huidigeVraag = vragen[huidigeVraagIndex];
         return huidigeVraag.plaatjes.every(
@@ -42,12 +46,14 @@ export default function SleepSpel() {
         );
     };
 
+    // Ga naar de volgende vraag of toon overzicht
     const volgendeVraag = () => {
         const huidigeVraag = vragen[huidigeVraagIndex];
         const correcteAntwoorden = huidigeVraag.plaatjes.filter(
             (plaatje) => feedback[plaatje.id] === true
         ).length;
 
+        // Voeg resultaat toe aan de resultatenlijst
         setResultaten((prev) => [
             ...prev,
             {
@@ -59,13 +65,16 @@ export default function SleepSpel() {
         ]);
 
         if (huidigeVraagIndex < vragen.length - 1) {
+            // Ga naar de volgende vraag
             setHuidigeVraagIndex(huidigeVraagIndex + 1);
-            setFeedback({});
+            setFeedback({}); // Reset feedback voor de nieuwe vraag
         } else {
+            // Toon het overzicht als alle vragen zijn voltooid
             setSpelVoltooid(true);
         }
     };
 
+    // Woord component
     const Woord = ({ woord }) => {
         const [{ isDragging }, drag] = useDrag(() => ({
             type: "WORD",
@@ -96,6 +105,7 @@ export default function SleepSpel() {
         );
     };
 
+    // Plaatje met drop-slot
     const PlaatjeMetSlot = ({ plaatje }) => {
         const [{ isOver }, drop] = useDrop(() => ({
             accept: "WORD",
@@ -114,7 +124,7 @@ export default function SleepSpel() {
                 style={{
                     margin: "10px",
                     padding: "20px",
-                    backgroundColor: "#edeff6",
+                    backgroundColor: "#f5f5f5",
                     borderRadius: "8px",
                     textAlign: "center",
                     boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.1)",
@@ -130,7 +140,6 @@ export default function SleepSpel() {
                     alt={plaatje.woord}
                     style={{
                         maxWidth: "80px",
-                        marginBottom: "80px",
                     }}
                 />
                 <div
@@ -161,18 +170,19 @@ export default function SleepSpel() {
         );
     };
 
+    // Overzichtsscherm
     const Overzicht = () => {
         return (
             <div
                 style={{
                     padding: "20px",
                     textAlign: "center",
-                    borderRadius: "15px",
-                    backgroundColor: "#edeff6",
+                    borderRadius: "15px", // Ronde hoeken
+                    backgroundColor: "#edeff6", // Lichtblauwe achtergrond
                     boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
                     margin: "80px auto",
-                    width: "90%",
-                    maxWidth: "600px",
+                    width: "90%", // Maak het overzicht responsief
+                    maxWidth: "800px",
                 }}
             >
                 <h2
@@ -188,10 +198,10 @@ export default function SleepSpel() {
                     style={{
                         margin: "20px auto",
                         borderCollapse: "collapse",
-                        width: "100%",
+                        width: "100%", // Volledige breedte
                         backgroundColor: "#fff",
-                        borderRadius: "10px",
-                        overflow: "hidden",
+                        borderRadius: "10px", // Ronde hoeken op de tabel
+                        overflow: "hidden", // Zorg dat de hoeken niet buiten de rand komen
                     }}
                 >
                     <thead>
@@ -208,7 +218,7 @@ export default function SleepSpel() {
                                 key={index}
                                 style={{
                                     backgroundColor:
-                                        index % 2 === 0 ? "#f1f8ff" : "#ffffff",
+                                        index % 2 === 0 ? "#f1f8ff" : "#ffffff", // Alternatieve rijen kleuren
                                 }}
                             >
                                 <td style={tdStyle}>
@@ -227,12 +237,13 @@ export default function SleepSpel() {
                     }
                     className="fixed top-5 right-5 px-5 py-2 bg-gray-800 text-white font-bold rounded-md cursor-pointer text-lg hover:bg-button-kleur-hover"
                 >
-                    <span>Terug naar het lesoverzicht 🔙</span>
+                    Terug naar het lesoverzicht 🔙
                 </button>
             </div>
         );
     };
 
+    // Stijlen voor tabelcellen en kopteksten
     const thStyle = {
         border: "1px solid #ddd",
         padding: "10px",
@@ -250,122 +261,120 @@ export default function SleepSpel() {
         fontSize: "14px",
     };
 
+    // Render de huidige vraag of het overzicht
     const huidigeVraag = vragen[huidigeVraagIndex];
 
     return (
         <DndProvider backend={HTML5Backend}>
-            <div
-                style={{
-                    backgroundColor: "#EFF6FF",
-                    minHeight: "100vh",
-                    display: "flex",
-                    flexDirection: "column",
-                }}
-            >
-                {!spelVoltooid ? (
+            {!spelVoltooid ? (
+                <div
+                    style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "flex-start",
+                        padding: "20px",
+                        fontFamily: "Arial, sans-serif",
+                    }}
+                >
+                    {/* Linker Sectie met de Plaatjes */}
+                    <div style={{ flex: "3", marginRight: "20px" }}>
+                        <button
+                            onClick={() =>
+                                (window.location.href = "/Student_Dashboard")
+                            }
+                            style={{
+                                marginBottom: "20px",
+                                padding: "10px 20px",
+                                backgroundColor: "#ddd",
+                                border: "none",
+                                borderRadius: "6px",
+                                cursor: "pointer",
+                                fontWeight: "bold",
+                            }}
+                        >
+                            Terug
+                        </button>
+                        <div
+                            style={{
+                                display: "grid",
+                                gridTemplateColumns: "1fr 1fr",
+                                gap: "20px",
+                            }}
+                        >
+                            {huidigeVraag.plaatjes.map((plaatje) => (
+                                <PlaatjeMetSlot
+                                    key={plaatje.id}
+                                    plaatje={plaatje}
+                                />
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Rechter Sectie met de Woorden en Knoppen */}
                     <div
                         style={{
+                            flex: "1",
                             display: "flex",
-                            justifyContent: "space-between",
+                            flexDirection: "column",
                             padding: "20px",
+                            backgroundColor: "#f7f7f7",
+                            borderRadius: "10px",
+                            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+                            height: "93vh",
+                            position: "sticky",
+                            top: 0,
                         }}
                     >
-                        {/* Linker Sectie met de Plaatjes */}
-                        <div style={{ flex: "3", marginRight: "20px" }}>
+                        {huidigeVraag.woorden.map((woord, index) => (
+                            <Woord key={index} woord={woord} />
+                        ))}
+
+                        {/* Reset Button */}
+                        <button
+                            onClick={resetSpel}
+                            style={{
+                                marginTop: "30px",
+                                padding: "10px 20px",
+                                backgroundColor: "#1f2936",
+                                color: "#fff",
+                                border: "none",
+                                borderRadius: "6px",
+                                cursor: "pointer",
+                                fontSize: "16px",
+                                fontWeight: "bold",
+                                boxShadow: "0 2px 5px rgba(0, 0, 0, 0.1)",
+                            }}
+                        >
+                            Reset
+                        </button>
+
+                        {/* Volgende Vraag Button */}
+                        {isVraagVoltooid() && (
                             <button
-                                onClick={() =>
-                                    (window.location.href =
-                                        "/lessons_dashboard")
-                                }
+                                onClick={volgendeVraag}
                                 style={{
-                                    marginBottom: "20px",
+                                    marginTop: "20px",
                                     padding: "10px 20px",
-                                    backgroundColor: "#b6c0db",
+                                    backgroundColor: "#28a745",
+                                    color: "#fff",
                                     border: "none",
                                     borderRadius: "6px",
                                     cursor: "pointer",
                                     fontSize: "16px",
+                                    fontWeight: "bold",
+                                    boxShadow: "0 2px 5px rgba(0, 0, 0, 0.1)",
                                 }}
                             >
-                                ← Terug
+                                {huidigeVraagIndex === vragen.length - 1
+                                    ? "Toon Overzicht"
+                                    : "Volgende Vraag"}
                             </button>
-                            <div
-                                style={{
-                                    display: "grid",
-                                    gridTemplateColumns: "1fr 1fr",
-                                    gap: "20px",
-                                }}
-                            >
-                                {huidigeVraag.plaatjes.map((plaatje) => (
-                                    <PlaatjeMetSlot
-                                        key={plaatje.id}
-                                        plaatje={plaatje}
-                                    />
-                                ))}
-                            </div>
-                        </div>
-
-                        {/* Rechter Sectie met de Woorden en Knoppen */}
-                        <div
-                            style={{
-                                flex: "1",
-                                display: "flex",
-                                flexDirection: "column",
-                                padding: "20px",
-                                backgroundColor: "#edeff6",
-                                borderRadius: "10px",
-                                boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-                                position: "sticky",
-                            }}
-                        >
-                            {huidigeVraag.woorden.map((woord, index) => (
-                                <Woord key={index} woord={woord} />
-                            ))}
-
-                            <button
-                                onClick={volgendeVraag}
-                                disabled={!isVraagVoltooid()}
-                                style={{
-                                    marginTop: "20px",
-                                    backgroundColor: "#1f2936",
-                                    padding: "10px 20px",
-                                    color: "white",
-                                    border: "none",
-                                    borderRadius: "8px",
-                                    fontSize: "16px",
-                                    cursor: "pointer",
-                                    opacity: isVraagVoltooid() ? 1 : 0.5,
-                                }}
-                            >
-                                Volgende Vraag
-                            </button>
-
-                            {/* Groene knop verschijnt pas als je alle vragen hebt beantwoord */}
-                            {spelVoltooid && (
-                                <button
-                                    onClick={() =>
-                                        alert("Bekijk je resultaten!")
-                                    }
-                                    style={{
-                                        marginTop: "20px",
-                                        backgroundColor: "#4CAF50",
-                                        color: "white",
-                                        border: "none",
-                                        padding: "10px 20px",
-                                        borderRadius: "8px",
-                                        fontSize: "16px",
-                                        cursor: "pointer",
-                                    }}
-                                >
-                                    Bekijk Resultaten
-                                </button>
-                            )}
-                        </div>
+                        )}
                     </div>
-                ) : (
-                    <Overzicht />
-                )}
-            </div>
+                </div>
+            ) : (
+                <Overzicht />
+            )}
         </DndProvider>
     );
 }
