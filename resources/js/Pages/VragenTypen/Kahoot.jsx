@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Inertia } from '@inertiajs/inertia';
+// import { Inertia } from '@inertiajs/inertia';
 
 export default function Vraag1({ auth, lesson_id, Question1 = [] }) {
     const [huidigeIndex, setHuidigeIndex] = useState(0);
@@ -44,6 +44,7 @@ export default function Vraag1({ auth, lesson_id, Question1 = [] }) {
             const correctAnswers = resultaten.filter(resultaat => resultaat.correct).length;
             const totalQuestions = resultaten.length;
             const calculatedPercentage = (correctAnswers / totalQuestions) * 100;
+
             setPercentage(calculatedPercentage);
 
             console.log('Gegevens die worden verzonden naar de database:', {
@@ -53,11 +54,11 @@ export default function Vraag1({ auth, lesson_id, Question1 = [] }) {
             });
 
             // Sla de gegevens op in de database
-            Inertia.post(route('progress.store'), {
-                percentage: calculatedPercentage,
-                student_id: auth.user.id,
-                lesson_id: lesson_id,
-            });
+            // Inertia.post(route('progress.store'), {
+            //     percentage: calculatedPercentage,
+            //     student_id: auth.user.id,
+            //     lesson_id: lesson_id,
+            // });
         }
     }, [quizVoltooid, resultaten, auth.user.id, lesson_id]);
 

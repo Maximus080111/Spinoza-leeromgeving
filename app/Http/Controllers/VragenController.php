@@ -28,7 +28,9 @@ class VragenController extends Controller
             case 2:
                 return redirect()->route('Hussel', ['Les_Type' => $Les_Type, 'thema_id' => $thema_id,  'lesson_id' => $lesson_id]);
             case 3:
-                return redirect()->route('Vraag3');
+                return redirect()->route('TypHetWoord', ['Les_Type' => $Les_Type, 'thema_id' => $thema_id,  'lesson_id' => $lesson_id]);
+            case 4:
+                return redirect()->route('Slepen', ['Les_Type' => $Les_Type, 'thema_id' => $thema_id,  'lesson_id' => $lesson_id]);
             default:
                 return redirect()->back()->with('error', 'Invalid lesson type.');
         }
@@ -37,7 +39,7 @@ class VragenController extends Controller
     public function Kahoot(Request $request) : Response
     {
         $lesson_id = $request->query('lesson_id');
-        $questions = Question1::where('lesson_id', $lesson_id)->get();     
+        $questions = Question1::where('lesson_id', $lesson_id)->get(); 
         return Inertia::render('VragenTypen/Kahoot', [
             'Question1' => $questions,
             'lesson_id' => $lesson_id,
@@ -52,5 +54,13 @@ class VragenController extends Controller
             'question2' => $questions,
             'lesson_id' => $lesson_id,
         ]);
+    }
+
+    public function TypHetWoord() {
+        return Inertia::render('VragenTypen/TypHetWoord');
+    }
+
+    public function Slepen() {
+        return Inertia::render('VragenTypen/Slepen');
     }
 }

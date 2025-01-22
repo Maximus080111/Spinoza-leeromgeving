@@ -233,7 +233,7 @@ export default function SleepSpel() {
                 </table>
                 <button
                     onClick={() =>
-                        (window.location.href = "/lessons_dashboard")
+                        (window.history.back())
                     }
                     className="fixed top-5 right-5 px-5 py-2 bg-gray-800 text-white font-bold rounded-md cursor-pointer text-lg hover:bg-button-kleur-hover"
                 >

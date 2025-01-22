@@ -3,7 +3,7 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import PrimaryButton from '@/Components/PrimaryButton';
 import { useForm } from '@inertiajs/react';
 
-export default function CreateHusselQuestion({ auth, lesson_id }) {
+export default function CreateHusselQuestion({ auth, lesson_id, questions }) {
     const { data, setData, post, processing, reset, errors } = useForm({
         sentence: '',
         lesson_id: lesson_id,
@@ -48,6 +48,11 @@ export default function CreateHusselQuestion({ auth, lesson_id }) {
                 </div>
                 <PrimaryButton disabled={processing}>Opslaan</PrimaryButton>
             </form>
+            {questions.map((question) => (
+                <div key={question.id}>
+                    <p>{question.question}</p>
+                </div>
+            ))}
         </AuthenticatedLayout>
     );
 }

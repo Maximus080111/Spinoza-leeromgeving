@@ -26,7 +26,10 @@ export default function Index({ auth, lessons = [], thema_id }) {
                 displayText = "Woorden hussel";
                 break;
             case 3:
-                displayText = "Typ woord bij plaatje";
+                displayText = "Verbind de woorden";
+                break;
+            case 4:
+                displayText = "Typ het woord bij het plaatje";
                 break;
             default:
                 displayText = "onbekend les type";
@@ -120,7 +123,13 @@ export default function Index({ auth, lessons = [], thema_id }) {
                                         onClick={() => handleDropdownSelect(3)}
                                         className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer transition duration-200"
                                     >
-                                        Typ woord bij plaatje
+                                        Verbind de woorden
+                                    </li>
+                                    <li
+                                        onClick={() => handleDropdownSelect(4)}
+                                        className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer transition duration-200"
+                                    >
+                                        Typ het woord bij het plaatje
                                     </li>
                                 </ul>
                             </Dropdown.Content>
@@ -139,7 +148,7 @@ export default function Index({ auth, lessons = [], thema_id }) {
 
             {/* Grid van lessen onder het formulier */}
             <div className="p-6 max-w-3xl mx-auto">
-                <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                     {lessons.length > 0 ? (
                         lessons
                             .sort(
@@ -147,26 +156,42 @@ export default function Index({ auth, lessons = [], thema_id }) {
                                     new Date(b.created_at) -
                                     new Date(a.created_at)
                             ) // Sorteren op de nieuwste les
-                            .map((lesson, index) => (
-                                <a
-                                    href={route("CreateQuestions", {
-                                        lesson_id: lesson.id,
-                                        Les_Type: lesson.les_type,
-                                    })}
-                                    key={index}
-                                    className="bg-button-kleur text-white rounded-md font-semibold hover:bg-button-kleur-hover focus:outline-none focus:ring-2 focus:ring-button-kleur-hover focus:ring-offset-2 transition duration-200 p-3 flex flex-col justify-center items-center"
-                                >
-                                    <h1 className="font-semibold text-lg text-white">
-                                        {lesson.les_name}
-                                    </h1>
-                                    <p className="text-white">
-                                        Lesnummer: {lesson.les_number}
-                                    </p>
-                                    <p className="text-white">
-                                        Les type: {lesson.les_type}
-                                    </p>
-                                </a>
-                            ))
+                            .map((lesson, index) => {
+                                let lessonTypeText;
+                                switch (lesson.les_type) {
+                                    case 1:
+                                        lessonTypeText = "Kahoot";
+                                        break;
+                                    case 2:
+                                        lessonTypeText = "Woorden hussel";
+                                        break;
+                                    case 3:
+                                        lessonTypeText = "Verbind de woorden";
+                                        break;
+                                    case 4:
+                                        lessonTypeText = "Typ het woord bij het plaatje";
+                                        break;
+                                    default:
+                                        lessonTypeText = "onbekend les type";
+                                }
+                                return (
+                                    <a
+                                        href={route("CreateQuestions", {
+                                            lesson_id: lesson.id,
+                                            Les_Type: lesson.les_type,
+                                        })}
+                                        key={index}
+                                        className="bg-button-kleur text-white rounded-md hover:bg-button-kleur-hover focus:outline-none focus:ring-2 focus:ring-button-kleur-hover focus:ring-offset-2 transition duration-200 p-3 flex flex-col justify-center items-center"
+                                    >
+                                        <h1 className="font-semibold text-lg text-white">
+                                            {lesson.les_name}
+                                        </h1>
+                                        <p className="text-white">
+                                            <strong>Les type:</strong> {lessonTypeText}
+                                        </p>
+                                    </a>
+                                );
+                            })
                     ) : (
                         <p>Er zijn geen lessen gevonden</p>
                     )}

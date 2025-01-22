@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const App = () => {
+export default function TypHetWoord() {
     const questions = [
         { image: "/images/boom.jpg", correctAnswer: "Boom" },
         { image: "/images/kat.jpg", correctAnswer: "Kat" },
@@ -77,7 +77,7 @@ const App = () => {
             }}
         >
             <button
-                onClick={() => (window.location.href = "/lessons_dashboard")}
+                onClick={() => (window.history.back())}
                 className="fixed top-5 right-5 px-5 py-2 bg-gray-800 text-white font-bold rounded-md cursor-pointer text-lg hover:bg-button-kleur-hover"
             >
                 Terug naar het lesoverzicht 🔙
@@ -275,5 +275,3 @@ const Overzicht = ({ resultaten, totalCorrect, totalFout }) => {
         </div>
     );
 };
-
-export default App;
