@@ -7,11 +7,8 @@ export default function Index({ auth, progress, lessons = [], thema_id }) {
     };
 
     useEffect(() => {
-        // Log the lessons and progress data to the console
-        console.log("Lessons:", lessons);
-        console.log("Progress:", progress);
-        console.log("thema_id:", thema_id);
-    }, [lessons, progress, thema_id]);
+        console.log("Progress", progress);
+    }, [progress]);
 
     return (
         <AuthenticatedLayout
@@ -20,7 +17,7 @@ export default function Index({ auth, progress, lessons = [], thema_id }) {
                 <div>
                     <button
                         onClick={() =>
-                            (window.location.href = "/Student_Dashboard")
+                            (window.history.back())
                         }
                         style={{
                             padding: "10px 20px",
@@ -68,19 +65,6 @@ export default function Index({ auth, progress, lessons = [], thema_id }) {
                                                 <h3 className="text-lg font-semibold">
                                                     {lesson.les_name}
                                                 </h3>
-                                                <p>
-                                                    Les Nummer:{" "}
-                                                    {lesson.les_number}
-                                                </p>
-                                                <p>
-                                                    Thema ID:{" "}
-                                                    {lesson.thema_id}
-                                                </p>
-                                                <p>
-                                                    Les Type:{" "}
-                                                    {lesson.les_type}
-                                                </p>
-                                                <p>Les id: {lesson.id}</p>
                                                 <p>Voortgang: {getProgressForLesson(lesson.id)}%</p>
                                             </a>
                                         </li>

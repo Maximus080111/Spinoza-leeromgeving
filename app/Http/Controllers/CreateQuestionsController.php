@@ -36,8 +36,9 @@ class CreateQuestionsController extends Controller
         $lesson_id = $request->query('lesson_id');
         $les_type = $request->query('Les_Type');
         $lessons = Lesson::all();
-        $questions = Question1::where('lesson_id', $lesson_id)->get();
-        return Inertia::render('CreateQuestions/CreateKahootQuestion', ['Question1' => $questions, 'les_type' => $les_type, 'lesson_id' => $lesson_id, 'lessons' => $lessons]);
+        // $questions = Question1::where('lesson_id', $lesson_id)->get();
+        $questions = Question1::where('lesson_id', $lesson_id)->get();  
+        return Inertia::render('CreateQuestions/CreateKahootQuestion', ['questions' => $questions, 'les_type' => $les_type, 'lesson_id' => $lesson_id, 'lessons' => $lessons]);
     }
 
     public function StoreKahoot(Request $request)
@@ -67,7 +68,7 @@ class CreateQuestionsController extends Controller
         $les_type = $request->query('Les_Type');
         $lessons = Lesson::all();
         $questions = Question1::where('lesson_id', $lesson_id)->get();
-        return Inertia::render('CreateQuestions/CreateHusselQuestion', ['Question1' => $questions, 'les_type' => $les_type, 'lesson_id' => $lesson_id, 'lessons' => $lessons]);
+        return Inertia::render('CreateQuestions/CreateHusselQuestion', ['questions' => $questions, 'les_type' => $les_type, 'lesson_id' => $lesson_id, 'lessons' => $lessons]);
     }
 
     public function StoreHussel(Request $request)
