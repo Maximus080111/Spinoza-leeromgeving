@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-// import { Inertia } from '@inertiajs/inertia';
 
 export default function Vraag1({ auth, lesson_id, Question1 = [] }) {
     const [huidigeIndex, setHuidigeIndex] = useState(0);
@@ -44,21 +43,42 @@ export default function Vraag1({ auth, lesson_id, Question1 = [] }) {
             const correctAnswers = resultaten.filter(resultaat => resultaat.correct).length;
             const totalQuestions = resultaten.length;
             const calculatedPercentage = (correctAnswers / totalQuestions) * 100;
-
+    
             setPercentage(calculatedPercentage);
-
+    
             console.log('Gegevens die worden verzonden naar de database:', {
                 percentage: calculatedPercentage,
                 student_id: auth.user.id,
                 lesson_id: lesson_id,
             });
-
-            // Sla de gegevens op in de database
-            // Inertia.post(route('progress.store'), {
-            //     percentage: calculatedPercentage,
-            //     student_id: auth.user.id,
-            //     lesson_id: lesson_id,
-            // });
+    
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            const baseUrl = window.location.origin;
+    
+            fetch(`${baseUrl}/progress`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': csrfToken,
+                },
+                body: JSON.stringify({
+                    percentage: calculatedPercentage,
+                    student_id: auth.user.id,
+                    lesson_id: lesson_id,
+                }),
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Success:', data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
         }
     }, [quizVoltooid, resultaten, auth.user.id, lesson_id]);
 
