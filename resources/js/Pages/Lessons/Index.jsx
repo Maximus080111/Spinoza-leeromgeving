@@ -16,9 +16,7 @@ export default function Index({ auth, progress, lessons = [], thema_id }) {
             header={
                 <div>
                     <button
-                        onClick={() =>
-                            (window.history.back())
-                        }
+                        onClick={() => window.history.back()}
                         style={{
                             padding: "10px 20px",
                             backgroundColor: "#b6c0db",
@@ -44,31 +42,64 @@ export default function Index({ auth, progress, lessons = [], thema_id }) {
                         <div className="p-6 bg-white border-b border-gray-200">
                             {lessons.length > 0 ? (
                                 <ul>
-                                    {lessons.map((lesson, index) => (
-                                        <li
-                                            key={index}
-                                            className="mb-4 cursor-pointer bg-[#bbc4dd] p-4 rounded-md shadow-md hover:bg-[#7885a4] hover:shadow-lg hover:border-2 transition-all"
-                                        >
-                                            <a
-                                                href={route(
-                                                    "redirectToVraag",
-                                                    {
-                                                        Les_Type:
-                                                            lesson.les_type,
-                                                        thema_id:
-                                                            lesson.thema_id,
-                                                        lesson_id:
-                                                            lesson.id,
-                                                    }
-                                                )}
+                                    {lessons.map((lesson, index) => {
+                                        const progressValue =
+                                            getProgressForLesson(lesson.id);
+
+                                        // Kleur van de voortgangsbalk bepalen
+                                        let progressColor = "bg-gray-400"; // Standaard grijs
+                                        if (progressValue === 100) {
+                                            progressColor = "bg-green-500"; // Groen bij 100%
+                                        } else if (progressValue >= 50) {
+                                            progressColor = "bg-blue-500"; // Blauw bij 50%+
+                                        }
+
+                                        return (
+                                            <li
+                                                key={index}
+                                                className="mb-4 cursor-pointer bg-[#bbc4dd] p-4 rounded-md shadow-md hover:bg-[#7885a4] hover:shadow-lg hover:border-2 transition-all "
                                             >
-                                                <h3 className="text-lg font-semibold">
-                                                    {lesson.les_name}
-                                                </h3>
-                                                <p>Voortgang: {getProgressForLesson(lesson.id)}%</p>
-                                            </a>
-                                        </li>
-                                    ))}
+                                                <a
+                                                    href={route(
+                                                        "redirectToVraag",
+                                                        {
+                                                            Les_Type:
+                                                                lesson.les_type,
+                                                            thema_id:
+                                                                lesson.thema_id,
+                                                            lesson_id:
+                                                                lesson.id,
+                                                        }
+                                                    )}
+                                                >
+                                                    <div className="flex items-center justify-between">
+                                                        <h3 className="text-xl font-semibold">
+                                                            {lesson.les_name}
+                                                        </h3>
+                                                        {/* <p className="text-sm text-gray-700 ml-2">
+                                                            {progressValue}%
+                                                        </p> */}
+                                                    </div>
+
+                                                    {/* Voortgangsbalk met percentage achter de naam */}
+                                                    <div className="relative mt-2">
+                                                        <div className="w-full bg-gray-300 h-6 rounded-full">
+                                                            <div
+                                                                className={`h-full ${progressColor}`}
+                                                                style={{
+                                                                    width: `${progressValue}%`,
+                                                                }}
+                                                            ></div>
+                                                        </div>
+                                                        <span className="absolute inset-0 flex items-center justify-center text-white font-bold">
+                                                            {progressValue}%
+                                                            voltooid
+                                                        </span>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                        );
+                                    })}
                                 </ul>
                             ) : (
                                 <p>Geen lessen gevonden voor dit thema.</p>
