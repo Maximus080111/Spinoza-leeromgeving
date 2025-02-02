@@ -16,6 +16,7 @@ use App\Http\Controllers\VraagController1;
 use App\Http\Controllers\VraagController3;
 use App\Http\Controllers\VraagController4;
 use App\Http\Controllers\ProgressController;
+use App\Http\Controllers\AchievementController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -86,9 +87,13 @@ Route::get('redirect-to-vraag', [VragenController::class, 'redirectToVraag'])
     ->middleware(['auth', 'verified'])
     ->name('redirectToVraag');
 
-Route::get('/Achievements', function () {
-    return Inertia::render('Achievements');
-})->middleware(['auth', 'verified'])->name('Achievements');
+Route::get('/Achievements', [AchievementController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('Achievements');
+
+// Route::get('/Achievements', function () {
+//     return Inertia::render('Achievements');
+// })->middleware(['auth', 'verified'])->name('Achievements');
 
 Route::get('/Student_Dashboard', [StudentDashboardController::class, 'index'])
     ->middleware(['auth', 'verified'])

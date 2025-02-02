@@ -6,6 +6,10 @@ export default function Index({ auth, progress, lessons = [], thema_id }) {
         return progress[lessonId] || 0;
     };
 
+    useEffect(() => {
+        console.log("Progress", progress);
+    }, [progress]);
+
     return (
         <AuthenticatedLayout
             user={auth.user}
