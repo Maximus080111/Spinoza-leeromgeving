@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { DndProvider, useDrag, useDrop } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import { Inertia } from '@inertiajs/inertia';
 
 export default function HusselSpel({ auth, lesson_id, question2 = [] }) {
     const [huidigeIndex, setHuidigeIndex] = useState(0);
@@ -40,9 +39,10 @@ export default function HusselSpel({ auth, lesson_id, question2 = [] }) {
 
     useEffect(() => {
         if (quizVoltooid) {
-            const correctAnswers = resultaten.filter(result => result.correct).length;
+            const correctAnswers = resultaten.filter(resultaat => resultaat.correct).length;
             const totalQuestions = resultaten.length;
             const calculatedPercentage = (correctAnswers / totalQuestions) * 100;
+
             setPercentage(calculatedPercentage);
 
             console.log('Gegevens die worden verzonden naar de database:', {
@@ -51,11 +51,32 @@ export default function HusselSpel({ auth, lesson_id, question2 = [] }) {
                 lesson_id: lesson_id,
             });
 
-            // Sla de gegevens op in de database
-            Inertia.post(route('progress.store'), {
-                percentage: calculatedPercentage,
-                student_id: auth.user.id,
-                lesson_id: lesson_id,
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            const baseUrl = window.location.origin;
+
+            fetch(`${baseUrl}/progress`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': csrfToken,
+                },
+                body: JSON.stringify({
+                    percentage: calculatedPercentage,
+                    student_id: auth.user.id,
+                    lesson_id: lesson_id,
+                }),
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Success:', data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
             });
         }
     }, [quizVoltooid, resultaten, auth.user.id, lesson_id]);
