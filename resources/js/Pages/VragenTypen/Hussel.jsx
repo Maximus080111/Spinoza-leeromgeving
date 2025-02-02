@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { DndProvider, useDrag, useDrop } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import { Inertia } from '@inertiajs/inertia';
+// import { Inertia } from '@inertiajs/inertia';
 
 export default function HusselSpel({ auth, lesson_id, question2 = [] }) {
     const [huidigeIndex, setHuidigeIndex] = useState(0);
@@ -40,23 +40,26 @@ export default function HusselSpel({ auth, lesson_id, question2 = [] }) {
 
     useEffect(() => {
         if (quizVoltooid) {
-            const correctAnswers = resultaten.filter(result => result.correct).length;
+            const correctAnswers = resultaten.filter(
+                (result) => result.correct
+            ).length;
             const totalQuestions = resultaten.length;
-            const calculatedPercentage = (correctAnswers / totalQuestions) * 100;
+            const calculatedPercentage =
+                (correctAnswers / totalQuestions) * 100;
             setPercentage(calculatedPercentage);
 
-            console.log('Gegevens die worden verzonden naar de database:', {
+            console.log("Gegevens die worden verzonden naar de database:", {
                 percentage: calculatedPercentage,
                 student_id: auth.user.id,
                 lesson_id: lesson_id,
             });
 
             // Sla de gegevens op in de database
-            Inertia.post(route('progress.store'), {
-                percentage: calculatedPercentage,
-                student_id: auth.user.id,
-                lesson_id: lesson_id,
-            });
+            // Inertia.post(route("progress.store"), {
+            //     percentage: calculatedPercentage,
+            //     student_id: auth.user.id,
+            //     lesson_id: lesson_id,
+            // });
         }
     }, [quizVoltooid, resultaten, auth.user.id, lesson_id]);
 
@@ -104,8 +107,8 @@ export default function HusselSpel({ auth, lesson_id, question2 = [] }) {
         const handleClick = () => {
             const nieuweClickedWords = [...clickedWords];
             nieuweClickedWords[index] = true; // Markeer als geklikt
-            setClickedWords(nieuweClickedWords);          // Zoek de eerste lege dropzone
-            
+            setClickedWords(nieuweClickedWords); // Zoek de eerste lege dropzone
+
             const legeIndex = dropzones.indexOf(null);
 
             // Controleer of het woord al in de dropzones zit
@@ -139,7 +142,14 @@ export default function HusselSpel({ auth, lesson_id, question2 = [] }) {
                 onClick={handleClick}
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
-                style={{ backgroundColor, color, padding: "10px", margin: "5px", borderRadius: "6px", cursor: "pointer" }}
+                style={{
+                    backgroundColor,
+                    color,
+                    padding: "10px",
+                    margin: "5px",
+                    borderRadius: "6px",
+                    cursor: "pointer",
+                }}
             >
                 {woord}
             </div>
@@ -148,14 +158,24 @@ export default function HusselSpel({ auth, lesson_id, question2 = [] }) {
 
     const Dropzone = ({ index }) => {
         const isFeedbackGiven = feedback[index] !== undefined;
-        const borderColor = feedback[index] === false ? "#ff0000" : feedback[index] === true ? "#00cc00" : "transparent";
+        const borderColor =
+            feedback[index] === false
+                ? "#ff0000"
+                : feedback[index] === true
+                ? "#00cc00"
+                : "transparent";
 
         return (
             <div
                 style={{
                     margin: "5px",
                     padding: "15px",
-                    backgroundColor: feedback[index] === false ? "#ffcccc" : feedback[index] === true ? "#ccffcc" : "#92A2C9",
+                    backgroundColor:
+                        feedback[index] === false
+                            ? "#ffcccc"
+                            : feedback[index] === true
+                            ? "#ccffcc"
+                            : "#92A2C9",
                     borderRadius: "6px",
                     textAlign: "center",
                     minHeight: "40px",
@@ -202,7 +222,8 @@ export default function HusselSpel({ auth, lesson_id, question2 = [] }) {
                             Overzicht van je resultaten
                         </h1>
                         <p className="text-lg text-gray-700 mb-4">
-                            Je hebt {percentage}% van de woorden correct geplaatst!
+                            Je hebt {percentage}% van de woorden correct
+                            geplaatst!
                         </p>
                         <div
                             style={{
@@ -349,7 +370,7 @@ export default function HusselSpel({ auth, lesson_id, question2 = [] }) {
                 )}
 
                 <h1>Husselspel</h1>
-        
+
                 {/* Flex-container voor 2 kolommen */}
                 <div
                     style={{
@@ -401,25 +422,26 @@ export default function HusselSpel({ auth, lesson_id, question2 = [] }) {
                     </div>
                 </div>
 
-                {dropzones.every((zone) => zone !== null) && !feedbackGegeven && (
-                    <button
-                        onClick={geefFeedback}
-                        style={{
-                            marginTop: "20px",
-                            padding: "10px 20px",
-                            backgroundColor: "#2f3e60",
-                            color: "#fff",
-                            border: "none",
-                            borderRadius: "6px",
-                            cursor: "pointer",
-                            fontSize: "16px",
-                            fontWeight: "bold",
-                            boxShadow: "0 2px 5px rgba(0, 0, 0, 0.1)",
-                        }}
-                    >
-                        Controleer
-                    </button>
-                )}
+                {dropzones.every((zone) => zone !== null) &&
+                    !feedbackGegeven && (
+                        <button
+                            onClick={geefFeedback}
+                            style={{
+                                marginTop: "20px",
+                                padding: "10px 20px",
+                                backgroundColor: "#2f3e60",
+                                color: "#fff",
+                                border: "none",
+                                borderRadius: "6px",
+                                cursor: "pointer",
+                                fontSize: "16px",
+                                fontWeight: "bold",
+                                boxShadow: "0 2px 5px rgba(0, 0, 0, 0.1)",
+                            }}
+                        >
+                            Controleer
+                        </button>
+                    )}
 
                 {feedbackGegeven && (
                     <button
