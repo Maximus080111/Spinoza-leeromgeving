@@ -48,11 +48,14 @@ export default function CreateHusselQuestion({ auth, lesson_id, questions }) {
                 </div>
                 <PrimaryButton disabled={processing}>Opslaan</PrimaryButton>
             </form>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 my-12">
             {questions.map((question) => (
-                <div key={question.id}>
-                    <p>{question.question}</p>
+                <div key={question.id} className="bg-button-kleur text-white rounded-md hover:bg-button-kleur-hover focus:outline-none focus:ring-2 focus:ring-button-kleur-hover focus:ring-offset-2 transition duration-200 p-3 flex flex-col justify-center items-center">
+                    <p>vraag {question.id}</p>
+                    <p>antwoord: {question.sentence}</p>
                 </div>
             ))}
+            </div>
         </AuthenticatedLayout>
     );
 }

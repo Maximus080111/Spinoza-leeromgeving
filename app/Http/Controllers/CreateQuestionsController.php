@@ -26,6 +26,10 @@ class CreateQuestionsController extends Controller
                 return $this->createQuestionKahoot($request);
             case 2:
                 return $this->createQuestionHussel($request);
+            case 3:
+                return $this->createQuestionVerbind($request);
+            case 4:
+                return $this->createQuestionTyp($request);
             default:
                 return redirect()->back()->with('error', 'Invalid lesson type.');
         }
@@ -67,7 +71,7 @@ class CreateQuestionsController extends Controller
         $lesson_id = $request->query('lesson_id');
         $les_type = $request->query('Les_Type');
         $lessons = Lesson::all();
-        $questions = Question1::where('lesson_id', $lesson_id)->get();
+        $questions = Question2::where('lesson_id', $lesson_id)->get();
         return Inertia::render('CreateQuestions/CreateHusselQuestion', ['questions' => $questions, 'les_type' => $les_type, 'lesson_id' => $lesson_id, 'lessons' => $lessons]);
     }
 
@@ -84,5 +88,21 @@ class CreateQuestionsController extends Controller
         ]);
     
         return redirect()->back()->with('success', 'Vraag succesvol toegevoegd.');
+    }
+
+    public function createQuestionTyp(Request $request): Response
+    {
+        $lesson_id = $request->query('lesson_id');
+        $les_type = $request->query('Les_Type');
+        $lessons = Lesson::all();
+        return Inertia::render('CreateQuestions/CreateTypQuestion', ['les_type' => $les_type, 'lesson_id' => $lesson_id, 'lessons' => $lessons]);
+    }
+
+    public function createQuestionVerbind(Request $request): Response
+    {
+        $lesson_id = $request->query('lesson_id');
+        $les_type = $request->query('Les_Type');
+        $lessons = Lesson::all();
+        return Inertia::render('CreateQuestions/CreateVerbindQuestion', ['les_type' => $les_type, 'lesson_id' => $lesson_id, 'lessons' => $lessons]);
     }
 }
