@@ -7,7 +7,7 @@ export default function Achievements({ auth, achievements, students = [] }) {
             user={auth.user}
             header={
                 <h2 className="font-semibold text-xl text-gray-800 leading-tight">
-                    Achievements
+                    Leerling Achievements
                 </h2>
             }
         >
@@ -17,7 +17,7 @@ export default function Achievements({ auth, achievements, students = [] }) {
                 {auth.user.is_teacher === 1 ? (
                     <div>
                         <h3 className="text-lg font-semibold mb-4">
-                            Teacher's Achievements
+                            Achievements overzicht
                         </h3>
                         {students.length > 0 ? (
                             students.map((student, index) => (
@@ -54,7 +54,7 @@ export default function Achievements({ auth, achievements, students = [] }) {
                 ) : (
                     <div className="max-w-3xl mx-auto">
                         <h3 className="text-lg font-semibold mb-4">
-                            Student's Achievements
+                            Jouw Achievements
                         </h3>
                         {achievements.length > 0 ? (
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

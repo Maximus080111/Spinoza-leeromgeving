@@ -149,6 +149,7 @@ export default function Index({ auth, lessons = [], thema_id }) {
             {/* Grid van lessen onder het formulier */}
             <div className="p-6 max-w-3xl mx-auto">
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <p>Gemaakte lessen:</p>
                     {lessons.length > 0 ? (
                         lessons
                             .sort(
@@ -169,7 +170,8 @@ export default function Index({ auth, lessons = [], thema_id }) {
                                         lessonTypeText = "Verbind de woorden";
                                         break;
                                     case 4:
-                                        lessonTypeText = "Typ het woord bij het plaatje";
+                                        lessonTypeText =
+                                            "Typ het woord bij het plaatje";
                                         break;
                                     default:
                                         lessonTypeText = "onbekend les type";
@@ -187,7 +189,8 @@ export default function Index({ auth, lessons = [], thema_id }) {
                                             {lesson.les_name}
                                         </h1>
                                         <p className="text-white">
-                                            <strong>Les type:</strong> {lessonTypeText}
+                                            <strong>Les type:</strong>{" "}
+                                            {lessonTypeText}
                                         </p>
                                     </a>
                                 );
