@@ -2,6 +2,9 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
 
 export default function Achievements({ auth, achievements, students = [] }) {
+
+    const userAchievements = achievements.filter(achievement => achievement.student_id === auth.user.id);
+
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -56,62 +59,63 @@ export default function Achievements({ auth, achievements, students = [] }) {
                         <h3 className="text-lg font-semibold mb-4">
                             Student's Achievements
                         </h3>
-                        {achievements.length > 0 ? (
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                {achievements.map((achievement) => {
-                                    // Bepaal de medaille op basis van het percentage
-                                    let medal, medalColor, progressColor;
-                                    if (achievement.percentage === 100) {
-                                        medal = "🥇"; // Gouden medaille
-                                        medalColor = "bg-yellow-400 text-white";
-                                        progressColor = "bg-yellow-500";
-                                    } else if (achievement.percentage >= 80) {
-                                        medal = "🥈"; // Zilveren medaille
-                                        medalColor = "bg-gray-400 text-white";
-                                        progressColor = "bg-gray-500";
-                                    } else {
-                                        medal = "🥉"; // Bronzen medaille
-                                        medalColor = "bg-orange-500 text-white";
-                                        progressColor = "bg-orange-600";
-                                    }
+                            {userAchievements.length > 0 ? (
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    {userAchievements.map((achievement) => {
+                                        // Bepaal de medaille op basis van het percentage
+                                        let medal, medalColor, progressColor;
+                                        if (achievement.percentage === 100) {
+                                            medal = "🥇"; // Gouden medaille
+                                            medalColor = "bg-yellow-400 text-white";
+                                            progressColor = "bg-yellow-500";
+                                        } else if (achievement.percentage >= 80) {
+                                            medal = "🥈"; // Zilveren medaille
+                                            medalColor = "bg-gray-400 text-white";
+                                            progressColor = "bg-gray-500";
+                                        } else {
+                                            medal = "🥉"; // Bronzen medaille
+                                            medalColor = "bg-orange-500 text-white";
+                                            progressColor = "bg-orange-600";
+                                        }
 
-                                    return (
-                                        <div
-                                            key={achievement.id}
-                                            className="p-4 bg-[#bbc4dd] shadow-lg rounded-lg border border-gray-300"
-                                        >
-                                            {/* Achievement Info */}
-                                            <div className="flex items-center justify-between mb-2">
-                                                <div>
-                                                    <p className="text-lg font-semibold text-gray-800">
-                                                        ID: {achievement.id}
-                                                    </p>
-                                                    <p className="text-sm text-gray-700">
-                                                        Percentage:{" "}
-                                                        {achievement.percentage}
-                                                        %
-                                                    </p>
+                                        return (
+                                            <div
+                                                key={achievement.id}
+                                                className="p-4 bg-[#bbc4dd] shadow-lg rounded-lg border border-gray-300"
+                                            >
+                                                {/* Achievement Info */}
+                                                <div className="flex items-center justify-between mb-2">
+                                                    <div>
+                                                        <p className="text-lg font-semibold text-gray-800">
+                                                            Les: {achievement.lesson.les_name}
+                                                        </p>
+                                                        <p className="text-sm text-gray-700">
+                                                            Percentage:{" "}
+                                                            {achievement.percentage}
+                                                            %
+                                                        </p>
+                                                        
+                                                    </div>
+                                                    {/* Medaille in een cirkel */}
+                                                    <div
+                                                        className={`w-16 h-16 flex items-center justify-center rounded-full ${medalColor} text-4xl`}
+                                                    >
+                                                        {medal}
+                                                    </div>
                                                 </div>
-                                                {/* Medaille in een cirkel */}
-                                                <div
-                                                    className={`w-16 h-16 flex items-center justify-center rounded-full ${medalColor} text-4xl`}
-                                                >
-                                                    {medal}
+
+                                                {/* Voortgangsbalk */}
+                                                <div className="w-full bg-gray-300 h-3 rounded-full overflow-hidden">
+                                                    <div
+                                                        className={`h-full ${progressColor}`}
+                                                        style={{
+                                                            width: `${achievement.percentage}%`,
+                                                        }}
+                                                    ></div>
                                                 </div>
                                             </div>
-
-                                            {/* Voortgangsbalk */}
-                                            <div className="w-full bg-gray-300 h-3 rounded-full overflow-hidden">
-                                                <div
-                                                    className={`h-full ${progressColor}`}
-                                                    style={{
-                                                        width: `${achievement.percentage}%`,
-                                                    }}
-                                                ></div>
-                                            </div>
-                                        </div>
-                                    );
-                                })}
+                                        );
+                                    })}
                             </div>
                         ) : (
                             <p className="text-gray-500">
