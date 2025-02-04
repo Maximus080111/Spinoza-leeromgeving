@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import PrimaryButton from "@/Components/PrimaryButton";
 import { useForm } from "@inertiajs/react";
 
-export default function CreateKahootQuestion({ auth, lesson_id }) {
+export default function CreateKahootQuestion({ auth, lesson_id, questions = [] }) {
     const { data, setData, post, processing, reset, errors } = useForm({
         question: "",
         answers: ["", "", "", ""],
@@ -81,6 +81,17 @@ export default function CreateKahootQuestion({ auth, lesson_id }) {
 
                 <PrimaryButton disabled={processing}>Opslaan</PrimaryButton>
             </form>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 my-12">
+                    {questions.map((question) => (
+                        <div key={question.id}
+                            className="bg-button-kleur text-white rounded-md hover:bg-button-kleur-hover focus:outline-none focus:ring-2 focus:ring-button-kleur-hover focus:ring-offset-2 transition duration-200 p-3 flex flex-col justify-center items-center"
+                        >
+                            <p>vraag: {question.question}</p>
+                            <p>antwoord: {question.correct}</p>
+                            <p>opties: {question.answers}</p>
+                        </div>
+                    ))}
+            </div>
         </AuthenticatedLayout>
     );
 }

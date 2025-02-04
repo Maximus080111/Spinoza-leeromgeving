@@ -1,12 +1,14 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import React, { useEffect } from "react";
 
-export default function Index({ auth, lessons = [], thema_id }) {
+export default function Index({ auth, progress, lessons = [], thema_id }) {
+    const getProgressForLesson = (lessonId) => {
+        return progress[lessonId] || 0;
+    };
+
     useEffect(() => {
-        // Log the lessons data to the console
-        console.log("Lessons:", lessons);
-        console.log("thema_id:", thema_id);
-    }, [lessons, thema_id]);
+        console.log("Progress", progress);
+    }, [progress]);
 
     return (
         <AuthenticatedLayout
@@ -14,9 +16,7 @@ export default function Index({ auth, lessons = [], thema_id }) {
             header={
                 <div>
                     <button
-                        onClick={() =>
-                            (window.location.href = "/Student_Dashboard")
-                        }
+                        onClick={() => window.history.back()}
                         style={{
                             padding: "10px 20px",
                             backgroundColor: "#b6c0db",
@@ -38,18 +38,26 @@ export default function Index({ auth, lessons = [], thema_id }) {
         >
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div className="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                        <div className="p-6 sm:px-20 bg-white border-b border-gray-200">
-                            <div className="mt-8 text-2xl font-bold">
-                                Lessen
-                            </div>
-                            <div className="mt-6 text-black">
-                                {lessons.length > 0 ? (
-                                    <ul>
-                                        {lessons.map((lesson, index) => (
+                    <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                        <div className="p-6 bg-white border-b border-gray-200">
+                            {lessons.length > 0 ? (
+                                <ul>
+                                    {lessons.map((lesson, index) => {
+                                        const progressValue =
+                                            getProgressForLesson(lesson.id);
+
+                                        // Kleur van de voortgangsbalk bepalen
+                                        let progressColor = "bg-gray-400"; // Standaard grijs
+                                        if (progressValue === 100) {
+                                            progressColor = "bg-green-500"; // Groen bij 100%
+                                        } else if (progressValue >= 50) {
+                                            progressColor = "bg-blue-500"; // Blauw bij 50%+
+                                        }
+
+                                        return (
                                             <li
                                                 key={index}
-                                                className="mb-4 cursor-pointer bg-[#bbc4dd] p-4 rounded-md shadow-md hover:bg-[#7885a4] hover:shadow-lg hover:border-2 transition-all"
+                                                className="mb-4 cursor-pointer bg-[#bbc4dd] p-4 rounded-md shadow-md hover:bg-[#7885a4] hover:shadow-lg hover:border-2 transition-all "
                                             >
                                                 <a
                                                     href={route(
@@ -64,30 +72,38 @@ export default function Index({ auth, lessons = [], thema_id }) {
                                                         }
                                                     )}
                                                 >
-                                                    <h3 className="text-lg font-semibold">
-                                                        {lesson.les_name}
-                                                    </h3>
-                                                    <p>
-                                                        Les Nummer:{" "}
-                                                        {lesson.les_number}
-                                                    </p>
-                                                    <p>
-                                                        Thema ID:{" "}
-                                                        {lesson.thema_id}
-                                                    </p>
-                                                    <p>
-                                                        Les Type:{" "}
-                                                        {lesson.les_type}
-                                                    </p>
-                                                    <p>Les id: {lesson.id}</p>
+                                                    <div className="flex items-center justify-between">
+                                                        <h3 className="text-xl font-semibold">
+                                                            {lesson.les_name}
+                                                        </h3>
+                                                        {/* <p className="text-sm text-gray-700 ml-2">
+                                                            {progressValue}%
+                                                        </p> */}
+                                                    </div>
+
+                                                    {/* Voortgangsbalk met percentage achter de naam */}
+                                                    <div className="relative mt-2">
+                                                        <div className="w-full bg-gray-300 h-6 rounded-full">
+                                                            <div
+                                                                className={`h-full ${progressColor}`}
+                                                                style={{
+                                                                    width: `${progressValue}%`,
+                                                                }}
+                                                            ></div>
+                                                        </div>
+                                                        <span className="absolute inset-0 flex items-center justify-center text-white font-bold">
+                                                            {progressValue}%
+                                                            voltooid
+                                                        </span>
+                                                    </div>
                                                 </a>
                                             </li>
-                                        ))}
-                                    </ul>
-                                ) : (
-                                    <p>Geen lessen gevonden voor dit thema.</p>
-                                )}
-                            </div>
+                                        );
+                                    })}
+                                </ul>
+                            ) : (
+                                <p>Geen lessen gevonden voor dit thema.</p>
+                            )}
                         </div>
                     </div>
                 </div>
